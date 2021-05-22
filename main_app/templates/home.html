@@ -13,5 +13,6 @@
         <p>Password: {{ student.password }}</p>
         <p>Zipcode: {{ student.zipcode }}</p>
     {% endfor %}
+    <li><a href="{% url 'create' %}"> Add a Student</a></li>
 </body>
 </html>
