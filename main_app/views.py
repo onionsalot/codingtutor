@@ -1,6 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Student
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 def home(request):
-    return HttpResponse('<h1>dsjfksdfdsjkfsdklf</h1>')
+    students = Student.objects.all()
+    return render(request, 'home.html', {'students': students})
+
+class StudentCreate(CreateView):
+    model = Student
+    fields = '__all__'
+    
