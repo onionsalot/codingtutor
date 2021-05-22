@@ -7,6 +7,11 @@
   <title>Coding Tutor</title>
 </head>
 <body>
-
+    {% for student in students %}
+        <p>Name: {{ student.name }}</p>
+        <p>Email: {{ student.email }}</p>
+        <p>Password: {{ student.password }}</p>
+        <p>Zipcode: {{ student.zipcode }}</p>
+    {% endfor %}
 </body>
 </html>
