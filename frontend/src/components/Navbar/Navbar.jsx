@@ -1,4 +1,4 @@
-
+import { useHistory } from "react-router-dom"
 
 export default function NavBar({username, setUsername, loggedIn, setLoggedIn}) {
   function handleLogOut() {

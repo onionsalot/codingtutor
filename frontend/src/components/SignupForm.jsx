@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 
 // class SignupForm extends React.Component {
-export default function SignupForm({setUsername}) {
+export default function SignupForm({setUsername, setLoggedIn}) {
 
 
   //   state = {
@@ -40,12 +40,13 @@ export default function SignupForm({setUsername}) {
       }
     }
     evt.preventDefault();
-    setUsername(form.username)
     try {
       const user = await axios(options)
       .then(response => {
         console.log(response)
         localStorage.setItem('token', response.data.token)
+        setUsername(form.username)
+        setLoggedIn(localStorage.getItem('token'))
                 // ====== T O D O =======//
         // This section needs to also change state of
         // App.js to show that there is a logged in user

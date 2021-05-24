@@ -46,7 +46,7 @@ export default function App() {
       }
     }
     getUser();
-  }, []);
+  }, [loggedIn]);
 
 
 
@@ -58,8 +58,8 @@ export default function App() {
       handle_logout={this.handle_logout}
       /> */}
       <Navbar username={username} setUsername={setUsername} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
-      <LoginForm setUsername={setUsername}/>
-      <SignupForm setUsername={setUsername} />
+      <LoginForm setUsername={setUsername} setLoggedIn={setLoggedIn}/>
+      <SignupForm setUsername={setUsername} setLoggedIn={setLoggedIn} />
     </div>
   );
 }
