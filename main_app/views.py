@@ -3,31 +3,40 @@ from rest_framework import serializers, permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Student
+# from .models import Student
+from .models import User
 from django.views.generic.edit import CreateView
-from .serializers import StudentSerializer, UserSerializer, UserSerializerWithToken 
+from .serializers import UserSerializer, UserSerializerWithToken 
 
 
 # Create your views here.
 @api_view(['GET'])
 def home(request):
-    students = Student.objects.all()
-    serializer = StudentSerializer(students, many=True)
-    return Response(serializer.data)
+    # students = Student.objects.all()
+    # serializer = StudentSerializer(students, many=True)
+    return ""
     # return render(request, 'home.html', {'students': students})
 
-@api_view(['POST'])
-class StudentCreate(CreateView):
-    model = Student
-    fields = '__all__'
+# @api_view(['POST'])
+# class StudentCreate(CreateView):
+#     model = Student
+#     fields = '__all__'
     
 @api_view(['GET'])
 def current_user(request):
-    print('dfhgsdfjhgdshjfghdskjfhdjkhsaldalskj')
+    # Grab the user based on user id and mount it to user_id
+    user_id = User.objects.get(username = request.user).id
+    print(User.objects.first()) 
+    print(user_id) 
     serializer = UserSerializer(request.user)
 
 
     return Response(serializer.data)
+
+def update_profile(request, user_id):
+    user = User.objects.get(pk=user_id)
+    user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
+    user.save()
 
 class UserList(APIView):
     permission_classes = (permissions.AllowAny,)
