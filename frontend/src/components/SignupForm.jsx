@@ -2,15 +2,22 @@ import React, { useState } from "react";
 import axios from "axios";
 
 export default function SignupForm({ setUsername, setLoggedIn }) {
+  const [signUpTutor, setSignUpTutor] = useState(true);
   const [form, setForm] = useState({
     username: "",
+    email: "",
     password: "",
+    bio: "",
+    zipcode: "",
+    skills: "",
   });
+
   const [error, setError] = useState("");
 
   function handleChange(evt) {
     setForm({ ...form, [evt.target.name]: evt.target.value });
   }
+
   async function handleSubmit(evt) {
     const options = {
       url: "http://localhost:8000/users/",
@@ -23,6 +30,7 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
         password: form.password,
       },
     };
+
     evt.preventDefault();
     try {
       const user = await axios(options).then((response) => {
@@ -48,6 +56,14 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
           onChange={handleChange}
           required
         />
+        <label> Email </label>
+        <input
+          type="text"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+        />
+        <label> Password </label>
         <input
           type="password"
           name="password"
@@ -55,7 +71,41 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
           onChange={handleChange}
           required
         />
+        <label> Short Bio </label>
+        <input
+          type="text"
+          name="bio"
+          value={form.bio}
+          onChange={handleChange}
+        />
+        <label> Zipcode </label>
+        <input
+          type="number"
+          name="zipcode"
+          value={form.zipcode}
+          onChange={handleChange}
+        />
+        {signUpTutor ? (
+          <>
+            <label> Skills </label>
+            <input
+              type="text"
+              name="skills"
+              value={form.skills}
+              onChange={handleChange}
+            />
+          </>
+        ) : (
+          <h1></h1>
+        )}
         <button type="submit"> SIGN UP </button>
+        <div>
+          <button onClick={() => setSignUpTutor(!signUpTutor)}>
+            {signUpTutor
+              ? "CLICK IF YOU ARE A STUDENT"
+              : "CLICK IF YOU ARE A TUTOR"}
+          </button>
+        </div>
       </form>
     </div>
   );

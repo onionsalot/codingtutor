@@ -6,6 +6,7 @@ export default function LoginForm({ setUsername, setLoggedIn }) {
     username: "",
     password: "",
   });
+  
   const [error, setError] = useState("");
 
   function handleChange(evt) {
