@@ -1,48 +1,64 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import axios from "axios";
 
-class LoginForm extends React.Component {
+export default function LoginForm({ setUsername, setLoggedIn }) {
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
 
-  state = {
-    username: '',
-    password: ''
-  };
+  function handleChange(evt) {
+    setForm({ ...form, [evt.target.name]: evt.target.value });
+  }
 
-  handle_change = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState(prevstate => {
-      const newState = { ...prevstate };
-      newState[name] = value;
-      return newState;
-    });
-  };
-  
-  render() {
-    return (
-      <form onSubmit={e => this.props.handle_login(e, this.state)}>
-        <h4>Log In</h4>
-        <label htmlFor="username">Username</label>
+  async function handleSubmit(evt) {
+    const options = {
+      url: "http://localhost:8000/token-auth/",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        username: form.username,
+        password: form.password,
+      },
+    };
+    evt.preventDefault();
+
+    try {
+      const user = await axios(options).then((response) => {
+        console.log(response);
+        localStorage.setItem("token", response.data.token);
+        setUsername(form.username);
+        setLoggedIn(localStorage.getItem("token"));
+      });
+    } catch {
+      setError("Sign Up Failed");
+    }
+  }
+
+  return (
+    <div>
+      <h4> LOG IN </h4>
+      <form onSubmit={handleSubmit} autoComplete="off">
+        <label> Username </label>
         <input
           type="text"
           name="username"
-          value={this.state.username}
-          onChange={this.handle_change}
+          value={form.username}
+          onChange={handleChange}
+          required
         />
-        <label htmlFor="password">Password</label>
         <input
           type="password"
           name="password"
-          value={this.state.password}
-          onChange={this.handle_change}
+          value={form.password}
+          onChange={handleChange}
+          required
         />
-        <input type="submit" />
+        <button type="submit"> LOG IN </button>
       </form>
-    );
-  }
+    </div>
+  );
 }
-export default LoginForm;
-
-LoginForm.propTypes = {
-  handle_login: PropTypes.func.isRequired
-};
