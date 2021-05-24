@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 
 // class SignupForm extends React.Component {
-export default function SignupForm() {
+export default function SignupForm({setUsername}) {
 
 
   //   state = {
@@ -40,6 +40,7 @@ export default function SignupForm() {
       }
     }
     evt.preventDefault();
+    setUsername(form.username)
     try {
       const user = await axios(options)
       .then(response => {

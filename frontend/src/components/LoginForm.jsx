@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 
-export default function LoginForm() {
+export default function LoginForm({setUsername}) {
   const [form, setForm] = useState({
     username: '',
     password: '',
@@ -22,9 +22,11 @@ export default function LoginForm() {
       data: {
         username: form.username,
         password: form.password,
-      }
+      },
     }
     evt.preventDefault();
+    setUsername(form.username)
+  
     try {
       const user = await axios(options)
       .then(response => {
@@ -45,6 +47,7 @@ export default function LoginForm() {
       setError("Sign Up Failed")
     }
   }
+
   return (
     <div>
       <h4> LOG IN </h4>
@@ -64,7 +67,7 @@ export default function LoginForm() {
           onChange= {handleChange}
           required
         />
-        <button type='submit'> LOG UP </button>
+        <button type='submit'> LOG IN </button>
       </form>
 
     </div>
