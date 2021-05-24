@@ -1,6 +1,6 @@
 import axios from 'axios' 
 import {useState, useEffect} from 'react'
-import TutorList from './components/TutorList/TutorList.jsx';
+// import TutorList from './components/TutorList/TutorList.jsx';
 
 export default function HomePage(){
     const [students, getStudents] = useState([]);
