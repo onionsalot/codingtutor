@@ -41,7 +41,7 @@ class UserList(APIView):
             user_id = User.objects.last().id
             print('ID IS = >' , user_id)
             user = User.objects.get(id=user_id)
-            user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
+            user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...' #request.data['bio']
             user.profile.zipcode = 10469
             user.save()
 
