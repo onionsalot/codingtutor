@@ -23,7 +23,10 @@ class StudentCreate(CreateView):
     
 @api_view(['GET'])
 def current_user(request):
+    print('dfhgsdfjhgdshjfghdskjfhdjkhsaldalskj')
     serializer = UserSerializer(request.user)
+
+
     return Response(serializer.data)
 
 class UserList(APIView):

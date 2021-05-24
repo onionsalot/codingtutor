@@ -1,11 +1,21 @@
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 
-export default function NavBar({username, setUsername, loggedIn, setLoggedIn}) {
+export default function NavBar({
+  username,
+  setUsername,
+  loggedIn,
+  setLoggedIn,
+}) {
   function handleLogOut() {
     localStorage.removeItem("token");
-    setLoggedIn(false)
+    setLoggedIn(false);
   }
   return (
+    <>
+      <h1>Nav Bar</h1>
+      {loggedIn ? <h3>Hello, {username}</h3> : <h3>Please Log In</h3>}
+      {loggedIn ? <button onClick={handleLogOut}>Log Out</button> : ""}
+    </>
     // <Navbar bg="light" expand="lg">
     //   <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
     //   <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -31,34 +41,5 @@ export default function NavBar({username, setUsername, loggedIn, setLoggedIn}) {
     //     </Form>
     //   </Navbar.Collapse>
     // </Navbar>
-    <>
-    <h1>Nav Bar</h1>
-    {loggedIn ? <h3>Hello, {username}</h3> : <h3>Please Log In</h3>}
-    {loggedIn ? <button onClick={handleLogOut}>Log Out</button> : ''}
-    </>
   );
 }
-
-// import React from 'react';
-// import PropTypes from 'prop-types';
-
-// export default function Nav(props) {
-//   const logged_out_nav = (
-//     <ul>
-//       <li onClick={() => props.display_form('login')}>login</li>
-//       <li onClick={() => props.display_form('signup')}>signup</li>
-//     </ul>
-//   );
-//   const logged_in_nav = (
-//     <ul>
-//       <li onClick={props.handle_logout}>logout</li>
-//     </ul>
-//   );
-//   return <div>{props.logged_in ? logged_in_nav : logged_out_nav}</div>;
-// }
-// // export default Nav;
-// Nav.propTypes = {
-//   logged_in: PropTypes.bool.isRequired,
-//   display_form: PropTypes.func.isRequired,
-//   handle_logout: PropTypes.func.isRequired
-// };
