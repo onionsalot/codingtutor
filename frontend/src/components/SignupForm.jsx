@@ -27,7 +27,11 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
       },
       data: {
         username: form.username,
+        email: form.email,
         password: form.password,
+        bio: form.bio,
+        zipcode: form.zipcode,
+        skills: form.skills,
       },
     };
 
