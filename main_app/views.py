@@ -26,26 +26,25 @@ def home(request):
 def current_user(request):
     # Grab the user based on user id and mount it to user_id
     user_id = User.objects.get(username = request.user).id
-    print(User.objects.first()) 
-    print(user_id) 
     serializer = UserSerializer(request.user)
-
-
     return Response(serializer.data)
-
-def update_profile(request, user_id):
-    user = User.objects.get(pk=user_id)
-    user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
-    user.save()
 
 class UserList(APIView):
     permission_classes = (permissions.AllowAny,)
-
     def post(self, request, format=None):
+        print(request.data)
         serializer = UserSerializerWithToken(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
+            print('test pritn =>', request.data)
+            user_id = User.objects.last().id
+            print('ID IS = >' , user_id)
+            user = User.objects.get(id=user_id)
+            user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
+            user.profile.zipcode = 10469
+            user.save()
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

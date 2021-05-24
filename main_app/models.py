@@ -14,9 +14,9 @@ choices = (
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500)
-    zipcode = models.IntegerField()
-    skills = models.CharField(max_length=100, choices=choices)
+    bio = models.TextField(max_length=500, blank=True)
+    zipcode = models.IntegerField(blank=True, null=True)
+    skills = models.CharField(max_length=100, choices=choices, default=choices[0][0])
     
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

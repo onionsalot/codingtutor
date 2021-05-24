@@ -14,11 +14,6 @@ class UserSerializer(serializers.ModelSerializer):
     model = User
     fields = ('username', )
 
-class ProfileSerializer(serializers.ModelSerializer):
-  class Meta: 
-    model = Profile
-    fields = ('user','bio','zipcode','skills' )
-
 class UserSerializerWithToken(serializers.ModelSerializer):
   token = serializers.SerializerMethodField()
   password = serializers.CharField(write_only=True)
@@ -37,8 +32,6 @@ class UserSerializerWithToken(serializers.ModelSerializer):
       instance.set_password(password)
     instance.save()
     return instance
-
-
 
   class Meta:
     model = User
