@@ -6,11 +6,13 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
     username: "",
     password: "",
   });
+  
   const [error, setError] = useState("");
 
   function handleChange(evt) {
     setForm({ ...form, [evt.target.name]: evt.target.value });
   }
+
   async function handleSubmit(evt) {
     const options = {
       url: "http://localhost:8000/users/",
@@ -23,6 +25,7 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
         password: form.password,
       },
     };
+
     evt.preventDefault();
     try {
       const user = await axios(options).then((response) => {
