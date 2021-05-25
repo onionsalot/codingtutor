@@ -10,6 +10,7 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
     bio: "",
     zipcode: "",
     skills: "",
+    rate: "",
   });
 
   const [error, setError] = useState("");
@@ -34,6 +35,7 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
         bio: form.bio,
         zipcode: form.zipcode,
         skills: form.skills,
+        rate: form.rate,
       },
     };
 
@@ -112,6 +114,13 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
               type="text"
               name="skills"
               value={form.skills}
+              onChange={handleChange}
+            />
+            <label> Rate Per Hour </label>
+            <input
+              type="number"
+              name="rate"
+              value={form.rate}
               onChange={handleChange}
             />
           </>
