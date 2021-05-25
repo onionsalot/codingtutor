@@ -18,7 +18,7 @@ export default function HomePage({ props, user }) {
         })
         .then((response) => {
           tutorList = response.data;
-          console.log("This is the user", tutorList);
+          console.log("This is the user", response.data);
           setTutors(tutorList)
         });
     }
@@ -31,17 +31,16 @@ export default function HomePage({ props, user }) {
       <br />
       <h1>All Tutors in your Area</h1>
       <h3>Zipcode :</h3>
-      {/* <TutorList /> */}
-      <br /> <br />
       {newList}
-      {/* <div> 
-        {data.map((tutor) =>
-            <TutorList
-              tutor={tutor}
-              key={user._id}
-             /> 
-         )}
-      </div> */}
+      <br /> <br />
+      
+    {/* {tutors.map((tutor,idx) => {
+      tutor.rate ? (
+        <TutorList key={idx} tutor={tutor} />
+      ) : (
+        <h1></h1>
+      )
+    })} */}
     </>
   );
 }
