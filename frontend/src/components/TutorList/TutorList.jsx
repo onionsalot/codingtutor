@@ -5,6 +5,27 @@ import { Card, Button, Col } from "react-bootstrap";
 
 export default function TutorList({tutor}) {
   
+  console.log(tutor)
+  return (
+    <>
+    {/* <h1>TutorList: </h1>
+    <h1>{tutor.zipcode}</h1> */}
+
+    <Card style={{ width: '18rem' }}>
+  <Card.Body>
+    <Card.Title>Name:{tutor.first_name} {tutor.last_name}</Card.Title>
+  <Card.Img variant="top" src="holder.js/100px180" />
+    <Card.Text>
+      <p>{tutor.skills}</p>
+     <p>Rate:{tutor.rate} per hour</p>
+      
+
+
+    </Card.Text>
+    <Button variant="primary">CHOOSE A TIMESLOT</Button>
+  </Card.Body>
+</Card>
+    </>
   /* //   <Col key={tutor.id} sm={12} md={6} lg={4} xl={3}>
   // <Card style={{ width: "20rem" }}>
   //   {/* <Card.Img variant="top" src="" /> */
@@ -19,11 +40,5 @@ export default function TutorList({tutor}) {
   //   </Card.Body>
   // </Card>
   // </Col> */}
-console.log(tutor)
-  return (
-    <>
-    <h1>TutorList: </h1>
-    <h1>{tutor.zipcode}</h1>
-    </>
   )
 }

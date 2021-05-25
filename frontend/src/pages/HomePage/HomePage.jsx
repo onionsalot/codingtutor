@@ -30,7 +30,7 @@ export default function HomePage({ props, user }) {
     <>
       <br />
       <h1>All Tutors in your Area</h1>
-      <h3>Zipcode :</h3>
+      
       {newList}
       <br /> <br />
       
