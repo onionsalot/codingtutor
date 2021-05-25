@@ -14,7 +14,7 @@ export default function HomePage({props, user}){
               headers:{
                 Authorization:`JWT ${localStorage.getItem("token")}`,
               }
-            }).then((response) => {console.log(response)} )
+            }).then((response) => {console.log(response.data)} )
             // const {data2} = await axios.get('http://localhost:8000/');
            
             // console.log('Data 2 =>', {data2});

@@ -4,9 +4,9 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
 # from .models import Student
-from .models import User
+from .models import User, Profile
 from django.views.generic.edit import CreateView
-from .serializers import UserSerializer, UserSerializerWithToken 
+from .serializers import UserSerializer, UserSerializerWithToken ,ProfileSerializer
 
 
 # Create your views here.
@@ -27,6 +27,12 @@ def current_user(request):
     # Grab the user based on user id and mount it to user_id
     user_id = User.objects.get(username = request.user).id
     serializer = UserSerializer(request.user)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def all_profiles(request):
+    profiles = Profile.objects.all()
+    serializer = ProfileSerializer(profiles, many = True)
     return Response(serializer.data)
 
 class UserList(APIView):

@@ -14,6 +14,12 @@ class UserSerializer(serializers.ModelSerializer):
     model = User
     fields = ('username', )
 
+class ProfileSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Profile
+    fields = "__all__"
+
+
 class UserSerializerWithToken(serializers.ModelSerializer):
   token = serializers.SerializerMethodField()
   password = serializers.CharField(write_only=True)
