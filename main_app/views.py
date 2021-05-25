@@ -1,30 +1,17 @@
-from django.http import HttpResponseRedirect
 from rest_framework import serializers, permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
-# from .models import Student
 from .models import User, Profile
-from django.views.generic.edit import CreateView
 from .serializers import UserSerializer, UserSerializerWithToken ,ProfileSerializer
 
 
-# Create your views here.
 @api_view(['GET'])
 def home(request):
-    # students = Student.objects.all()
-    # serializer = StudentSerializer(students, many=True)
     return ""
-    # return render(request, 'home.html', {'students': students})
-
-# @api_view(['POST'])
-# class StudentCreate(CreateView):
-#     model = Student
-#     fields = '__all__'
     
 @api_view(['GET'])
 def current_user(request):
-    # Grab the user based on user id and mount it to user_id
     user_id = User.objects.get(username = request.user).id
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
@@ -42,9 +29,7 @@ class UserList(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            print('test pritn =>', request.data)
             user_id = User.objects.last().id
-            print('ID IS = >' , user_id)
             user = User.objects.get(id=user_id)
             user.profile.first_name = request.data['firstName']
             user.profile.last_name = request.data['lastName']
@@ -52,6 +37,7 @@ class UserList(APIView):
             user.profile.bio = request.data['bio']
             user.profile.zipcode = request.data['zipcode']
             user.profile.skills = request.data['skills']
+            user.profile.rate = request.data['rate']
             user.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
