@@ -38,7 +38,6 @@ def all_profiles(request):
 class UserList(APIView):
     permission_classes = (permissions.AllowAny,)
     def post(self, request, format=None):
-        print(request.data)
         serializer = UserSerializerWithToken(data=request.data)
 
         if serializer.is_valid():
@@ -47,8 +46,12 @@ class UserList(APIView):
             user_id = User.objects.last().id
             print('ID IS = >' , user_id)
             user = User.objects.get(id=user_id)
-            user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...' #request.data['bio']
-            user.profile.zipcode = 10469
+            user.profile.first_name = request.data['firstName']
+            user.profile.last_name = request.data['lastName']
+            user.profile.email = request.data['email']
+            user.profile.bio = request.data['bio']
+            user.profile.zipcode = request.data['zipcode']
+            user.profile.skills = request.data['skills']
             user.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)

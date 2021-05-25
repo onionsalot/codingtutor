@@ -27,6 +27,8 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
       },
       data: {
         username: form.username,
+        firstName: form.firstName,
+        lastName: form.lastName,
         email: form.email,
         password: form.password,
         bio: form.bio,
@@ -59,6 +61,20 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
           value={form.username}
           onChange={handleChange}
           required
+        />
+        <label> First Name </label>
+        <input
+          type="text"
+          name="firstName"
+          value={form.firstName}
+          onChange={handleChange}
+        />
+        <label> Last Name </label>
+        <input
+          type="text"
+          name="lastName"
+          value={form.lastName}
+          onChange={handleChange}
         />
         <label> Email </label>
         <input
