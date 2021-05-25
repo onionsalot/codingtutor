@@ -5,22 +5,18 @@ import {Card, Button } from "react-bootstrap"
 import TutorList from '../../components/TutorList/TutorList'
 
 export default function HomePage({props, user}){
-    const [students, getStudents] = useState([]);
-    const [form, setForm] = useState({
-        username: "",
-        email: "",
-        password: "",
-        bio: "",
-        zipcode: "",
-        skills: "",
-      });
-    
+    const [tutors, getTutors] = useState([]);
+ 
 
     useEffect(() => {
         async function fetchData(){
-            const data = await axios.get('http://localhost:8000/');
+            const data = await axios.get('http://localhost:8000/all_profiles',{
+              headers:{
+                Authorization:`JWT ${localStorage.getItem("token")}`,
+              }
+            }).then((response) => {console.log(response)} )
             // const {data2} = await axios.get('http://localhost:8000/');
-            console.log('Data =>', data.data);
+           
             // console.log('Data 2 =>', {data2});
         }
         fetchData()
@@ -30,17 +26,17 @@ export default function HomePage({props, user}){
         <>
 <br />
       <h1>All Tutors in your Area</h1>
-     <h3>Zipcode :{form.zipcode}</h3> 
+     <h3>Zipcode :</h3> 
       <TutorList />
       <br /> <br />
       <div> 
-        {students.map((tutor) =>
+        {/* {students.map((tutor) =>
             <TutorList
               tutor={tutor}
               key={user._id}
-             />
+             /> */}
          
-        )}
+        {/* )} */}
       </div>
     </>
    
