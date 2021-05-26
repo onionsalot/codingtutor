@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 
@@ -13,24 +14,31 @@ export default function TutorSlots() {
 
   async function handleSubmit(evt) {
     const options = {
-      url: "http://localhost:8000/slots/<int:user_id>/add_slot/", // maybe wrong
+      url: "http://localhost:8000/slots/11/add_slot/", 
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        Authorization: `JWT ${localStorage.getItem('token')}`,
       },
       data: {
         hour: form.hour,
         date: form.date,
       },
-    };
+    }
+    evt.preventDefault();
+    try{
+      await axios(options).then((response) => {
+        console.log(response);
+      })
+    } catch(err) {
+      console.log(err)
+    }
   }
-
 
   return(
     <div>
       <form onSubmit={handleSubmit} autoComplete="off">
         <label>Select A Time</label>
-          <select name="hour">
+          <select name="hour" onChange={handleChange}>
             <option value="12AM">12:00 AM</option>
             <option value="1AM">1:00 AM</option>
             <option value="2AM">2:00 AM</option>
@@ -63,8 +71,8 @@ export default function TutorSlots() {
           value={form.date}
           onChange={handleChange}
         />
-      </form>
       <button type="submit"> CONFIRM TIME SLOT </button>
+      </form>
     </div>
   )
 }
