@@ -1,5 +1,5 @@
-from rest_framework import serializers, permissions, status
-from rest_framework.decorators import api_view
+from rest_framework import permissions, status, authentication
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import User, Profile, Slot
@@ -24,11 +24,15 @@ def all_profiles(request):
 
 @api_view(['POST'])
 def add_slot(request, user_id):
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.AllowAny,)
     data = request.data
+    print(data)
+    user = User.objects.get(username = 'test')
     slot = Slot.objects.create(
         hour = data['hour'],
         date = data['date'],
-        tutor = data[user_id],
+        tutor = user,
     )
     serializer = SlotSerializer(slot, many = False)
     return Response(serializer.data)
