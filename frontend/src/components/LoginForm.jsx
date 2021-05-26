@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function LoginForm({ setUsername, setLoggedIn }) {
+export default function LoginForm({ setUser, setLoggedIn }) {
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -31,7 +31,10 @@ export default function LoginForm({ setUsername, setLoggedIn }) {
       const user = await axios(options).then((response) => {
         console.log(response);
         localStorage.setItem("token", response.data.token);
-        setUsername(form.username);
+        setUser({
+          "id" : response.data.id,
+          "username" : response.data.username
+      });
         setLoggedIn(localStorage.getItem("token"));
       });
     } catch {

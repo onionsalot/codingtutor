@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function SignupForm({ setUsername, setLoggedIn }) {
+export default function SignupForm({ setUser, setLoggedIn }) {
   const [signUpTutor, setSignUpTutor] = useState(true);
   const [form, setForm] = useState({
     username: "",
@@ -44,7 +44,10 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
       const user = await axios(options).then((response) => {
         console.log(response);
         localStorage.setItem("token", response.data.token);
-        setUsername(form.username);
+        setUser({
+          "id" : response.data.id,
+          "username" : response.data.username
+      });
         setLoggedIn(localStorage.getItem("token"));
       });
     } catch {

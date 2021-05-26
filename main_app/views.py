@@ -27,8 +27,9 @@ def add_slot(request, user_id):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.AllowAny,)
     data = request.data
+    print(user_id)
     print(data)
-    user = User.objects.get(username = 'test')
+    user = User.objects.get(id=user_id)
     slot = Slot.objects.create(
         hour = data['hour'],
         date = data['date'],
