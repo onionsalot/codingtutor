@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 
 export default function TutorDetail() {
+  const [tutor, setTutor] = useState();
+  
+  useEffect(() => {
+    async function getTutor() {
+        axios
+          .get(`http://localhost:8000/details/42/`, {
+            headers: {
+              Authorization: `JWT ${localStorage.getItem("token")}`,
+            },
+          })
+
+          .then((response) => {
+            console.log(response);
+          });
+        }
+    
+    getTutor();
+  },[])
+ 
+
+
   return (
     <div className="default">
       <div>

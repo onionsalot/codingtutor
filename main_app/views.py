@@ -22,6 +22,14 @@ def all_profiles(request):
     serializer = ProfileSerializer(profiles, many = True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def details(request, user_id):
+    print(request.data)
+    profile = Profile.objects.get(user=user_id)
+
+    serializer = ProfileSerializer(profile, many = False)
+    return Response(serializer.data)
+
 @api_view(['POST'])
 def add_slot(request, user_id):
     authentication_classes = (authentication.TokenAuthentication,)

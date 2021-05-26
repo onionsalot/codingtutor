@@ -52,7 +52,7 @@ export default function App() {
             <Route exact path="/">
               <HomePage />
             </Route>
-            <Route exact path="/details">
+            <Route exact path="/details/:id">
               <TutorDetailPage />
             </Route>
             <Route exact path="/add_slot">

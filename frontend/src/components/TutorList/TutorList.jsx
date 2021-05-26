@@ -6,6 +6,7 @@ import { Card, Button, Col, CardGroup, CardDeck, CardColumns, Row, Container} fr
 export default function TutorList({tutor}) {
   
   console.log(tutor)
+  const tutorId = `/details/${tutor.user}`
   return (
     <>
     {/* <h1>TutorList: </h1>
@@ -23,7 +24,7 @@ export default function TutorList({tutor}) {
       
 
     </Card.Text>
-    <Link to= '/details'>
+    <Link to= {tutorId}>
     <Button variant="primary">CLICK TO SCHEDULE</Button>
     </Link>
 
