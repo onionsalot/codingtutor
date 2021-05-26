@@ -1,7 +1,7 @@
 from re import T
 from django.db import models
 from django.db.models.enums import Choices
-from django.db.models.fields import CharField, EmailField
+from django.db.models.fields import CharField, EmailField, related
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -37,5 +37,5 @@ def save_user_profile(sender, instance, **kwargs):
 class Slot(models.Model):
     hour = models.CharField(max_length=10, null=True, blank=True)
     date = models.CharField(max_length=50, null=True, blank=True)
-    student = models.IntegerField(null=True, blank=True)
-    tutor = models.IntegerField(null=True, blank=True)
+    student = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='student_assoc')
+    tutor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='tutor')
