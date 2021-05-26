@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 
+
 export default function TutorSlots() {
   const [form, setForm] = useState({
-    hour: "",
-    date: "",
+    hour: " ",
+    date: " "
   });
 
   function handleChange(evt) {

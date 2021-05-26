@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "react";
 import { Link } from "react-router-dom";
-import { Card, Button, Col, CardGroup, CardDeck, CardColumns } from "react-bootstrap";
+import { Card, Button, Col, CardGroup, CardDeck, CardColumns, Row, Container} from "react-bootstrap";
 
 export default function TutorList({tutor}) {
   
@@ -10,15 +10,16 @@ export default function TutorList({tutor}) {
     <>
     {/* <h1>TutorList: </h1>
     <h1>{tutor.zipcode}</h1> */}
-    <CardDeck>
-<Col>
-    <Card style={{ width: "20rem" }} >
+
+<Container>
+<Col lg={4}>
+    <Card >
   <Card.Body>
     <Card.Title>Name:{tutor.first_name} {tutor.last_name}</Card.Title>
   {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
     <Card.Text>
       <button>{tutor.skills}</button>
-     <p>Rate:{tutor.rate} per hour</p>
+     <p>Rate: {tutor.rate} per hour</p>
       
 
     </Card.Text>
@@ -29,7 +30,9 @@ export default function TutorList({tutor}) {
   </Card.Body>
 </Card>
 </Col>
-</CardDeck>
+</Container>
+  
+
     </>
   /* //   <Col key={tutor.id} sm={12} md={6} lg={4} xl={3}>
   // <Card style={{ width: "20rem" }}>
