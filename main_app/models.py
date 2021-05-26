@@ -37,7 +37,10 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Slot(models.Model):
-    hour = models.CharField(max_length=10, null=True, blank=True)
-    date = models.CharField(max_length=50, null=True, blank=True)
+    hour = models.CharField(max_length=10, null=True)
+    date = models.CharField(max_length=50, null=True)
     student = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='student_assoc')
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='tutor')
+
+    class Meta:
+        ordering = ['hour']

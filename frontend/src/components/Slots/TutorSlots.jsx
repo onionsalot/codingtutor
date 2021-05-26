@@ -40,30 +40,30 @@ export default function TutorSlots({user}) {
       <form onSubmit={handleSubmit} autoComplete="off">
         <label>Select A Time</label>
           <select name="hour" onChange={handleChange}>
-            <option value="12AM">12:00 AM</option>
-            <option value="1AM">1:00 AM</option>
-            <option value="2AM">2:00 AM</option>
-            <option value="3AM">3:00 AM</option>
-            <option value="4AM">4:00 AM</option>
-            <option value="5AM">5:00 AM</option>
-            <option value="6AM">6:00 AM</option>
-            <option value="7AM">7:00 AM</option>
-            <option value="8AM">8:00 AM</option>
-            <option value="9AM">9:00 AM</option>
-            <option value="10AM">10:00 AM</option>
-            <option value="11AM">11:00 AM</option>
-            <option value="12PM">12:00 PM</option>
-            <option value="1PM">1:00 PM</option>
-            <option value="2PM">2:00 PM</option>
-            <option value="3PM">3:00 PM</option>
-            <option value="4PM">4:00 PM</option>
-            <option value="5PM">5:00 PM</option>
-            <option value="6PM">6:00 PM</option>
-            <option value="7PM">7:00 PM</option>
-            <option value="8PM">8:00 PM</option>
-            <option value="9PM">9:00 PM</option>
-            <option value="10PM">10:00 PM</option>
-            <option value="11PM">11:00 PM</option>
+            <option value="00">12:00 AM</option>
+            <option value="01">1:00 AM</option>
+            <option value="02">2:00 AM</option>
+            <option value="03">3:00 AM</option>
+            <option value="04">4:00 AM</option>
+            <option value="05">5:00 AM</option>
+            <option value="06">6:00 AM</option>
+            <option value="07">7:00 AM</option>
+            <option value="08">8:00 AM</option>
+            <option value="09">9:00 AM</option>
+            <option value="10">10:00 AM</option>
+            <option value="11">11:00 AM</option>
+            <option value="12">12:00 PM</option>
+            <option value="13">1:00 PM</option>
+            <option value="14">2:00 PM</option>
+            <option value="15">3:00 PM</option>
+            <option value="16">4:00 PM</option>
+            <option value="17">5:00 PM</option>
+            <option value="18">6:00 PM</option>
+            <option value="19">7:00 PM</option>
+            <option value="20">8:00 PM</option>
+            <option value="21">9:00 PM</option>
+            <option value="22">10:00 PM</option>
+            <option value="23">11:00 PM</option>
         </select>
         <label> Select A Date </label>
         <input

@@ -19,28 +19,23 @@ export default function HomePage({ props, user }) {
         .then((response) => {
           tutorList = response.data;
           console.log("This is the user", response.data);
-          setTutors(tutorList)
+          setTutors(tutorList);
         });
     }
     fetchData();
   }, []);
-  const newList = tutors.map((tutor,idx) => <TutorList key={idx} tutor={tutor} />);
-  console.log(newList)
-
+  const newList = tutors.map((tutor, idx) => (
+    <TutorList key={idx} tutor={tutor} />
+  ));
+  console.log(newList);
 
   return (
     <>
       <br />
       <h1>All Tutors in your Area</h1>
-      <br /> 
+      <br />
       {newList}
       <br /> <br />
-
-   
-      
-</>
-
-
-   
+    </>
   );
 }

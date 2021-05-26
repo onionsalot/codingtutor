@@ -14,12 +14,7 @@ export default function App() {
   const [user, setUser] = useState({});
   const [showLogin, setShowLogin] = useState(true);
 
-  // const history = useHistory();
-
-  // useEffect(() => {
-  //   history.push("/");
-  // }, [username, history]);
-
+  
   useEffect(() => {
     async function getUser() {
       if (loggedIn) {
@@ -53,11 +48,14 @@ export default function App() {
               <HomePage />
             </Route>
             <Route exact path="/details/:id">
-              <TutorDetailPage />
+              <TutorDetailPage user={user}/>
             </Route>
             <Route exact path="/add_slot">
               <TutorSlots user={user}/>
             </Route>
+            {/* <Route exact path="/slots/:sid/assoc_student/:slotid">
+              <StudentSlots />
+            </Route> */}
           </Switch>
         </>
       ) : (

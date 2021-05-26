@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useLocation, Route } from "react-router-dom";
-import StudentSlots from "../../components/Slots/StudentSlots";
 import TutorDetail from "../../components/TutorDetail/TutorDetail"
 
 
 
 
-export default function TutorDetailPage(props) {
+export default function TutorDetailPage({user}) {
 //   const [tutors, setTutors] = useState(getUser());
 //   const {
 //     state: {tutor },
@@ -17,8 +16,7 @@ export default function TutorDetailPage(props) {
       <br />
       <h1>Tutor Details</h1>
       <br />
-      <TutorDetail   />
-      <StudentSlots />
+      <TutorDetail user={user}/>
     </>
   );
 }
