@@ -15,12 +15,12 @@ export default function NavBar({
         <Navbar.Brand href="#home">&copy; Coding Tutor</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+          <Nav className="justify-content-center">
+            <Nav.Link href="/">Home |</Nav.Link>
           </Nav>
-          {loggedIn ? <h5>Hello, {username}</h5> : <h3>Please Log In</h3>}
+          {loggedIn ?  <Nav.Link> Hello, {username} </Nav.Link> : <h3>Please Log In</h3>}
           &nbsp; | &nbsp;
-          {loggedIn ? <button onClick={handleLogOut}>Log Out</button> : ""}
+          {loggedIn ? <Nav.Link  onClick={handleLogOut}>Log Out</Nav.Link> : ""}
         </Navbar.Collapse>
       </Navbar>
     </>

@@ -8,46 +8,66 @@ export default function TutorList({tutor}) {
   console.log(tutor)
   const tutorId = `/details/${tutor.user}`
   return (
-    <>
-    {/* <h1>TutorList: </h1>
-    <h1>{tutor.zipcode}</h1> */}
 
-<Container>
-<Col lg={4}>
-    <Card >
-  <Card.Body>
-    <Card.Title>Name:{tutor.first_name} {tutor.last_name}</Card.Title>
-  {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-    <Card.Text>
-      <button>{tutor.skills}</button>
-     <p>Rate: {tutor.rate} per hour</p>
-      
+      <Container>
+        <Row>
+          <Col>
+          
+            <Card className="mb-4" style={{ width: "20rem" }} >
+              <Card.Body>
+                <Card.Title>
+                  Name:{tutor.first_name} {tutor.last_name}
+                </Card.Title>
+                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                <Card.Text>
+                  <button>{tutor.skills}</button>
+                  <p>Rate: {tutor.rate} per hour</p>
+                </Card.Text>
+                <Link to={tutorId}>
+                  <Button variant="primary">CLICK TO SCHEDULE</Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          </Col>
 
-    </Card.Text>
-    <Link to= {tutorId}>
-    <Button variant="primary">CLICK TO SCHEDULE</Button>
-    </Link>
-
-  </Card.Body>
-</Card>
-</Col>
-</Container>
-  
-
-    </>
-  /* //   <Col key={tutor.id} sm={12} md={6} lg={4} xl={3}>
-  // <Card style={{ width: "20rem" }}>
-  //   {/* <Card.Img variant="top" src="" /> */
-  //   <Card.Body>
-  //     <Card.Title>Name:{tutors.username}</Card.Title>
-  //     <Card.Text>
-  //       <p>Bio:{tutors.bio}</p>
-  //       <p>Skills:{tutors.skills}</p>
-  //       <p>Zipcode: {tutors.zipcode}</p>
-  //     </Card.Text>
-  //     <Button variant="primary">Pick a TimeSlot</Button>
-  //   </Card.Body>
-  // </Card>
-  // </Col> */}
-  )
+          <Col>
+         
+            <Card>
+              <Card.Body>
+                <Card.Title>
+                  Name:{tutor.first_name} {tutor.last_name}
+                </Card.Title>
+                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                <Card.Text>
+                  <button>{tutor.skills}</button>
+                  <p>Rate: {tutor.rate} per hour</p>
+                </Card.Text>
+                <Link to="/details">
+                  <Button variant="primary">CLICK TO SCHEDULE</Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col>
+            {" "}
+            <Card>
+              <Card.Body>
+                <Card.Title>
+                  Name:{tutor.first_name} {tutor.last_name}
+                </Card.Title>
+                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                <Card.Text>
+                  <button>{tutor.skills}</button>
+                  <p>Rate: {tutor.rate} per hour</p>
+                </Card.Text>
+                <Link to="/details">
+                  <Button variant="primary">CLICK TO SCHEDULE</Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+   
+);
 }
