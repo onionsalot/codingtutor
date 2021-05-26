@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
+import TutorSlots from "./components/Slots/TutorSlots"
 import TutorDetailPage from "./pages/TutorDetailPage/TutorDetailPage";
 import HomePage from "./pages/HomePage/HomePage";
 import axios from "axios";
@@ -54,6 +55,9 @@ export default function App() {
             </Route>
             <Route exact path="/details">
               <TutorDetailPage />
+            </Route>
+            <Route exact path="/add_slot">
+              <TutorSlots />
             </Route>
           </Switch>
         </>
