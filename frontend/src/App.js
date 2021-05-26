@@ -53,6 +53,9 @@ export default function App() {
             <Route exact path="/add_slot">
               <TutorSlots user={user}/>
             </Route>
+            {/* <Route exact path="/slots/:sid/assoc_student/:slotid">
+              <StudentSlots />
+            </Route> */}
           </Switch>
         </>
       ) : (

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 import {
   Card,
   Button,
@@ -12,7 +13,25 @@ import {
 } from "react-bootstrap";
 
 export default function StudentSlots({slot}) {
-  
+  // const linkId = `http://localhost:8000/slots/14/assoc_student/${slot.id}/`
+
+  async function handleSubmit(evt){
+  const options = {
+    url: `http://localhost:8000/slots/${slot.id}/assoc_student/14/`,
+    method: 'PUT',
+    headers: {
+      Authorization: `JWT ${localStorage.getItem("token")}`,
+    },
+  }
+  evt.preventDefault();
+    try {
+      const user = await axios(options).then((response) => {
+        console.log(response);
+      });
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
   return (
     <>
@@ -27,9 +46,11 @@ export default function StudentSlots({slot}) {
                 <button></button>
                 <p>Time Slot: {slot.hour}</p>
               </Card.Text>
-              <Link to="/">
-                <Button variant="primary">Submit</Button>
-              </Link>
+              {/* <Link to={handleSubmit}> */}
+              <form onSubmit={handleSubmit}>
+                <Button type='submit' variant="primary">Submit</Button>
+              </form>
+              {/* </Link> */}
             </Card.Body>
           </Card>
         </Col>

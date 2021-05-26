@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import current_user, UserList, all_profiles, add_slot, details, available_slots
+from .views import assoc_student, current_user, UserList, all_profiles, add_slot, details, available_slots, assoc_student
 from django_js_choices.views import choices_js
 
 urlpatterns = [
@@ -12,4 +12,5 @@ urlpatterns = [
     path('all_profiles/', all_profiles),
     path('slots/<int:user_id>/add_slot/', add_slot),
     path('slots/<int:user_id>/available_slots/', available_slots),
+    path('slots/<int:slot_id>/assoc_student/<int:user_id>/', assoc_student),
 ]

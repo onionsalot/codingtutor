@@ -31,7 +31,6 @@ def details(request, user_id):
 
 @api_view(['GET'])
 def available_slots(request, user_id):
-    print(request.data)
     all_slots = Slot.objects.filter(tutor=user_id)
     serializer = SlotSerializer(all_slots, many = True)
     return Response(serializer.data)
@@ -41,13 +40,23 @@ def add_slot(request, user_id):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.AllowAny,)
     data = request.data
-    print(user_id)
-    print(data)
-    user = User.objects.get(id=user_id)
+    tutor = User.objects.get(id=user_id)
     slot = Slot.objects.create(
         hour = data['hour'],
         date = data['date'],
-        tutor = user,
+        tutor = tutor,
+    )
+    serializer = SlotSerializer(slot, many = False)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def assoc_student(request, slot_id, user_id):
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.AllowAny,)
+    data = request.data
+    student = User.objects.get(id=user_id)
+    slot = Slot.objects.filter(id=slot_id).update(
+        student = student,
     )
     serializer = SlotSerializer(slot, many = False)
     return Response(serializer.data)

@@ -41,7 +41,7 @@ export default function TutorDetail() {
     <>
       <div className="default">
         <div>
-          <h2>Name:Denise </h2>
+          <h2>Name: Denise </h2>
           <br />
         </div>
         <br />
