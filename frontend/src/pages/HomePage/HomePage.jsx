@@ -26,21 +26,21 @@ export default function HomePage({ props, user }) {
   }, []);
   const newList = tutors.map((tutor,idx) => <TutorList key={idx} tutor={tutor} />);
   console.log(newList)
+
+
   return (
     <>
       <br />
       <h1>All Tutors in your Area</h1>
-      
+      <br /> 
       {newList}
       <br /> <br />
+
+   
       
-    {/* {tutors.map((tutor,idx) => {
-      tutor.rate ? (
-        <TutorList key={idx} tutor={tutor} />
-      ) : (
-        <h1></h1>
-      )
-    })} */}
-    </>
+</>
+
+
+   
   );
 }
