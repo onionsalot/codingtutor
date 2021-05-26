@@ -116,15 +116,13 @@ export default function SignupForm({ setUsername, setLoggedIn }) {
               value={form.skills}
               onChange={handleChange}
             />
-{/* Inserting the multi select here , hold command to select multiple options */}
-<label>Skills Part 2 </label>
-<select class="select" multiple>
-  <option value="JS">JavaScript</option>
-  <option value="PY">Python</option>
-  <option value="REACT">React</option>
-</select>
-
-
+            {/* Inserting the multi select here , hold command to select multiple options */}
+            <label>Skills Part 2 </label>
+            <select class="select" multiple>
+              <option value="JS">JavaScript</option>
+              <option value="PY">Python</option>
+              <option value="REACT">React</option>
+            </select>
 
             <label> Rate Per Hour </label>
             <input
