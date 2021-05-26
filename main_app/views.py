@@ -26,8 +26,14 @@ def all_profiles(request):
 def details(request, user_id):
     print(request.data)
     profile = Profile.objects.get(user=user_id)
-
     serializer = ProfileSerializer(profile, many = False)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def available_slots(request, user_id):
+    print(request.data)
+    all_slots = Slot.objects.filter(tutor=user_id)
+    serializer = SlotSerializer(all_slots, many = True)
     return Response(serializer.data)
 
 @api_view(['POST'])

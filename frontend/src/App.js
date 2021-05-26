@@ -14,12 +14,7 @@ export default function App() {
   const [user, setUser] = useState({});
   const [showLogin, setShowLogin] = useState(true);
 
-  // const history = useHistory();
-
-  // useEffect(() => {
-  //   history.push("/");
-  // }, [username, history]);
-
+  
   useEffect(() => {
     async function getUser() {
       if (loggedIn) {

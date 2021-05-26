@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useLocation, Route } from "react-router-dom";
-import StudentSlots from "../../components/Slots/StudentSlots";
 import TutorDetail from "../../components/TutorDetail/TutorDetail"
 
 
@@ -18,7 +17,6 @@ export default function TutorDetailPage(props) {
       <h1>Tutor Details</h1>
       <br />
       <TutorDetail   />
-      <StudentSlots />
     </>
   );
 }
