@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 
 
-export default function TutorSlots() {
+export default function TutorSlots({user}) {
   const [form, setForm] = useState({
     hour: " ",
     date: " "
@@ -13,8 +13,9 @@ export default function TutorSlots() {
   }
 
   async function handleSubmit(evt) {
+    console.log(user)
     const options = {
-      url: "http://localhost:8000/slots/11/add_slot/", 
+      url: `http://localhost:8000/slots/${user.id}/add_slot/`, 
       method: "POST",
       headers: {
         Authorization: `JWT ${localStorage.getItem('token')}`,

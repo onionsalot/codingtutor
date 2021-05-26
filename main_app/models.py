@@ -12,6 +12,8 @@ choices = (
     ("JS", "JavaScript"),
     ("PY", "Python"),
     ("REACT", "React"),
+    ("DJANGO", "Django"),
+    ("TYPESCRIPT", "Typescript"),
 )
 
 class Profile(models.Model):

@@ -2,7 +2,6 @@ import { Navbar, Nav, Button } from "react-bootstrap";
 
 export default function NavBar({
   username,
-  setUsername,
   loggedIn,
   setLoggedIn,
 }) {
