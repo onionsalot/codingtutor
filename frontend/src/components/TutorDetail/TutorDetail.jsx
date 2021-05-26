@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from 'axios'
 
 
 export default function TutorDetail() {
   const [tutor, setTutor] = useState();
-  
+  const tutorId = useParams();
+
   useEffect(() => {
     async function getTutor() {
         axios
-          .get(`http://localhost:8000/details/42/`, {
+          .get(`http://localhost:8000/details/${tutorId.id}/`, {
             headers: {
               Authorization: `JWT ${localStorage.getItem("token")}`,
             },
