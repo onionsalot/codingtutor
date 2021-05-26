@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-import HomePage from "./pages/HomePage/HomePage";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
+import TutorDetailPage from "./pages/TutorDetailPage/TutorDetailPage";
+import HomePage from "./pages/HomePage/HomePage";
 import axios from "axios";
 import "./App.css";
 
@@ -12,11 +13,11 @@ export default function App() {
   const [username, setUsername] = useState("");
   const [showLogin, setShowLogin] = useState(true);
 
-  const history = useHistory();
+  // const history = useHistory();
 
-  useEffect(() => {
-    history.push("/");
-  }, [username, history]);
+  // useEffect(() => {
+  //   history.push("/");
+  // }, [username, history]);
 
   useEffect(() => {
     async function getUser() {
@@ -27,7 +28,7 @@ export default function App() {
               Authorization: `JWT ${localStorage.getItem("token")}`,
             },
           })
-  
+
           .then((response) => {
             console.log(response);
             setUsername(response.data.username);
@@ -47,7 +48,14 @@ export default function App() {
             loggedIn={loggedIn}
             setLoggedIn={setLoggedIn}
           />
-          <HomePage />
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route exact path="/details">
+              <TutorDetailPage />
+            </Route>
+          </Switch>
         </>
       ) : (
         <>
@@ -59,7 +67,9 @@ export default function App() {
           )}
           <div>
             <button onClick={() => setShowLogin(!showLogin)}>
-              {showLogin ? "CLICK TO SIGN UP A NEW ACCOUNT" : "CLICK TO LOG IN TO AN EXISTING ACCOUNT"}
+              {showLogin
+                ? "CLICK TO SIGN UP A NEW ACCOUNT"
+                : "CLICK TO LOG IN TO AN EXISTING ACCOUNT"}
             </button>
           </div>
         </>

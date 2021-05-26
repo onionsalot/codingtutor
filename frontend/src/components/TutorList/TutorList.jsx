@@ -15,15 +15,17 @@ export default function TutorList({tutor}) {
     <Card style={{ width: "20rem" }} >
   <Card.Body>
     <Card.Title>Name:{tutor.first_name} {tutor.last_name}</Card.Title>
-  <Card.Img variant="top" src="holder.js/100px180" />
+  {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
     <Card.Text>
       <button>{tutor.skills}</button>
      <p>Rate:{tutor.rate} per hour</p>
       
 
-
     </Card.Text>
-    <Button variant="primary">CHOOSE A TIMESLOT</Button>
+    <Link to= '/details'>
+    <Button variant="primary">CLICK TO SCHEDULE</Button>
+    </Link>
+
   </Card.Body>
 </Card>
 </Col>
