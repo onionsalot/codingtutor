@@ -48,7 +48,7 @@ export default function App() {
               <HomePage />
             </Route>
             <Route exact path="/details/:id">
-              <TutorDetailPage />
+              <TutorDetailPage user={user}/>
             </Route>
             <Route exact path="/add_slot">
               <TutorSlots user={user}/>

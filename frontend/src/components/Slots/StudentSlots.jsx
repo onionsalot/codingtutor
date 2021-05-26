@@ -12,12 +12,12 @@ import {
   Container,
 } from "react-bootstrap";
 
-export default function StudentSlots({slot}) {
+export default function StudentSlots({slot, user}) {
   // const linkId = `http://localhost:8000/slots/14/assoc_student/${slot.id}/`
 
   async function handleSubmit(evt){
   const options = {
-    url: `http://localhost:8000/slots/${slot.id}/assoc_student/14/`,
+    url: `http://localhost:8000/slots/${slot.id}/assoc_student/${user.id}/`,
     method: 'PUT',
     headers: {
       Authorization: `JWT ${localStorage.getItem("token")}`,

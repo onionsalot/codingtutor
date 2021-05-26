@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import StudentSlots from "../../components/Slots/StudentSlots";
 import axios from "axios";
 
-export default function TutorDetail() {
+export default function TutorDetail({user}) {
   const [tutor, setTutor] = useState();
   const tutorId = useParams();
   const [slots, setSlots] = useState([])
@@ -35,7 +35,7 @@ export default function TutorDetail() {
     getTutor();
   }, []);
 
-  const availableSlots = slots.map((slot, idx) => <StudentSlots key={idx} slot={slot}/>);
+  const availableSlots = slots.map((slot, idx) => <StudentSlots user={user} key={idx} slot={slot}/>);
 
   return (
     <>
