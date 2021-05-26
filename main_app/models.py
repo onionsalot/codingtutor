@@ -1,3 +1,4 @@
+from re import T
 from django.db import models
 from django.db.models.enums import Choices
 from django.db.models.fields import CharField, EmailField
@@ -21,7 +22,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     zipcode = models.IntegerField(blank=True, null=True)
     skills = models.CharField(max_length=100, choices=choices, default=choices[0][0])
-    rate = models.IntegerField(max_length=5, null=True, blank=True)
+    rate = models.IntegerField(null=True, blank=True)
     
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -33,5 +34,8 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()   
 
 
-# class Slot(models.Model):
-#     hour = models.CharField(max_length=10)
+class Slot(models.Model):
+    hour = models.CharField(max_length=10, null=True, blank=True)
+    date = models.CharField(max_length=50, null=True, blank=True)
+    student = models.IntegerField(null=True, blank=True)
+    tutor = models.IntegerField(null=True, blank=True)
