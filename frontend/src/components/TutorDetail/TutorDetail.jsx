@@ -19,6 +19,7 @@ export default function TutorDetail({user}) {
 
         .then((response) => {
           console.log(response);
+          setTutor(response.data);
           axios
             .get(`http://localhost:8000/slots/${tutorId.id}/available_slots/`, {
               headers: {
@@ -35,7 +36,7 @@ export default function TutorDetail({user}) {
     getTutor();
   }, []);
 
-  const availableSlots = slots.map((slot, idx) => <StudentSlots user={user} key={idx} slot={slot}/>);
+  const availableSlots = slots.map((slot, idx) => <StudentSlots tutor={tutor} user={user} key={idx} slot={slot}/>);
 
   return (
     <>

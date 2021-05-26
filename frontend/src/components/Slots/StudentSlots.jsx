@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from 'axios'
 import {
   Card,
@@ -12,8 +12,8 @@ import {
   Container,
 } from "react-bootstrap";
 
-export default function StudentSlots({slot, user}) {
-  // const linkId = `http://localhost:8000/slots/14/assoc_student/${slot.id}/`
+export default function StudentSlots({tutor, user, slot}) {
+  const history = useHistory();
 
   async function handleSubmit(evt){
   const options = {
@@ -32,7 +32,7 @@ export default function StudentSlots({slot, user}) {
       console.log(err);
     }
   }
-
+  
   return (
     <>
       <h1>Students sign up for slots here</h1>
@@ -40,7 +40,7 @@ export default function StudentSlots({slot, user}) {
         <Col lg={4}>
           <Card>
             <Card.Body>
-              <Card.Title>Students Sign up Here </Card.Title>
+              <Card.Title>Students Sign up Here</Card.Title>
               {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
               <Card.Text>
                 <button></button>
