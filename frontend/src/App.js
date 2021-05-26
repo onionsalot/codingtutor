@@ -11,7 +11,7 @@ import "./App.css";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"));
-  const [username, setUsername] = useState("");
+  const [user, setUser] = useState({});
   const [showLogin, setShowLogin] = useState(true);
 
   // const history = useHistory();
@@ -32,7 +32,7 @@ export default function App() {
 
           .then((response) => {
             console.log(response);
-            setUsername(response.data.username);
+            setUser(response.data);
           });
       }
     }
@@ -44,8 +44,7 @@ export default function App() {
       {loggedIn ? (
         <>
           <Navbar
-            username={username}
-            setUsername={setUsername}
+            username={user.username}
             loggedIn={loggedIn}
             setLoggedIn={setLoggedIn}
           />
@@ -53,11 +52,11 @@ export default function App() {
             <Route exact path="/">
               <HomePage />
             </Route>
-            <Route exact path="/details">
+            <Route exact path="/details/:id">
               <TutorDetailPage />
             </Route>
             <Route exact path="/add_slot">
-              <TutorSlots />
+              <TutorSlots user={user}/>
             </Route>
           </Switch>
         </>
@@ -65,9 +64,9 @@ export default function App() {
         <>
           <h1>Log in or Sign Up</h1>
           {showLogin ? (
-            <LoginForm setUsername={setUsername} setLoggedIn={setLoggedIn} />
+            <LoginForm setUser={setUser} setLoggedIn={setLoggedIn} />
           ) : (
-            <SignupForm setUsername={setUsername} setLoggedIn={setLoggedIn} />
+            <SignupForm setUser={setUser} setLoggedIn={setLoggedIn} />
           )}
           <div>
             <button onClick={() => setShowLogin(!showLogin)}>

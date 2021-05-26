@@ -6,12 +6,8 @@ import { Card, Button, Col, CardGroup, CardDeck, CardColumns, Row, Container} fr
 export default function TutorList({tutor}) {
   
   console.log(tutor)
+  const tutorId = `/details/${tutor.user}`
   return (
-   
- <>
-<Container>
-        <Col lg={4}></Col>
-      </Container>
 
       <Container>
         <Row>
@@ -27,7 +23,7 @@ export default function TutorList({tutor}) {
                   <button>{tutor.skills}</button>
                   <p>Rate: {tutor.rate} per hour</p>
                 </Card.Text>
-                <Link to="/details">
+                <Link to={tutorId}>
                   <Button variant="primary">CLICK TO SCHEDULE</Button>
                 </Link>
               </Card.Body>
@@ -35,7 +31,7 @@ export default function TutorList({tutor}) {
           </Col>
 
           <Col>
-            {" "}
+         
             <Card>
               <Card.Body>
                 <Card.Title>
@@ -72,6 +68,6 @@ export default function TutorList({tutor}) {
           </Col>
         </Row>
       </Container>
-      </>
+   
 );
 }
