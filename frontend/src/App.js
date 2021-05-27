@@ -6,6 +6,7 @@ import SignupForm from "./components/SignupForm";
 import TutorSlots from "./components/Slots/TutorSlots"
 import TutorDetailPage from "./pages/TutorDetailPage/TutorDetailPage";
 import HomePage from "./pages/HomePage/HomePage";
+import ConfirmationPage from "./pages/ConfirmationPage/ConfirmationPage";
 import axios from "axios";
 import "./App.css";
 
@@ -56,6 +57,9 @@ export default function App() {
             {/* <Route exact path="/slots/:sid/assoc_student/:slotid">
               <StudentSlots />
             </Route> */}
+            <Route exact path="/confirmation">
+            <ConfirmationPage user={user}/>
+            </Route>
           </Switch>
         </>
       ) : (
