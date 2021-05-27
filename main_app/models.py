@@ -25,6 +25,7 @@ class Profile(models.Model):
     zipcode = models.IntegerField(blank=True, null=True)
     skills = models.CharField(max_length=100, choices=choices, default=choices[0][0])
     rate = models.IntegerField(null=True, blank=True)
+    image = CharField(max_length=200, null=True)
     
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

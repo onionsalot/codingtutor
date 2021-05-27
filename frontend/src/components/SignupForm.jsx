@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Select from "react-select";
 
 export default function SignupForm({ setUser, setLoggedIn }) {
   const [signUpTutor, setSignUpTutor] = useState(true);
+  const [image, setImage] = useState("");
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -11,6 +13,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     zipcode: "",
     skills: "",
     rate: "",
+    image: "",
   });
 
   const [error, setError] = useState("");
@@ -18,6 +21,22 @@ export default function SignupForm({ setUser, setLoggedIn }) {
   function handleChange(evt) {
     setForm({ ...form, [evt.target.name]: evt.target.value });
   }
+
+  function handleSkills(evt) {
+    let skillString = "";
+    evt.map((e, idx) => {
+      if (idx === 0) {
+        skillString += e.label;
+      } else {
+        skillString += `, ${e.label}`;
+      }
+    });
+    console.log(skillString);
+    setForm({ ...form, skills: skillString });
+  }
+
+  // eslint-disable-next-line no-undef
+  const options = Choices.pairs("skills");
 
   async function handleSubmit(evt) {
     const options = {
@@ -36,6 +55,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         zipcode: form.zipcode,
         skills: form.skills,
         rate: form.rate,
+        image: form.image,
       },
     };
 
@@ -45,9 +65,9 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         console.log(response);
         localStorage.setItem("token", response.data.token);
         setUser({
-          "id" : response.data.id,
-          "username" : response.data.username
-      });
+          id: response.data.id,
+          username: response.data.username,
+        });
         setLoggedIn(localStorage.getItem("token"));
       });
     } catch {
@@ -55,8 +75,39 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     }
   }
 
+  const uploadImage = () => {
+    console.log('clicked?')
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", "xdgkaefq");
+    axios
+      .post("https://api.cloudinary.com/v1_1/dq8yhiefg/image/upload", formData)
+      .then((response) => {
+        console.log(response)
+        setForm({ ...form, image: response.data.url });
+      })
+  };
+
   return (
     <div>
+      {/* I M A G E     U P L O A D */}
+      <br />
+      <label>Images</label>
+      <input
+        type="file"
+        onChange={(event) => {
+          setImage(event.target.files[0]);
+        }}
+      />
+      <button onClick={uploadImage}>Upload Image</button>
+      <br />
+      <p>
+        {form.image === ""
+          ? "Upload image before submitting!"
+          : "Upload Success!!"}
+      </p>
+      <br />
+
       <h4> Sign Up </h4>
       <form onSubmit={handleSubmit} autoComplete="off">
         <label> Username </label>
@@ -112,20 +163,16 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         />
         {signUpTutor ? (
           <>
-            <label> Skills </label>
-            <input
-              type="text"
-              name="skills"
-              value={form.skills}
-              onChange={handleChange}
-            />
             {/* Inserting the multi select here , hold command to select multiple options */}
-            <label>Skills Part 2 </label>
-            <select class="select" multiple>
-              <option value="JS">JavaScript</option>
-              <option value="PY">Python</option>
-              <option value="REACT">React</option>
-            </select>
+            <label> Skills </label>
+            <Select
+              onChange={handleSkills}
+              isMulti
+              name="colors"
+              options={options}
+              className="basic-multi-select"
+              classNamePrefix="select"
+            />
 
             <label> Rate Per Hour </label>
             <input

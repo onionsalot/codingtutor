@@ -4,7 +4,7 @@ import StudentSlots from "../../components/Slots/StudentSlots";
 import axios from "axios";
 
 export default function TutorDetail({user}) {
-  const [tutor, setTutor] = useState();
+  const [tutor, setTutor] = useState([]);
   const tutorId = useParams();
   const [slots, setSlots] = useState([])
 
