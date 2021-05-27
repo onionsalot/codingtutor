@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import StudentSlots from "../../components/Slots/StudentSlots";
 import axios from "axios";
+import TutorSlots from "../Slots/TutorSlots"
 
 export default function TutorDetail({user}) {
   const [tutor, setTutor] = useState([]);
@@ -36,7 +37,7 @@ export default function TutorDetail({user}) {
     getTutor();
   }, []);
 
-  const availableSlots = slots.map((slot, idx) => <StudentSlots tutor={tutor} user={user} key={idx} slot={slot}/>);
+  // const availableSlots = slots.map((slot, idx) => <StudentSlots tutor={tutor} user={user} key={idx} slot={slot}/>);
 
   return (
     <>
@@ -61,7 +62,8 @@ export default function TutorDetail({user}) {
           <Link to="/">RETURN TO TUTOR HOMEPAGE</Link>
         </div>
       </div>
-      {availableSlots}
+      <TutorSlots slots={slots} setSlots={setSlots} tutorId = {tutorId.id} tutor={tutor} user={user}/>
+      
     </>
   );
 }
