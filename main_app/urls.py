@@ -9,7 +9,7 @@ urlpatterns = [
     path('users/', UserList.as_view()),
     path('details/<int:user_id>/', details),
     path('details/user_reviews/', user_reviews),
-    path('details/<int:tutor_id/add_review/<int:student_id>/', add_review),
+    path('details/<int:tutor_id>/add_review/<int:student_id>/', add_review),
     path('current_user/', current_user),
     path('all_profiles/', all_profiles),
     path('slots/<int:user_id>/add_slot/', add_slot),

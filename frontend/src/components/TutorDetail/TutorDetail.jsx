@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import StudentSlots from "../../components/Slots/StudentSlots";
 import axios from "axios";
 import TutorSlots from "../Slots/TutorSlots"
+import TutorDetailsReview from "./TutorDetailsReviews"
 
 export default function TutorDetail({user}) {
   const [tutor, setTutor] = useState([]);
@@ -63,7 +64,7 @@ export default function TutorDetail({user}) {
         </div>
       </div>
       <TutorSlots slots={slots} setSlots={setSlots} tutorId = {tutorId.id} tutor={tutor} user={user}/>
-      
+      <TutorDetailsReview userId={user.id} tutorId={tutorId.id}/>
     </>
   );
 }
