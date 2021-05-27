@@ -30,6 +30,14 @@ def details(request, user_id):
     return Response(serializer.data)
 
 @api_view(['GET'])
+def user_reviews(request):
+    return "test"
+
+@api_view(['POST'])
+def add_review(request, tutor_id, student_id):
+    return "test"
+
+@api_view(['GET'])
 def available_slots(request, user_id):
     all_slots = Slot.objects.filter(tutor=user_id)
     serializer = SlotSerializer(all_slots, many = True)

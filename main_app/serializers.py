@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
-from .models import Profile, Slot
+from .models import Profile, Slot, Review
 from django.contrib.auth.models import User
 
 
@@ -19,6 +19,10 @@ class SlotSerializer(serializers.ModelSerializer):
     model = Slot
     fields = "__all__"
 
+class ReviewSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Review
+    fields = "__all__"
 
 class UserSerializerWithToken(serializers.ModelSerializer):
   token = serializers.SerializerMethodField()
