@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 import TutorList from "../../components/TutorList/TutorList";
+import './HomePage.css';
 
 export default function HomePage({ props, user }) {
   const [tutors, setTutors] = useState([]);
@@ -34,7 +35,10 @@ export default function HomePage({ props, user }) {
       <br />
       <h1>All Tutors in your Area</h1>
       <br />
+      
       {newList}
+      
+     
       <br /> <br />
     </>
   );
