@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Select from 'react-select'
 
 export default function SignupForm({ setUser, setLoggedIn }) {
   const [signUpTutor, setSignUpTutor] = useState(true);
@@ -18,6 +19,22 @@ export default function SignupForm({ setUser, setLoggedIn }) {
   function handleChange(evt) {
     setForm({ ...form, [evt.target.name]: evt.target.value });
   }
+
+  function handleSkills(evt) {
+    let skillString = ""
+    evt.map((e, idx) => {
+      if (idx === 0) {
+        skillString += e.label
+      } else {
+        skillString += `, ${e.label}`
+      }
+    })
+    console.log(skillString)
+    setForm({ ...form, "skills": skillString});
+  }
+
+  // eslint-disable-next-line no-undef
+  const options = Choices.pairs('skills')
 
   async function handleSubmit(evt) {
     const options = {
@@ -112,20 +129,16 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         />
         {signUpTutor ? (
           <>
-            <label> Skills </label>
-            <input
-              type="text"
-              name="skills"
-              value={form.skills}
-              onChange={handleChange}
-            />
             {/* Inserting the multi select here , hold command to select multiple options */}
-            <label>Skills Part 2 </label>
-            <select class="select" multiple>
-              <option value="JS">JavaScript</option>
-              <option value="PY">Python</option>
-              <option value="REACT">React</option>
-            </select>
+            <label> Skills </label>
+            <Select
+            onChange={handleSkills}
+    isMulti
+    name="colors"
+    options={options}
+    className="basic-multi-select"
+    classNamePrefix="select"
+  />
 
             <label> Rate Per Hour </label>
             <input
