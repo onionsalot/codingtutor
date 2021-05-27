@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Select from 'react-select'
+import Select from "react-select";
 
 export default function SignupForm({ setUser, setLoggedIn }) {
   const [signUpTutor, setSignUpTutor] = useState(true);
@@ -21,20 +21,20 @@ export default function SignupForm({ setUser, setLoggedIn }) {
   }
 
   function handleSkills(evt) {
-    let skillString = ""
+    let skillString = "";
     evt.map((e, idx) => {
       if (idx === 0) {
-        skillString += e.label
+        skillString += e.label;
       } else {
-        skillString += `, ${e.label}`
+        skillString += `, ${e.label}`;
       }
-    })
-    console.log(skillString)
-    setForm({ ...form, "skills": skillString});
+    });
+    console.log(skillString);
+    setForm({ ...form, skills: skillString });
   }
 
   // eslint-disable-next-line no-undef
-  const options = Choices.pairs('skills')
+  const options = Choices.pairs("skills");
 
   async function handleSubmit(evt) {
     const options = {
@@ -62,9 +62,9 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         console.log(response);
         localStorage.setItem("token", response.data.token);
         setUser({
-          "id" : response.data.id,
-          "username" : response.data.username
-      });
+          id: response.data.id,
+          username: response.data.username,
+        });
         setLoggedIn(localStorage.getItem("token"));
       });
     } catch {
@@ -132,13 +132,13 @@ export default function SignupForm({ setUser, setLoggedIn }) {
             {/* Inserting the multi select here , hold command to select multiple options */}
             <label> Skills </label>
             <Select
-            onChange={handleSkills}
-    isMulti
-    name="colors"
-    options={options}
-    className="basic-multi-select"
-    classNamePrefix="select"
-  />
+              onChange={handleSkills}
+              isMulti
+              name="colors"
+              options={options}
+              className="basic-multi-select"
+              classNamePrefix="select"
+            />
 
             <label> Rate Per Hour </label>
             <input
