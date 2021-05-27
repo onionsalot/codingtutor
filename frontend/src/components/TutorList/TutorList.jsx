@@ -30,42 +30,7 @@ export default function TutorList({tutor}) {
             </Card>
           </Col>
 
-          <Col>
          
-            <Card>
-              <Card.Body>
-                <Card.Title>
-                  Name:{tutor.first_name} {tutor.last_name}
-                </Card.Title>
-                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-                <Card.Text>
-                  <button>{tutor.skills}</button>
-                  <p>Rate: {tutor.rate} per hour</p>
-                </Card.Text>
-                <Link to="/details">
-                  <Button variant="primary">CLICK TO SCHEDULE</Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col>
-            {" "}
-            <Card>
-              <Card.Body>
-                <Card.Title>
-                  Name:{tutor.first_name} {tutor.last_name}
-                </Card.Title>
-                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-                <Card.Text>
-                  <button>{tutor.skills}</button>
-                  <p>Rate: {tutor.rate} per hour</p>
-                </Card.Text>
-                <Link to="/details">
-                  <Button variant="primary">CLICK TO SCHEDULE</Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </Col>
         </Row>
       </Container>
    
