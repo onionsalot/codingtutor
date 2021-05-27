@@ -1,8 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
+import Calendar from 'react-calendar'
+import './TutorSlots.css'
+import StudentSlots from './StudentSlots'
 
-
-export default function TutorSlots({user}) {
+export default function TutorSlots({slots, setSlots, tutorId, tutor, user}) {
+  const [value, onChange] = useState(new Date());
+  const [displayedSlots, setDisplayedSlots] = useState([])
   const [form, setForm] = useState({
     hour: " ",
     date: " "
@@ -12,10 +16,12 @@ export default function TutorSlots({user}) {
     setForm({ ...form, [evt.target.name]: evt.target.value });
   }
 
+
   async function handleSubmit(evt) {
-    console.log(user)
+    console.log(tutorId)
+    evt.preventDefault();
     const options = {
-      url: `http://localhost:8000/slots/${user.id}/add_slot/`, 
+      url: `http://localhost:8000/slots/${tutorId}/add_slot/`, 
       method: "POST",
       headers: {
         Authorization: `JWT ${localStorage.getItem('token')}`,
@@ -25,7 +31,6 @@ export default function TutorSlots({user}) {
         date: form.date,
       },
     }
-    evt.preventDefault();
     try{
       await axios(options).then((response) => {
         console.log(response);
@@ -35,9 +40,38 @@ export default function TutorSlots({user}) {
     }
   }
 
+  function onClickDay(value, event) {
+    const newDate = value.toLocaleDateString("en-US")
+    setForm({ ...form, date: newDate});
+  }
+
+  function onCalChange(value, event) {
+    console.log('bloop')
+    onChange(value)
+    const newDate = value.toLocaleDateString("en-US")
+    const availableSlots = slots.map((slot, idx) => {
+      if (newDate === slot.date) {
+    return <StudentSlots tutor={tutor} user={user} key={idx} slot={slot}/>
+      } else {
+        return ""
+      }
+    });
+    setDisplayedSlots(availableSlots)
+  }
+
+
   return(
     <div>
       <form onSubmit={handleSubmit} autoComplete="off">
+      <label> Select A Date </label>
+
+      <div>
+      <Calendar
+        onChange={onCalChange}
+        value={value}
+        onClickDay={onClickDay}
+      />
+    </div>
         <label>Select A Time</label>
           <select name="hour" onChange={handleChange}>
             <option value="00">12:00 AM</option>
@@ -65,15 +99,17 @@ export default function TutorSlots({user}) {
             <option value="22">10:00 PM</option>
             <option value="23">11:00 PM</option>
         </select>
-        <label> Select A Date </label>
+        {/* <label> Select A Date </label>
         <input
           type="text"
           name="date"
           value={form.date}
           onChange={handleChange}
-        />
+        /> */}
       <button type="submit"> CONFIRM TIME SLOT </button>
       </form>
+
+      {displayedSlots}
     </div>
   )
 }
