@@ -47,9 +47,15 @@ export default function StudentSlots({tutor, user, slot}) {
                 <p>Time Slot: {slot.hour}</p>
               </Card.Text>
               {/* <Link to={handleSubmit}> */}
+            {slot.student == null ? (
               <form onSubmit={handleSubmit}>
                 <Button type='submit' variant="primary">Submit</Button>
               </form>
+
+            ):(
+              <p>Slot not available</p>
+            )}
+
               {/* </Link> */}
             </Card.Body>
           </Card>

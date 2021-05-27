@@ -4,7 +4,7 @@ import StudentSlots from "../../components/Slots/StudentSlots";
 import axios from "axios";
 
 export default function TutorDetail({user}) {
-  const [tutor, setTutor] = useState();
+  const [tutor, setTutor] = useState([]);
   const tutorId = useParams();
   const [slots, setSlots] = useState([])
 
@@ -42,18 +42,19 @@ export default function TutorDetail({user}) {
     <>
       <div className="default">
         <div>
-          <h2>Name: Denise </h2>
+          <h2>Name:{tutor.first_name} {tutor.last_name} </h2>
           <br />
         </div>
         <br />
         <div className="panel-body">
-          <h2>donukwue1@gmail.com</h2>
+          <h2> Email: {tutor.email}</h2>
           <br />
-          <h2>This is my name and it is long.</h2>
-        </div>
+          <h2>Bio: {tutor.bio}</h2>
+        </div> 
         <br />
-        <h2>I am good with Javascript</h2>
-        <h2>I charge 1,000,000,000 an hour</h2>
+        <h2>Skills:{tutor.skills}</h2>
+        <h2>Rate: {tutor.rate}</h2>
+        <h2>Zipcode: {tutor.zipcode}</h2>
         <br />
         <h1>Pick A Time Below</h1>
         <div className="btn btn-success">
