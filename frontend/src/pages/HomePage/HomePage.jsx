@@ -35,8 +35,9 @@ export default function HomePage({ props, user }) {
       <br />
       <h1>All Tutors in your Area</h1>
       <br />
-      
-      {newList}
+      <div className="home">
+        {newList}
+        </div>
       
      
       <br /> <br />

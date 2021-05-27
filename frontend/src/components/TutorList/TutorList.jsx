@@ -10,31 +10,35 @@ export default function TutorList({tutor}) {
   const tutorId = `/details/${tutor.user}`
   return (
 
-      <Container>
+
+  
+
         <Row>
-         <Col sm={3}>
-          
-            <Card className=" grid mb-4" style={{ width: "20rem" }} >
-              <Card.Body>
-                <Card.Title>
-                  Name:{tutor.first_name} {tutor.last_name}
-                </Card.Title>
-                <Card.Img variant="top" src={tutor.image} />
+     
+   <Col lg={12}>
+         
+        <Card className="justify-content-center mb-4" style ={{width:"30rem"}} >
+         <Card.Body>
+               <Card.Title>
+                 Name:{tutor.first_name} {tutor.last_name}
+             </Card.Title>
+               <Card.Img variant="top" src={tutor.image} />
                 
-                <Card.Text>
+            <Card.Text>
                   <button>{tutor.skills}</button>
                   <p>Rate: {tutor.rate} per hour</p>
                 </Card.Text>
-                <Link to={tutorId}>
-                  <Button variant="primary">CLICK TO SCHEDULE</Button>
-                </Link>
-              </Card.Body>
+               <Link to={tutorId}>
+                 <Button variant="primary">CLICK TO SCHEDULE</Button>
+             </Link>
+             </Card.Body>
             </Card>
-         
-
+        
             </Col>
-        </Row>
-      </Container>
-   
-);
-}
+             
+         </Row>
+        
+        
+
+ );
+  }

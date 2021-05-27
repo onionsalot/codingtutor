@@ -1,8 +1,14 @@
-.row{
-  color: red; 
-  display:flex;
-  flex-wrap: wrap;
-  
-  
+.container{
+    
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+   
+    
+
+}
+.card{
+    width: 20rem;
+    
     
 }
