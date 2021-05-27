@@ -17,7 +17,7 @@ export default function TutorList({tutor}) {
      
    <Col lg={12}>
          
-        <Card className="justify-content-center mb-4" style ={{width:"30rem"}} >
+        <Card className="card justify-content-center" >
          <Card.Body>
                <Card.Title>
                  Name:{tutor.first_name} {tutor.last_name}
