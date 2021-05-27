@@ -24,9 +24,9 @@ import os
 SECRET_KEY = 'gb69)=+r!y6g#iiudz6hj0nsotyk*7xgrc!8rwltmp4h&m0!vs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'codingtutor.herokuapp.com/']
 
 
 # Application definition

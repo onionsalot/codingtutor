@@ -15,7 +15,7 @@ export default function LoginForm({ setUser, setLoggedIn }) {
 
   async function handleSubmit(evt) {
     const options = {
-      url: "http://localhost:8000/token-auth/",
+      url: "/token-auth/",
       method: "POST",
       headers: {
         "Content-Type": "application/json",

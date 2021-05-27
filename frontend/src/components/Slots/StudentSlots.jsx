@@ -17,7 +17,7 @@ export default function StudentSlots({tutor, user, slot}) {
 
   async function handleSubmit(evt){
   const options = {
-    url: `http://localhost:8000/slots/${slot.id}/assoc_student/${user.id}/`,
+    url: `/slots/${slot.id}/assoc_student/${user.id}/`,
     method: 'PUT',
     headers: {
       Authorization: `JWT ${localStorage.getItem("token")}`,
