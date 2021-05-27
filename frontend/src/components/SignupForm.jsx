@@ -4,6 +4,7 @@ import Select from "react-select";
 
 export default function SignupForm({ setUser, setLoggedIn }) {
   const [signUpTutor, setSignUpTutor] = useState(true);
+  const [image, setImage] = useState("");
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -12,6 +13,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     zipcode: "",
     skills: "",
     rate: "",
+    image: "",
   });
 
   const [error, setError] = useState("");
@@ -53,6 +55,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         zipcode: form.zipcode,
         skills: form.skills,
         rate: form.rate,
+        image: form.image,
       },
     };
 
@@ -72,8 +75,39 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     }
   }
 
+  const uploadImage = () => {
+    console.log('clicked?')
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", "xdgkaefq");
+    axios
+      .post("https://api.cloudinary.com/v1_1/dq8yhiefg/image/upload", formData)
+      .then((response) => {
+        console.log(response)
+        setForm({ ...form, image: response.data.url });
+      })
+  };
+
   return (
     <div>
+      {/* I M A G E     U P L O A D */}
+      <br />
+      <label>Images</label>
+      <input
+        type="file"
+        onChange={(event) => {
+          setImage(event.target.files[0]);
+        }}
+      />
+      <button onClick={uploadImage}>Upload Image</button>
+      <br />
+      <p>
+        {form.image === ""
+          ? "Upload image before submitting!"
+          : "Upload Success!!"}
+      </p>
+      <br />
+
       <h4> Sign Up </h4>
       <form onSubmit={handleSubmit} autoComplete="off">
         <label> Username </label>
