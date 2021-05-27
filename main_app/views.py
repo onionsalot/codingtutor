@@ -66,6 +66,7 @@ class UserList(APIView):
     permission_classes = (permissions.AllowAny,)
     def post(self, request, format=None):
         serializer = UserSerializerWithToken(data=request.data)
+        print(request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -78,6 +79,7 @@ class UserList(APIView):
             user.profile.zipcode = request.data['zipcode']
             user.profile.skills = request.data['skills']
             user.profile.rate = request.data['rate']
+            user.profile.image = request.data['image']
             user.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
