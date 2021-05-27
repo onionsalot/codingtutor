@@ -22,7 +22,7 @@ export default function TutorList({tutor}) {
                <Card.Title>
                  Name:{tutor.first_name} {tutor.last_name}
              </Card.Title>
-               <Card.Img variant="top" src={tutor.image} />
+               <Card.Img className="img"variant="top" src={tutor.image}/>
                 
             <Card.Text>
                   <button>{tutor.skills}</button>
