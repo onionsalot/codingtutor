@@ -4,11 +4,15 @@ export default function NavBar({
   username,
   loggedIn,
   setLoggedIn,
+  userID
 }) {
   function handleLogOut() {
     localStorage.removeItem("token");
     setLoggedIn(false);
   }
+
+  const detailURL = `/details/${userID}`;
+
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -18,7 +22,7 @@ export default function NavBar({
           <Nav className="justify-content-center">
             <Nav.Link href="/">Home |</Nav.Link>
           </Nav>
-          {loggedIn ?  <Nav.Link> Hello, {username} </Nav.Link> : <h3>Please Log In</h3>}
+          {loggedIn ?  <Nav.Link href={detailURL}> Hello, {username} </Nav.Link> : <h3>Please Log In</h3>}
           &nbsp; | &nbsp;
           {loggedIn ? <Nav.Link  onClick={handleLogOut}>Log Out</Nav.Link> : ""}
         </Navbar.Collapse>

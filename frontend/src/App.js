@@ -43,6 +43,7 @@ export default function App() {
             username={user.username}
             loggedIn={loggedIn}
             setLoggedIn={setLoggedIn}
+            userID={user.id}
           />
           <Switch>
             <Route exact path="/">
