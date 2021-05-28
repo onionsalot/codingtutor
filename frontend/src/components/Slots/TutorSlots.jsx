@@ -32,7 +32,9 @@ export default function TutorSlots({ slots, setSlots, tutorId, tutor, user }) {
     };
     try {
       await axios(options).then((response) => {
-        console.log(response);
+        console.log(response.data);
+        const availableSlots = <StudentSlots tutor={tutor} user={user} slot={response.data} />
+        setDisplayedSlots([...displayedSlots, availableSlots]);
       });
     } catch (err) {
       console.log(err);
