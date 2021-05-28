@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
+import TutorDetailsReviewCard from "./TutorDetailsReviewCard"
 
 export default function TutorDetailsReviews({ userId, tutorId }) {
   const [reviews, setReviews] = useState([]);
@@ -7,6 +8,26 @@ export default function TutorDetailsReviews({ userId, tutorId }) {
     rating: "",
     comment: "",
   });
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await axios
+        .get(`http://localhost:8000/details/user_reviews/${tutorId}`, {
+          headers: {
+            Authorization: `JWT ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((response) => {
+          console.log('response for all reviews=>',response)
+          setReviews(response.data)
+        })
+    }
+    fetchData()
+  },[])
+  
+  const newReviews = reviews.map((review, idx) => (
+    <TutorDetailsReviewCard key={idx} review={review} />
+  ));
 
   function handleChange(evt) {
       console.log(evt.target.value)
@@ -16,7 +37,7 @@ export default function TutorDetailsReviews({ userId, tutorId }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     const options = {
-        url: `http://localhost:8000/details/${tutorId}/add_review/${userId}`,
+        url: `http://localhost:8000/details/${tutorId}/add_review/${userId}/`,
         method: "POST",
         headers: {
             Authorization: `JWT ${localStorage.getItem("token")}`,
@@ -29,14 +50,16 @@ export default function TutorDetailsReviews({ userId, tutorId }) {
       try {
         const user = await axios(options).then((response) => {
           console.log(response);
+          setReviews([...reviews, response.data])
         });
       } catch(err) {
         console.log(err)
       }
   }
-
+  
   return (
     <div>
+      {newReviews}
       <h1>Reviews</h1>
       <form onSubmit={handleSubmit}>
         <p> Rating: </p>

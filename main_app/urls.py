@@ -8,7 +8,7 @@ urlpatterns = [
     path('jschoices/', choices_js, name='js_choices'),
     path('users/', UserList.as_view()),
     path('details/<int:user_id>/', details),
-    path('details/user_reviews/', user_reviews),
+    path('details/user_reviews/<int:tutor_id>', user_reviews),
     path('details/<int:tutor_id>/add_review/<int:student_id>/', add_review),
     path('current_user/', current_user),
     path('all_profiles/', all_profiles),

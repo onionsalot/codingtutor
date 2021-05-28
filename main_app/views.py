@@ -30,14 +30,17 @@ def details(request, user_id):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def user_reviews(request):
-    return "test"
+def user_reviews(request, tutor_id):
+    print(request.data)
+    reviews = Review.objects.filter(tutor=tutor_id)
+    serializer = ReviewSerializer(reviews, many = True)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def add_review(request, tutor_id, student_id):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.AllowAny,)
-    data = request.data
+    data = request.data['form']
     print(f'data is: {data}')
     print(f'StudentID is {student_id} and tutorId is {tutor_id}')
     student = User.objects.get(id=student_id)
