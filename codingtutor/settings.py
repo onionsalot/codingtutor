@@ -15,7 +15,7 @@ import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-import os
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -26,7 +26,7 @@ SECRET_KEY = 'gb69)=+r!y6g#iiudz6hj0nsotyk*7xgrc!8rwltmp4h&m0!vs'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -46,7 +46,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,9 +60,7 @@ ROOT_URLCONF = 'codingtutor.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'frontend/build')
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,10 +83,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'codingtutor',
-        'USER': 'postgres',
-        'PASSWORD': '123poi123',
-        'HOST': 'codingtutor-identifier.ceutdu1djycy.ap-northeast-1.rds.amazonaws.com',
-        'PORT': '5432'
     }
 }
 
@@ -132,13 +125,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-  BASE_DIR / 'static',
-  BASE_DIR / 'frontend/build/static'
-]
-
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -151,10 +137,9 @@ REST_FRAMEWORK = {
 
 }
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://localhost:8000',
-]
+CORS_ORIGIN_WHITELIST=(
+    'https://localhost:3000',
+)
 
 JWT_AUTH={
     # 'JWT_AUTH_HEADER_PREFIX': 'Token',
@@ -164,6 +149,3 @@ JWT_AUTH={
 }
 
 CORS_ALLOW_ALL_ORIGINS=True
-
-if os.getcwd() == '/app':
-    DEBUG = False

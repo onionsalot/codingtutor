@@ -12,7 +12,7 @@ export default function TutorDetail({user}) {
   useEffect(() => {
     async function getTutor() {
       axios
-        .get(`/details/${tutorId.id}/`, {
+        .get(`http://localhost:8000/details/${tutorId.id}/`, {
           headers: {
             Authorization: `JWT ${localStorage.getItem("token")}`,
           },
@@ -22,7 +22,7 @@ export default function TutorDetail({user}) {
           console.log(response);
           setTutor(response.data);
           axios
-            .get(`/slots/${tutorId.id}/available_slots/`, {
+            .get(`http://localhost:8000/slots/${tutorId.id}/available_slots/`, {
               headers: {
                 Authorization: `JWT ${localStorage.getItem("token")}`,
               },

@@ -1,1 +1,0 @@
-web: gunicorn codingtutor.wsgi --log-file -

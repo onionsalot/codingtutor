@@ -21,7 +21,7 @@ export default function TutorSlots({slots, setSlots, tutorId, tutor, user}) {
     console.log(tutorId)
     evt.preventDefault();
     const options = {
-      url: `/slots/${tutorId}/add_slot/`, 
+      url: `http://localhost:8000/slots/${tutorId}/add_slot/`, 
       method: "POST",
       headers: {
         Authorization: `JWT ${localStorage.getItem('token')}`,

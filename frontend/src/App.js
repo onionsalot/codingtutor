@@ -20,7 +20,7 @@ export default function App() {
     async function getUser() {
       if (loggedIn) {
         axios
-          .get("/api/current_user/", {
+          .get("http://localhost:8000/current_user/", {
             headers: {
               Authorization: `JWT ${localStorage.getItem("token")}`,
             },
