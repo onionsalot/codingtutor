@@ -1,15 +1,32 @@
-body{
-    /* background-color: salmon; */
+h4{
+  justify-content: center;
+margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.login{
+form{
+    margin-top:50px;
+    margin-right: 300px;
+    margin-left: 300px;
+    border:#eaeced;
+    border-style:outset;
+    /* border-radius: 10px; */
+    box-sizing: border-box;
+  
+}
+
+
+input{
     width: 50%;
-    height: 70%;
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    background-color: white;
-    border-radius: 7px;
-    box-shadow: 0px 0px 5px 2px black;
-  }
-    
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top:10px;
+    margin-bottom: 20px;
+  
+}
+
+button{
+    justify-content: center;
+    margin-bottom: 100px;
+}

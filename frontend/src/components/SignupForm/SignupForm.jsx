@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Select from "react-select";
+import './SignupForm.css'
 
 export default function SignupForm({ setUser, setLoggedIn }) {
   const [signUpTutor, setSignUpTutor] = useState(true);
@@ -92,14 +93,15 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     <div>
       {/* I M A G E     U P L O A D */}
       <br />
-      <label>Images</label>
+      <label>Add an Image</label>
       <input
+      className="image"
         type="file"
         onChange={(event) => {
           setImage(event.target.files[0]);
         }}
       />
-      <button onClick={uploadImage}>Upload Image</button>
+      <button className="upload" onClick={uploadImage}>Upload Image</button>
       <br />
       <p>
         {form.image === ""
@@ -108,59 +110,68 @@ export default function SignupForm({ setUser, setLoggedIn }) {
       </p>
       <br />
 
-      <h4> Sign Up </h4>
       <form onSubmit={handleSubmit} autoComplete="off">
-        <label> Username </label>
+      <h4> Sign Up </h4>
+        
         <input
+        placeholder="Username"
           type="text"
           name="username"
           value={form.username}
           onChange={handleChange}
           required
         />
-        <label> First Name </label>
+        <br/>
         <input
+        placeholder="First Name"
           type="text"
           name="firstName"
           value={form.firstName}
           onChange={handleChange}
         />
-        <label> Last Name </label>
+        <br/>
         <input
+        placeholder="Last Name"
           type="text"
           name="lastName"
           value={form.lastName}
           onChange={handleChange}
         />
-        <label> Email </label>
+        <br/>
         <input
+        placeholder="Email"
           type="text"
           name="email"
           value={form.email}
           onChange={handleChange}
         />
-        <label> Password </label>
+        <br/>
         <input
+        placeholder="Password"
           type="password"
           name="password"
           value={form.password}
           onChange={handleChange}
           required
         />
-        <label> Short Bio </label>
+        <br/>
         <input
+        placeholder="Bio"
           type="text"
           name="bio"
           value={form.bio}
           onChange={handleChange}
         />
-        <label> Zipcode </label>
+        <br/>
+        
         <input
+        placeholder="Zipcode"
           type="number"
           name="zipcode"
           value={form.zipcode}
           onChange={handleChange}
         />
+        <br/>
         {signUpTutor ? (
           <>
             {/* Inserting the multi select here , hold command to select multiple options */}
@@ -172,22 +183,26 @@ export default function SignupForm({ setUser, setLoggedIn }) {
               options={options}
               className="basic-multi-select"
               classNamePrefix="select"
+              
             />
-
+<br/>
             <label> Rate Per Hour </label>
+            <br/>
             <input
               type="number"
               name="rate"
               value={form.rate}
               onChange={handleChange}
             />
+            <br/>
           </>
         ) : (
           <h1></h1>
         )}
-        <button type="submit"> SIGN UP </button>
+        <br/>
+        <button class="btn btn-primary"  type="submit"> SIGN UP </button>
         <div>
-          <button onClick={() => setSignUpTutor(!signUpTutor)}>
+          <button class="btn btn-success" onClick={() => setSignUpTutor(!signUpTutor)}>
             {signUpTutor
               ? "CLICK IF YOU ARE A STUDENT"
               : "CLICK IF YOU ARE A TUTOR"}

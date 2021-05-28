@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Form, Button } from "react-bootstrap"
 import './LoginForm.css'
+
 
 export default function LoginForm({ setUser, setLoggedIn }) {
   const [form, setForm] = useState({
@@ -44,28 +46,36 @@ export default function LoginForm({ setUser, setLoggedIn }) {
   }
 
   return (
-    <div className="login">
-      <h4 className="login"> LOG IN </h4>
+    <>
+       
+<div>
+
       <form onSubmit={handleSubmit} autoComplete="off">
-        <label> Username </label>
+    <h4 > LOG IN </h4>
+    {/* <img src="../../images/logo.png"></img> */}
         <input
-        
+     placeholder="Username"
           type="text"
           name="username"
           value={form.username}
           onChange={handleChange}
           required
         />
-        <input
+        <br/>
        
+        <input
+      placeholder="Password"
           type="password"
           name="password"
           value={form.password}
           onChange={handleChange}
           required
         />
-        <button type="submit"> LOG IN </button>
+        <br/>
+        <button class="btn btn-primary" type="submit"> LOG IN </button>
       </form>
+      <br/>
     </div>
+      </>
   );
 }
