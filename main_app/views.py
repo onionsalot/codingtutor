@@ -2,8 +2,8 @@ from rest_framework import permissions, status, authentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import User, Profile, Slot
-from .serializers import UserSerializer, UserSerializerWithToken ,ProfileSerializer, SlotSerializer
+from .models import User, Profile, Slot, Review
+from .serializers import UserSerializer, UserSerializerWithToken ,ProfileSerializer, SlotSerializer, ReviewSerializer
 
 
 @api_view(['GET'])
@@ -27,6 +27,31 @@ def details(request, user_id):
     print(request.data)
     profile = Profile.objects.get(user=user_id)
     serializer = ProfileSerializer(profile, many = False)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def user_reviews(request, tutor_id):
+    print(request.data)
+    reviews = Review.objects.filter(tutor=tutor_id)
+    serializer = ReviewSerializer(reviews, many = True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def add_review(request, tutor_id, student_id):
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.AllowAny,)
+    data = request.data['form']
+    print(f'data is: {data}')
+    print(f'StudentID is {student_id} and tutorId is {tutor_id}')
+    student = User.objects.get(id=student_id)
+    tutor = User.objects.get(id=tutor_id)
+    review = Review.objects.create(
+        comment = data['comment'],
+        rating = data['rating'],
+        student = student,
+        tutor = tutor
+    )
+    serializer = ReviewSerializer(review, many = False)
     return Response(serializer.data)
 
 @api_view(['GET'])

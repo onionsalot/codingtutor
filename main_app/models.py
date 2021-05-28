@@ -45,3 +45,13 @@ class Slot(models.Model):
 
     class Meta:
         ordering = ['hour']
+
+class Review(models.Model):
+    comment = models.TextField(max_length=500, blank=True)
+    rating = models.IntegerField(blank=True, null=True)
+    post_date = models.DateTimeField(auto_now_add=True, blank=True)
+    student = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='review_student')
+    tutor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='review_tutor')
+
+    class Meta:
+        ordering = ['post_date']
