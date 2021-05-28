@@ -21,5 +21,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main_app.urls')),
     path('token-auth/', obtain_jwt_token),
-    # path('cors/', include('core.urls')),
 ]

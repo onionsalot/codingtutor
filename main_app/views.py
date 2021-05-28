@@ -24,14 +24,12 @@ def all_profiles(request):
 
 @api_view(['GET'])
 def details(request, user_id):
-    print(request.data)
     profile = Profile.objects.get(user=user_id)
     serializer = ProfileSerializer(profile, many = False)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def user_reviews(request, tutor_id):
-    print(request.data)
     reviews = Review.objects.filter(tutor=tutor_id)
     serializer = ReviewSerializer(reviews, many = True)
     return Response(serializer.data)
@@ -41,8 +39,6 @@ def add_review(request, tutor_id, student_id):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.AllowAny,)
     data = request.data['form']
-    print(f'data is: {data}')
-    print(f'StudentID is {student_id} and tutorId is {tutor_id}')
     student = User.objects.get(id=student_id)
     tutor = User.objects.get(id=tutor_id)
     review = Review.objects.create(
@@ -91,7 +87,6 @@ class UserList(APIView):
     permission_classes = (permissions.AllowAny,)
     def post(self, request, format=None):
         serializer = UserSerializerWithToken(data=request.data)
-        print(request.data)
 
         if serializer.is_valid():
             serializer.save()

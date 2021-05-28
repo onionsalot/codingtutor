@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Select from "react-select";
-import './SignupForm.css'
+import "./SignupForm.css";
 
 export default function SignupForm({ setUser, setLoggedIn }) {
   const [signUpTutor, setSignUpTutor] = useState(true);
@@ -32,7 +32,6 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         skillString += `, ${e.label}`;
       }
     });
-    console.log(skillString);
     setForm({ ...form, skills: skillString });
   }
 
@@ -63,7 +62,6 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     evt.preventDefault();
     try {
       const user = await axios(options).then((response) => {
-        console.log(response);
         localStorage.setItem("token", response.data.token);
         setUser({
           id: response.data.id,
@@ -77,31 +75,30 @@ export default function SignupForm({ setUser, setLoggedIn }) {
   }
 
   const uploadImage = () => {
-    console.log('clicked?')
     const formData = new FormData();
     formData.append("file", image);
     formData.append("upload_preset", "xdgkaefq");
     axios
       .post("https://api.cloudinary.com/v1_1/dq8yhiefg/image/upload", formData)
       .then((response) => {
-        console.log(response)
         setForm({ ...form, image: response.data.url });
-      })
+      });
   };
 
   return (
     <div>
-      {/* I M A G E     U P L O A D */}
       <br />
       <label>Add an Image</label>
       <input
-      className="image"
+        className="image"
         type="file"
         onChange={(event) => {
           setImage(event.target.files[0]);
         }}
       />
-      <button className="upload" onClick={uploadImage}>Upload Image</button>
+      <button className="upload" onClick={uploadImage}>
+        Upload Image
+      </button>
       <br />
       <p>
         {form.image === ""
@@ -111,70 +108,69 @@ export default function SignupForm({ setUser, setLoggedIn }) {
       <br />
 
       <form onSubmit={handleSubmit} autoComplete="off">
-      <h4> Sign Up </h4>
-        
+        <h4> Sign Up </h4>
+
         <input
-        placeholder="Username"
+          placeholder="Username"
           type="text"
           name="username"
           value={form.username}
           onChange={handleChange}
           required
         />
-        <br/>
+        <br />
         <input
-        placeholder="First Name"
+          placeholder="First Name"
           type="text"
           name="firstName"
           value={form.firstName}
           onChange={handleChange}
         />
-        <br/>
+        <br />
         <input
-        placeholder="Last Name"
+          placeholder="Last Name"
           type="text"
           name="lastName"
           value={form.lastName}
           onChange={handleChange}
         />
-        <br/>
+        <br />
         <input
-        placeholder="Email"
+          placeholder="Email"
           type="text"
           name="email"
           value={form.email}
           onChange={handleChange}
         />
-        <br/>
+        <br />
         <input
-        placeholder="Password"
+          placeholder="Password"
           type="password"
           name="password"
           value={form.password}
           onChange={handleChange}
           required
         />
-        <br/>
+        <br />
         <input
-        placeholder="Bio"
+          placeholder="Bio"
           type="text"
           name="bio"
           value={form.bio}
           onChange={handleChange}
         />
-        <br/>
-        
+        <br />
+
         <input
-        placeholder="Zipcode"
+          placeholder="Zipcode"
           type="number"
           name="zipcode"
           value={form.zipcode}
           onChange={handleChange}
         />
-        <br/>
+        <br />
         {signUpTutor ? (
           <>
-            {/* Inserting the multi select here , hold command to select multiple options */}
             <label> Skills </label>
             <Select
               onChange={handleSkills}
@@ -183,26 +179,31 @@ export default function SignupForm({ setUser, setLoggedIn }) {
               options={options}
               className="basic-multi-select"
               classNamePrefix="select"
-              
             />
-<br/>
+            <br />
             <label> Rate Per Hour </label>
-            <br/>
+            <br />
             <input
               type="number"
               name="rate"
               value={form.rate}
               onChange={handleChange}
             />
-            <br/>
+            <br />
           </>
         ) : (
           <h1></h1>
         )}
-        <br/>
-        <button class="btn btn-primary"  type="submit"> SIGN UP </button>
+        <br />
+        <button class="btn btn-primary" type="submit">
+          {" "}
+          SIGN UP{" "}
+        </button>
         <div>
-          <button class="btn btn-success" onClick={() => setSignUpTutor(!signUpTutor)}>
+          <button
+            class="btn btn-success"
+            onClick={() => setSignUpTutor(!signUpTutor)}
+          >
             {signUpTutor
               ? "CLICK IF YOU ARE A STUDENT"
               : "CLICK IF YOU ARE A TUTOR"}
