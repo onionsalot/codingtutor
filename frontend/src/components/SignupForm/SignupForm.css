@@ -1,0 +1,49 @@
+h4{
+    justify-content: center;
+  margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  form{
+      margin-top:50px;
+      margin-right: 300px;
+      margin-left: 300px;
+      border:#eaeced;
+      border-style:outset;
+      /* border-radius: 10px; */
+      box-sizing: border-box;
+    
+  }
+  
+  
+  input{
+      width: 50%;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top:10px;
+      margin-bottom: 20px;
+    
+  }
+  
+  button{
+      justify-content: center;
+      margin-bottom: 100px;
+  }
+  
+  .basic-multi-select{
+      margin-right: 200px;
+      margin-left: 200px;
+  }
+
+  .image{
+      display: flex;
+      margin: auto;
+    justify-content: center;
+  }
+
+  .upload{
+    display: flex;
+    margin: auto;
+  justify-content: center;
+  }

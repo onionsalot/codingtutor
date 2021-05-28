@@ -65,14 +65,16 @@ export default function App() {
         </>
       ) : (
         <>
-          <h1>Log in or Sign Up</h1>
+          <h1>Coding Tutor</h1>
+          
           {showLogin ? (
             <LoginForm setUser={setUser} setLoggedIn={setLoggedIn} />
           ) : (
             <SignupForm setUser={setUser} setLoggedIn={setLoggedIn} />
           )}
           <div>
-            <button onClick={() => setShowLogin(!showLogin)}>
+            <br/>
+            <button class="btn btn-outline-dark" onClick={() => setShowLogin(!showLogin)}>
               {showLogin
                 ? "CLICK TO SIGN UP A NEW ACCOUNT"
                 : "CLICK TO LOG IN TO AN EXISTING ACCOUNT"}
