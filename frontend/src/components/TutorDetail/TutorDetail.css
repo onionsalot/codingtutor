@@ -15,8 +15,12 @@
 
 /* Create two equal columns that sits next to each other */
 .column {
-    flex: 30%;
-    padding: 10px;
+    flex: 40%;
+    padding: 15px;
     height:600px;
     overflow-y: scroll;
+}
+
+.btn{
+    text-decoration-style: none;
 }

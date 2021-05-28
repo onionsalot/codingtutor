@@ -63,23 +63,23 @@ export default function TutorDetailsReviews({ userId, tutorId }) {
       <h1>Reviews</h1>
       <form onSubmit={handleSubmit}>
         <p> Rating: </p>
-        <input type="radio" name="rating" value="1" onChange={handleChange}/>
+        <input className="input" type="radio" name="rating" value="1" onChange={handleChange}/>
         <label for="1">1</label>
         <br />
 
-        <input type="radio" name="rating" value="2" onChange={handleChange}/>
+        <input className="input" type="radio" name="rating" value="2" onChange={handleChange}/>
         <label for="2">2</label>
         <br />
 
-        <input type="radio" name="rating" value="3" onChange={handleChange}/>
+        <input className="input" type="radio" name="rating" value="3" onChange={handleChange}/>
         <label for="3">3</label>
         <br />
 
-        <input type="radio" name="rating" value="4" onChange={handleChange}/>
+        <input className="input" type="radio" name="rating" value="4" onChange={handleChange}/>
         <label for="4">4</label>
         <br />
 
-        <input type="radio" name="rating" value="5" onChange={handleChange}/>
+        <input className="input" type="radio" name="rating" value="5" onChange={handleChange}/>
         <label for="5">5</label>
         <br />
 
