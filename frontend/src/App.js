@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import LoginForm from "./components/LoginForm/LoginForm";
 import SignupForm from "./components/SignupForm/SignupForm";
-import TutorSlots from "./components/Slots/TutorSlots"
+import TutorSlots from "./components/Slots/TutorSlots";
 import TutorDetailPage from "./pages/TutorDetailPage/TutorDetailPage";
 import HomePage from "./pages/HomePage/HomePage";
 import ConfirmationPage from "./pages/ConfirmationPage/ConfirmationPage";
@@ -15,7 +15,6 @@ export default function App() {
   const [user, setUser] = useState({});
   const [showLogin, setShowLogin] = useState(true);
 
-  
   useEffect(() => {
     async function getUser() {
       if (loggedIn) {
@@ -27,7 +26,6 @@ export default function App() {
           })
 
           .then((response) => {
-            console.log(response);
             setUser(response.data);
           });
       }
@@ -50,31 +48,31 @@ export default function App() {
               <HomePage />
             </Route>
             <Route exact path="/details/:id">
-              <TutorDetailPage user={user}/>
+              <TutorDetailPage user={user} />
             </Route>
             <Route exact path="/add_slot">
-              <TutorSlots user={user}/>
+              <TutorSlots user={user} />
             </Route>
-            {/* <Route exact path="/slots/:sid/assoc_student/:slotid">
-              <StudentSlots />
-            </Route> */}
             <Route exact path="/confirmation">
-            <ConfirmationPage user={user}/>
+              <ConfirmationPage user={user} />
             </Route>
           </Switch>
         </>
       ) : (
         <>
           <h1>Coding Tutor</h1>
-          
+
           {showLogin ? (
             <LoginForm setUser={setUser} setLoggedIn={setLoggedIn} />
           ) : (
             <SignupForm setUser={setUser} setLoggedIn={setLoggedIn} />
           )}
           <div>
-            <br/>
-            <button class="btn btn-outline-dark" onClick={() => setShowLogin(!showLogin)}>
+            <br />
+            <button
+              class="btn btn-outline-dark"
+              onClick={() => setShowLogin(!showLogin)}
+            >
               {showLogin
                 ? "CLICK TO SIGN UP A NEW ACCOUNT"
                 : "CLICK TO LOG IN TO AN EXISTING ACCOUNT"}

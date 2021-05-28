@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Form, Button } from "react-bootstrap"
-import './LoginForm.css'
-
+import { Form, Button } from "react-bootstrap";
+import "./LoginForm.css";
 
 export default function LoginForm({ setUser, setLoggedIn }) {
   const [form, setForm] = useState({
     username: "",
     password: "",
   });
-  
+
   const [error, setError] = useState("");
 
   function handleChange(evt) {
@@ -32,12 +31,11 @@ export default function LoginForm({ setUser, setLoggedIn }) {
 
     try {
       const user = await axios(options).then((response) => {
-        console.log(response);
         localStorage.setItem("token", response.data.token);
         setUser({
-          "id" : response.data.id,
-          "username" : response.data.username
-      });
+          id: response.data.id,
+          username: response.data.username,
+        });
         setLoggedIn(localStorage.getItem("token"));
       });
     } catch {
@@ -47,35 +45,36 @@ export default function LoginForm({ setUser, setLoggedIn }) {
 
   return (
     <>
-       
-<div>
+      <div>
+        <form onSubmit={handleSubmit} autoComplete="off">
+          <h4> LOG IN </h4>
+          {/* <img src="../../images/logo.png"></img> */}
+          <input
+            placeholder="Username"
+            type="text"
+            name="username"
+            value={form.username}
+            onChange={handleChange}
+            required
+          />
+          <br />
 
-      <form onSubmit={handleSubmit} autoComplete="off">
-    <h4 > LOG IN </h4>
-    {/* <img src="../../images/logo.png"></img> */}
-        <input
-     placeholder="Username"
-          type="text"
-          name="username"
-          value={form.username}
-          onChange={handleChange}
-          required
-        />
-        <br/>
-       
-        <input
-      placeholder="Password"
-          type="password"
-          name="password"
-          value={form.password}
-          onChange={handleChange}
-          required
-        />
-        <br/>
-        <button class="btn btn-primary" type="submit"> LOG IN </button>
-      </form>
-      <br/>
-    </div>
-      </>
+          <input
+            placeholder="Password"
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
+          <br />
+          <button class="btn btn-primary" type="submit">
+            {" "}
+            LOG IN{" "}
+          </button>
+        </form>
+        <br />
+      </div>
+    </>
   );
 }

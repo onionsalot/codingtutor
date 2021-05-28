@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 import TutorList from "../../components/TutorList/TutorList";
-import './HomePage.css';
+import "./HomePage.css";
 
 export default function HomePage({ props, user }) {
   const [tutors, setTutors] = useState([]);
@@ -19,7 +19,6 @@ export default function HomePage({ props, user }) {
         })
         .then((response) => {
           tutorList = response.data;
-          console.log("This is the user", response.data);
           setTutors(tutorList);
         });
     }
@@ -28,18 +27,13 @@ export default function HomePage({ props, user }) {
   const newList = tutors.map((tutor, idx) => (
     <TutorList key={idx} tutor={tutor} />
   ));
-  console.log(newList);
 
   return (
     <>
       <br />
       <h1>All Tutors in your Area</h1>
       <br />
-      <div className="home">
-        {newList}
-        </div>
-      
-     
+      <div className="home">{newList}</div>
       <br /> <br />
     </>
   );
