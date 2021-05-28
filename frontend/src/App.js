@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-import LoginForm from "./components/LoginForm";
-import SignupForm from "./components/SignupForm";
+import LoginForm from "./components/LoginForm/LoginForm";
+import SignupForm from "./components/SignupForm/SignupForm";
 import TutorSlots from "./components/Slots/TutorSlots"
 import TutorDetailPage from "./pages/TutorDetailPage/TutorDetailPage";
 import HomePage from "./pages/HomePage/HomePage";

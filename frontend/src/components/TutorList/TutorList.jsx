@@ -20,13 +20,14 @@ export default function TutorList({tutor}) {
         <Card className="card justify-content-center" >
          <Card.Body>
                <Card.Title>
-                 Name:{tutor.first_name} {tutor.last_name}
+                 Name: {tutor.first_name} {tutor.last_name}
              </Card.Title>
                <Card.Img className="img"variant="top" src={tutor.image}/>
                 
             <Card.Text>
-                  <button>{tutor.skills}</button>
-                  <p>Rate: {tutor.rate} per hour</p>
+              <br/>
+                  <h5>Skills: {tutor.skills}</h5>
+                  <p>Rate: ${tutor.rate}/hour</p>
                 </Card.Text>
                <Link to={tutorId}>
                  <Button variant="primary">CLICK TO SCHEDULE</Button>
