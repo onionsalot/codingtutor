@@ -1,3 +1,11 @@
-.grid{
-   flex:r 
-}
+.home{
+    
+        display: flex;
+        flex-direction: row;
+       flex-wrap: wrap;
+       
+      
+       
+       
+       
+    }
