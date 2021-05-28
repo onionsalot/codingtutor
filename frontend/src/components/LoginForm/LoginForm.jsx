@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import './LoginForm.css'
 
 export default function LoginForm({ setUser, setLoggedIn }) {
   const [form, setForm] = useState({
@@ -43,11 +44,12 @@ export default function LoginForm({ setUser, setLoggedIn }) {
   }
 
   return (
-    <div>
-      <h4> LOG IN </h4>
+    <div className="login">
+      <h4 className="login"> LOG IN </h4>
       <form onSubmit={handleSubmit} autoComplete="off">
         <label> Username </label>
         <input
+        
           type="text"
           name="username"
           value={form.username}
@@ -55,6 +57,7 @@ export default function LoginForm({ setUser, setLoggedIn }) {
           required
         />
         <input
+       
           type="password"
           name="password"
           value={form.password}

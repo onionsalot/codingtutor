@@ -1,8 +1,21 @@
-.row{
-  color: red; 
-  display:flex;
-  flex-wrap: wrap;
-  
-  
+.container{
     
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+   
+    
+
+}
+.card{
+    width: 30rem;
+    margin: 2rem;
+    
+    
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit:cover;
 }
