@@ -4,7 +4,10 @@ Are you learning to code and want some help from someone more experienced? Or ma
 
 ## Screenshots of the Application:
 
-Screenshots go here once styling is done
+![Login](frontend/public/images/Login.png)
+![Home Page](frontend/public/images/Homepage.png)
+![Detail](frontend/public/images/Detail.png)
+
 
 ## Technologies Used:
 
@@ -20,4 +23,4 @@ Put link to deployed app here
 
 ## Next Steps
 
-Icebox features
+Light & Dark Theme, Zipcode API, Wiki Scraper, Calender Improvements

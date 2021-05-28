@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import {Card } from "react-bootstrap"
 import StudentSlots from "../../components/Slots/StudentSlots";
 import axios from "axios";
 import TutorSlots from "../Slots/TutorSlots";
@@ -39,15 +40,15 @@ export default function TutorDetail({ user }) {
 
   return (
     <>
-      <div className="container1">
-        <div className="row">
-          <div className="column">
-            <div>
-              <h2>
-                Name:{tutor.first_name} {tutor.last_name}{" "}
-              </h2>
-              <br />
-            </div>
+
+    <div className="container1">
+      <div className="row">
+        <div className="column">
+          <div>
+            <h2>
+              Name:{tutor.first_name} {tutor.last_name}{" "}
+            </h2>
+            <Card.Img className="img"variant="top" src={tutor.image}/>
             <br />
             <div className="panel-body">
               <h2> Email: {tutor.email}</h2>
@@ -64,6 +65,7 @@ export default function TutorDetail({ user }) {
               <Link to="/">RETURN TO TUTOR HOMEPAGE</Link>
             </div>
           </div>
+
           <div className="column">
             <TutorSlots
               slots={slots}
