@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import StudentSlots from "../../components/Slots/StudentSlots";
 import axios from "axios";
-import TutorSlots from "../Slots/TutorSlots"
-import TutorDetailsReview from "./TutorDetailsReviews"
+import TutorSlots from "../Slots/TutorSlots";
+import TutorDetailsReview from "./TutorDetailsReviews";
+import "./TutorDetail.css";
 
-export default function TutorDetail({user}) {
+export default function TutorDetail({ user }) {
   const [tutor, setTutor] = useState([]);
   const tutorId = useParams();
-  const [slots, setSlots] = useState([])
+  const [slots, setSlots] = useState([]);
 
   useEffect(() => {
     async function getTutor() {
@@ -29,7 +30,7 @@ export default function TutorDetail({user}) {
               },
             })
             .then((res) => {
-              console.log('tutor available slots =>', res.data);
+              console.log("tutor available slots =>", res.data);
               setSlots(res.data);
             });
         });
@@ -42,29 +43,45 @@ export default function TutorDetail({user}) {
 
   return (
     <>
-      <div className="default">
-        <div>
-          <h2>Name:{tutor.first_name} {tutor.last_name} </h2>
+    <div className="container1">
+      <div className="row">
+        <div className="column">
+          <div>
+            <h2>
+              Name:{tutor.first_name} {tutor.last_name}{" "}
+            </h2>
+            <br />
+          </div>
           <br />
+          <div className="panel-body">
+            <h2> Email: {tutor.email}</h2>
+            <br />
+            <h2>Bio: {tutor.bio}</h2>
+          </div>
+          <br />
+          <h2>Skills:{tutor.skills}</h2>
+          <h2>Rate: {tutor.rate}</h2>
+          <h2>Zipcode: {tutor.zipcode}</h2>
+          <br />
+          <h1>Pick A Time Below</h1>
+          <div className="btn btn-success">
+            <Link to="/">RETURN TO TUTOR HOMEPAGE</Link>
+          </div>
         </div>
-        <br />
-        <div className="panel-body">
-          <h2> Email: {tutor.email}</h2>
-          <br />
-          <h2>Bio: {tutor.bio}</h2>
-        </div> 
-        <br />
-        <h2>Skills:{tutor.skills}</h2>
-        <h2>Rate: {tutor.rate}</h2>
-        <h2>Zipcode: {tutor.zipcode}</h2>
-        <br />
-        <h1>Pick A Time Below</h1>
-        <div className="btn btn-success">
-          <Link to="/">RETURN TO TUTOR HOMEPAGE</Link>
+        <div className="column">
+          <TutorSlots
+            slots={slots}
+            setSlots={setSlots}
+            tutorId={tutorId.id}
+            tutor={tutor}
+            user={user}
+          />
         </div>
       </div>
-      <TutorSlots slots={slots} setSlots={setSlots} tutorId = {tutorId.id} tutor={tutor} user={user}/>
-      <TutorDetailsReview userId={user.id} tutorId={tutorId.id}/>
+    </div>
+    <div className="container2">
+      <TutorDetailsReview userId={user.id} tutorId={tutorId.id} />
+    </div>
     </>
   );
 }

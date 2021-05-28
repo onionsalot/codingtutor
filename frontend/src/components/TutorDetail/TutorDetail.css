@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+    flex: 30%;
+    padding: 10px;
+    height:600px;
+    overflow-y: scroll;
+}

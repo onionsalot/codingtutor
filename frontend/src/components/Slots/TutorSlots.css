@@ -116,3 +116,18 @@
   .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #e6e6e6;
   }
+
+  .calContainer{
+    display:flex;
+    flex-direction: column;
+    width:30%;
+  }
+
+  .calRow{
+    display:flex;
+  }
+
+  .right{
+    height:400px;
+    width:auto;
+  }
