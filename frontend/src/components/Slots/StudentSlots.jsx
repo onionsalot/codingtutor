@@ -11,6 +11,7 @@ import {
   Row,
   Container,
 } from "react-bootstrap";
+import './StudentSlots.css'
 
 export default function StudentSlots({tutor, user, slot}) {
   const history = useHistory();
@@ -35,32 +36,16 @@ export default function StudentSlots({tutor, user, slot}) {
   
   return (
     <>
-      <h1>Students sign up for slots here</h1>
-      <Container>
-        <Col lg={4}>
-          <Card>
-            <Card.Body>
-              <Card.Title>Students Sign up Here</Card.Title>
-              {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-              <Card.Text>
-                <button></button>
-                <p>Time Slot: {slot.hour}</p>
-              </Card.Text>
-              {/* <Link to={handleSubmit}> */}
+      <div className="overflow">
             {slot.student == null ? (
               <form onSubmit={handleSubmit}>
-                <Button type='submit' variant="primary">Submit</Button>
+                <Button type='submit' variant="primary">{slot.hour}:00</Button>
               </form>
 
             ):(
-              <p>Slot not available</p>
+              <Button variant="danger">{slot.hour}:00</Button>
             )}
-
-              {/* </Link> */}
-            </Card.Body>
-          </Card>
-        </Col>
-      </Container>
+      </div>
     </>
   );
 }
