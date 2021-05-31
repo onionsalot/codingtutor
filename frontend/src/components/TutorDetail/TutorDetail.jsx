@@ -15,7 +15,7 @@ export default function TutorDetail({ user }) {
   useEffect(() => {
     async function getTutor() {
       axios
-        .get(`http://localhost:8000/details/${tutorId.id}/`, {
+        .get(`/details/${tutorId.id}/`, {
           headers: {
             Authorization: `JWT ${localStorage.getItem("token")}`,
           },
@@ -24,7 +24,7 @@ export default function TutorDetail({ user }) {
         .then((response) => {
           setTutor(response.data);
           axios
-            .get(`http://localhost:8000/slots/${tutorId.id}/available_slots/`, {
+            .get(`/slots/${tutorId.id}/available_slots/`, {
               headers: {
                 Authorization: `JWT ${localStorage.getItem("token")}`,
               },
@@ -79,6 +79,7 @@ export default function TutorDetail({ user }) {
       </div>
       <div className="container2">
         <TutorDetailsReview userId={user.id} tutorId={tutorId.id} />
+      </div>
       </div>
     </>
   );

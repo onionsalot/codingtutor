@@ -12,7 +12,7 @@ export default function TutorDetailsReviews({ userId, tutorId }) {
   useEffect(() => {
     async function fetchData() {
       const data = await axios
-        .get(`http://localhost:8000/details/user_reviews/${tutorId}`, {
+        .get(`/details/user_reviews/${tutorId}`, {
           headers: {
             Authorization: `JWT ${localStorage.getItem("token")}`,
           },
@@ -35,7 +35,7 @@ export default function TutorDetailsReviews({ userId, tutorId }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     const options = {
-      url: `http://localhost:8000/details/${tutorId}/add_review/${userId}/`,
+      url: `/details/${tutorId}/add_review/${userId}/`,
       method: "POST",
       headers: {
         Authorization: `JWT ${localStorage.getItem("token")}`,
