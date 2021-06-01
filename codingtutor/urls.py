@@ -16,9 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token
+from django.views.generic import TemplateView
+from django.conf import settings # NEW CODE
+from django.conf.urls.static import static # NEW CODE
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main_app.urls')),
-    path('token-auth/', obtain_jwt_token),
+    path('', TemplateView.as_view(template_name='index.html')),  ### NEW CODE
+    # path('', include('main_app.urls')),
+    path('api/', include('main_app.urls')),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # NEW CODE
