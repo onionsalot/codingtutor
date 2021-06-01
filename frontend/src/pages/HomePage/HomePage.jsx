@@ -12,7 +12,7 @@ export default function HomePage({ props, user }) {
   useEffect(() => {
     async function fetchData() {
       const data = await axios
-        .get("/all_profiles/", {
+        .get("http://localhost:8000/all_profiles", {
           headers: {
             Authorization: `JWT ${localStorage.getItem("token")}`,
           },

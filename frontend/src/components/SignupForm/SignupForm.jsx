@@ -40,7 +40,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
 
   async function handleSubmit(evt) {
     const options = {
-      url: "/users/",
+      url: "http://localhost:8000/users/",
       method: "POST",
       headers: {
         "Content-Type": "application/json",

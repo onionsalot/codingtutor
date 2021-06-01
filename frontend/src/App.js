@@ -10,9 +10,6 @@ import ConfirmationPage from "./pages/ConfirmationPage/ConfirmationPage";
 import axios from "axios";
 import "./App.css";
 
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
-
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState({});
@@ -22,7 +19,7 @@ export default function App() {
     async function getUser() {
       if (loggedIn) {
         axios
-          .get("/current_user/", {
+          .get("http://localhost:8000/current_user/", {
             headers: {
               Authorization: `JWT ${localStorage.getItem("token")}`,
             },

@@ -15,21 +15,23 @@ export default function TutorDetail({ user }) {
   useEffect(() => {
     async function getTutor() {
       axios
-        .get(`/details/${tutorId.id}/`, {
+        .get(`http://localhost:8000/details/${tutorId.id}/`, {
           headers: {
             Authorization: `JWT ${localStorage.getItem("token")}`,
           },
         })
 
         .then((response) => {
+          console.log(response);
           setTutor(response.data);
           axios
-            .get(`/slots/${tutorId.id}/available_slots/`, {
+            .get(`http://localhost:8000/slots/${tutorId.id}/available_slots/`, {
               headers: {
                 Authorization: `JWT ${localStorage.getItem("token")}`,
               },
             })
             .then((res) => {
+              console.log("tutor available slots =>", res.data);
               setSlots(res.data);
             });
         });
@@ -38,9 +40,10 @@ export default function TutorDetail({ user }) {
     getTutor();
   }, []);
 
+  // const availableSlots = slots.map((slot, idx) => <StudentSlots tutor={tutor} user={user} key={idx} slot={slot}/>);
+
   return (
     <>
-
     <div className="container1">
       <div className="row">
         <div className="column">
@@ -50,37 +53,40 @@ export default function TutorDetail({ user }) {
             </h2>
             <Card.Img className="img"variant="top" src={tutor.image}/>
             <br />
-            <div className="panel-body">
-              <h2> Email: {tutor.email}</h2>
-              <br />
-              <h2>Bio: {tutor.bio}</h2>
-            </div>
-            <br />
-            <h2>Skills:{tutor.skills}</h2>
-            <h2>Rate: {tutor.rate}</h2>
-            <h2>Zipcode: {tutor.zipcode}</h2>
-            <br />
-            <h1>Pick A Time Below</h1>
-            <div className="btn btn-success">
-              <Link to="/">RETURN TO TUTOR HOMEPAGE</Link>
-            </div>
           </div>
-
-          <div className="column">
-            <TutorSlots
-              slots={slots}
-              setSlots={setSlots}
-              tutorId={tutorId.id}
-              tutor={tutor}
-              user={user}
-            />
+          <br />
+          <div className="panel-body">
+            <h2> Email: {tutor.email}</h2>
+            <br />
+            <h2>Bio: {tutor.bio}</h2>
+          </div>
+          <br />
+          <h2>Skills: {tutor.skills}</h2>
+          <br />
+          <h2>Rate: ${tutor.rate}/hour</h2>
+          <br />
+          <h2>Zipcode: {tutor.zipcode}</h2>
+          <br />
+         
+          <br />
+          <div className="btn btn-success">
+            <Link className="btn"to="/">RETURN TO TUTOR HOMEPAGE</Link>
           </div>
         </div>
+        <div className="column">
+          <TutorSlots
+            slots={slots}
+            setSlots={setSlots}
+            tutorId={tutorId.id}
+            tutor={tutor}
+            user={user}
+          />
+        </div>
       </div>
-      <div className="container2">
-        <TutorDetailsReview userId={user.id} tutorId={tutorId.id} />
-      </div>
-      </div>
+    </div>
+    <div className="container2">
+      <TutorDetailsReview userId={user.id} tutorId={tutorId.id} />
+    </div>
     </>
   );
 }
