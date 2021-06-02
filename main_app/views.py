@@ -3,8 +3,8 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import User, Profile, Slot, Review
-from .serializers import UserSerializer, UserSerializerWithToken ,ProfileSerializer, SlotSerializer, ReviewSerializer
-
+from .serializers import UserSerializer, UserSerializerWithToken ,ProfileSerializer, ProfileImageSerializer, SlotSerializer, ReviewSerializer
+import cloudinary.uploader
 
 @api_view(['GET'])
 def home(request):
@@ -99,10 +99,24 @@ class UserList(APIView):
             user.profile.zipcode = request.data['zipcode']
             user.profile.skills = request.data['skills']
             user.profile.rate = request.data['rate']
-            user.profile.image = request.data['image']
+            # user.profile.image = request.data['image']
             user.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['PUT'])
+def add_image(request):
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.AllowAny,)
+    user_id = User.objects.last().id
+    user = User.objects.get(id=user_id)
+    print(request.FILES.get('image',None))
+    cloudinaryImg = cloudinary.uploader.upload(request.FILES.get('image',None))
+    print('cloudinary image', cloudinaryImg['url'])
+    profile = Profile.objects.filter(user=user).update(
+        image=cloudinaryImg['url']
+    )
+    serializer = ProfileImageSerializer(profile, many = False)
+    return Response(serializer.data)

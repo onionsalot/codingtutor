@@ -21,7 +21,14 @@ export default function SignupForm({ setUser, setLoggedIn }) {
   const [error, setError] = useState("");
 
   function handleChange(evt) {
-    setForm({ ...form, [evt.target.name]: evt.target.value });
+    if (evt.target.files) {
+      console.log(evt.target.files)
+      setImage(evt.target.files[0])
+      setForm({ ...form, [evt.target.name]: evt.target.files[0] });
+    } else {
+      console.log(evt.target.value)
+      setForm({ ...form, [evt.target.name]: evt.target.value });
+    }
   }
 
   function handleSkills(evt) {
@@ -40,6 +47,10 @@ export default function SignupForm({ setUser, setLoggedIn }) {
   const options = Choices.pairs("skills");
 
   async function handleSubmit(evt) {
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("upload_preset", "xdgkaefq");
+
     const options = {
       url: "/api/users/",
       method: "POST",
@@ -56,48 +67,57 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         zipcode: form.zipcode,
         skills: form.skills,
         rate: form.rate,
-        image: form.image,
+        // image: form.image,
       },
     };
 
     evt.preventDefault();
     try {
-      const user = await axios(options).then((response) => {
+      const user = await axios(options).then(async (response) => {
+        console.log(response)
         localStorage.setItem("token", response.data.token);
         setUser({
           id: response.data.id,
           username: response.data.username,
         });
-        setLoggedIn(localStorage.getItem("token"));
+        await axios.put("/api/users/image/", formData, {
+          headers: {
+            Authorization: `JWT ${localStorage.getItem("token")}`,
+            'content-type': 'multipart/form-data'
+          }
+        }).then((res) => {
+          console.log(res)
+          setLoggedIn(localStorage.getItem("token"));
+        })
       });
     } catch {
       setError("Sign Up Failed");
     }
   }
 
-  const uploadImage = () => {
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", "xdgkaefq");
-    const options = {
-      url: "https://api.cloudinary.com/v1_1/dq8yhiefg/image/upload",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        formData
-      },
-    };
-    axios(options).then((response) => {
-        setForm({ ...form, image: response.data.url });
-      });
-  };
+  // const uploadImage = () => {
+  //   const formData = new FormData();
+  //   formData.append("file", image);
+  //   formData.append("upload_preset", "xdgkaefq");
+  //   const options = {
+  //     url: "https://api.cloudinary.com/v1_1/dq8yhiefg/image/upload",
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     data: {
+  //       formData
+  //     },
+  //   };
+  //   axios(options).then((response) => {
+  //       setForm({ ...form, image: response.data.url });
+  //     });
+  // };
 
   return (
     <div>
       <br />
-      <label>Add an Image</label>
+      {/* <label>Add an Image</label>
       <input
         className="image"
         type="file"
@@ -114,11 +134,18 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           ? "Upload image before submitting!"
           : "Upload Success!!"}
       </p>
-      <br />
+      <br /> */}
 
       <form onSubmit={handleSubmit} autoComplete="off">
         <h4> Sign Up </h4>
-
+        <label>Add an Image</label>
+      <input
+        className="image"
+        type="file"
+        onChange={(event) => {
+          setImage(event.target.files[0]);
+        }}
+      />
         <input
           placeholder="Username"
           type="text"
