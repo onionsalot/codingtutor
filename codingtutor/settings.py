@@ -15,6 +15,7 @@ import datetime
 import os 		### NEW CODE
 import django_on_heroku
 import dj_database_url
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,6 +37,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'main_app',
+    'cloudinary',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -161,7 +163,11 @@ JWT_AUTH={
 }
 
 CORS_ALLOW_ALL_ORIGINS=True
-
+cloudinary.config(
+    cloud_name = 'dq8yhiefg',
+    api_key = '726526376821546',
+    api_secret = 'AJ8OFekQq-0JfOtLk79S3tuX82k'
+)
 
 if os.getcwd() == '/app':  ## this is true if Django is live on Heroku
 	DEBUG = False
