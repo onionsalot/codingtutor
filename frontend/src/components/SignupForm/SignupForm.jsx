@@ -4,9 +4,7 @@ import Select from "react-select";
 import "./SignupForm.css";
 
 export default function SignupForm({ setUser, setLoggedIn }) {
-  axios.defaults.xsrfCookieName = 'csrftoken'
-  axios.defaults.xsrfHeaderName = 'X-CSRFToken'
-  axios.defaults.withCredentials = false
+  axios.defaults.xsrfHeaderName = "X-CSRFToken";
   const [signUpTutor, setSignUpTutor] = useState(true);
   const [image, setImage] = useState("");
   const [form, setForm] = useState({
@@ -81,18 +79,17 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     const formData = new FormData();
     formData.append("file", image);
     formData.append("upload_preset", "xdgkaefq");
-    axios
-      .post("https://api.cloudinary.com/v1_1/dq8yhiefg/image/upload", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        body: {
-          formData
-        }
-      } )
-        
-      .then((response) => {
+    const options = {
+      url: "https://api.cloudinary.com/v1_1/dq8yhiefg/image/upload",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        formData
+      },
+    };
+    axios(options).then((response) => {
         setForm({ ...form, image: response.data.url });
       });
   };
