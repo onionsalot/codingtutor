@@ -22,11 +22,9 @@ export default function SignupForm({ setUser, setLoggedIn }) {
 
   function handleChange(evt) {
     if (evt.target.files) {
-      console.log(evt.target.files)
       setImage(evt.target.files[0])
       setForm({ ...form, [evt.target.name]: evt.target.files[0] });
     } else {
-      console.log(evt.target.value)
       setForm({ ...form, [evt.target.name]: evt.target.value });
     }
   }
