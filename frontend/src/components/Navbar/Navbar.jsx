@@ -8,7 +8,7 @@ export default function NavBar({ username, loggedIn, setLoggedIn, userID }) {
     setLoggedIn(false);
   }
 
-  const detailURL = `/api/details/${userID}/`;
+  const detailURL = `/details/${userID}/`;
 
   return (
     <>
