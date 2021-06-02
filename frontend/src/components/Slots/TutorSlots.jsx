@@ -19,7 +19,7 @@ export default function TutorSlots({ slots, setSlots, tutorId, tutor, user }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     const options = {
-      url: `http://localhost:8000/slots/${tutorId}/add_slot/`,
+      url: `/api/slots/${tutorId}/add_slot/`,
       method: "POST",
       headers: {
         Authorization: `JWT ${localStorage.getItem("token")}`,

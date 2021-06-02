@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import datetime
+import os 		### NEW CODE
+import django_on_heroku
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'gb69)=+r!y6g#iiudz6hj0nsotyk*7xgrc!8rwltmp4h&m0!vs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware", # NEW CODE
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,7 +64,9 @@ ROOT_URLCONF = 'codingtutor.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        "DIRS": [
+        	os.path.join(BASE_DIR, 'frontend/build'),  ### NEW CODE
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,7 +91,8 @@ DATABASES = {
         'NAME': 'codingtutor',
     }
 }
-
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -124,6 +131,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+  BASE_DIR / 'static',
+  BASE_DIR / 'frontend/build/static'
+]
+STATIC_ROOT =   BASE_DIR / 'staticfiles' # NEW CODE	
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -149,3 +161,12 @@ JWT_AUTH={
 }
 
 CORS_ALLOW_ALL_ORIGINS=True
+
+
+if os.getcwd() == '/app':  ## this is true if Django is live on Heroku
+	DEBUG = False
+
+CSRF_COOKIE_NAME = "XSRF-TOKEN"
+
+ALLOWED_HOSTS = ['*'] # Set to open for all access
+django_on_heroku.settings(locals())
