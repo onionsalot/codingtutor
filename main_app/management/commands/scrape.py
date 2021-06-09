@@ -6,7 +6,7 @@ class Command(BaseCommand):
     def handle(self,*args,**options):
         print ('/====== Scraping Wikipedia for LIST OF PROGRAMMING LANGUAGES ======/')
         URL = 'https://en.wikipedia.org/wiki/List_of_programming_languages'
-        page = requests.get(URL)
+        page = requests.get(URL, timeout=10)
         soup = BeautifulSoup(page.content,"html.parser")
         results = soup.find(class_= "mw-parser-output")
         div_cols = results.find_all("div", class_="div-col")
@@ -50,13 +50,13 @@ class Command(BaseCommand):
                     break
                 elif user == 'c':
                     if(len(choices_var) > len(converted_list)):
-                        print("Wikipedia has REMOVED the following items from their list of programming languages:")
+                        print("\nWikipedia has REMOVED the following items from their list of programming languages:")
                         print(language_diff)
                     if(len(choices_var) < len(converted_list)):
-                        print("Wikipedia has ADDED the following items to their list of programming languages:")
+                        print("\nWikipedia has ADDED the following items to their list of programming languages:")
                         print(language_diff)
                 elif user == 'n':
                     self.stdout.write(self.style.ERROR('Exit without making any changes.'))
                     break
 
-                user = input('replace: y  ||  do nothing: n  ||  check changes: c :').lower()
+                user = input('\nreplace: y  ||  do nothing: n  ||  check changes: c :').lower()
