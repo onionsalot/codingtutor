@@ -6,36 +6,9 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from main_app.choicesfile import choices_var
 
-choices = (
-    ("JS", "JavaScript"),
-    ("PY", "Python"),
-    ("REACT", "React"),
-    ("DJANGO", "Django"),
-    ("TYPESCRIPT", "Typescript"),
-    ("EXPRESS", "Express.js"),
-    ("NODE", "Node.js"),
-    ("JAVA", "Java"),
-    ("C++", "C++"),
-    ("C#", 'C#'),
-    ("PHP", "PHP"),
-    ("FLASK", "Flask"),
-    ("RUBY", "Ruby"),
-    ("RUBYONRAILS", "Ruby On Rails"),
-    ("SQL", "SQL"),
-    ("COBOL", "Cobol"),
-    ("WORDPRESS", "WordPress"),
-    ("C", "C"), 
-    ("OBJECTIVEC", "Objective C"),
-    ("SWIFT", "Swift"),
-    ("SCALA", "Scala"),
-    ("GO", "GO"),
-    ("ELM", "Elm"),
-    ("MUMPS", "MUMPS"),
-    ("RUST", "Rust"),
-    ("HTML", "HTML"),
-    ("CSS", "CSS"),
-)
+choices = choices_var
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
