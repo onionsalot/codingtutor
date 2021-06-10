@@ -84,10 +84,11 @@ def assoc_student(request, slot_id, user_id):
 
 
 class UserList(APIView):
+    authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.AllowAny,)
     def post(self, request, format=None):
         serializer = UserSerializerWithToken(data=request.data)
-
+        print(request)
         if serializer.is_valid():
             serializer.save()
             user_id = User.objects.last().id
