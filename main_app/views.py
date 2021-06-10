@@ -97,6 +97,7 @@ class UserList(APIView):
             user.profile.email = request.data['email']
             user.profile.bio = request.data['bio']
             user.profile.zipcode = request.data['zipcode']
+            user.profile.place_id = request.data['place_id']
             user.profile.skills = request.data['skills']
             user.profile.rate = request.data['rate']
             # user.profile.image = request.data['image']

@@ -17,6 +17,7 @@ class Profile(models.Model):
     email = EmailField(max_length=100, null=True)
     bio = models.TextField(max_length=500, blank=True)
     zipcode = models.IntegerField(blank=True, null=True)
+    place_id = models.IntegerField(blank=True, null=True, default=00000) # google ID for zipcode/postal_code
     skills = models.CharField(max_length=100, choices=choices, default=choices[0][0])
     rate = models.IntegerField(null=True, blank=True)
     image = CharField(max_length=200, null=True)

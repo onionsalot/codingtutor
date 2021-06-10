@@ -151,8 +151,11 @@ REST_FRAMEWORK = {
 
 }
 
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS=False
 CORS_ORIGIN_WHITELIST=(
     'https://localhost:3000',
+    'https://localhost:8000',
 )
 
 JWT_AUTH={
@@ -162,7 +165,6 @@ JWT_AUTH={
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
 }
 
-CORS_ALLOW_ALL_ORIGINS=True
 cloudinary.config(
     cloud_name = 'dq8yhiefg',
     api_key = '726526376821546',
@@ -174,5 +176,5 @@ if os.getcwd() == '/app':  ## this is true if Django is live on Heroku
 
 CSRF_COOKIE_NAME = "XSRF-TOKEN"
 
-ALLOWED_HOSTS = ['*'] # Set to open for all access
+# ALLOWED_HOSTS = ['*'] # Set to open for all access
 django_on_heroku.settings(locals())
