@@ -49,7 +49,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     const formData = new FormData();
     formData.append("image", image);
     formData.append("upload_preset", "xdgkaefq");
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const proxyurl = "https://fierce-wildwood-46381.herokuapp.com/";
     const url = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${form.zipcode}|country:USA&key=${process.env.REACT_APP_GOOGLE_KEY}`; 
 
     evt.preventDefault();
@@ -82,23 +82,28 @@ export default function SignupForm({ setUser, setLoggedIn }) {
               // image: form.image,
             },
           };
-          // await axios(options).then(async (response) => {
-          //   console.log(response)
-          //   localStorage.setItem("token", response.data.token);
-          //   setUser({
-          //     id: response.data.id,
-          //     username: response.data.username,
-          //   });
-          //   await axios.put("/api/users/image/", formData, {
-          //     headers: {
-          //       Authorization: `JWT ${localStorage.getItem("token")}`,
-          //       'content-type': 'multipart/form-data'
-          //     }
-          //   }).then((res) => {
-          //     console.log(res)
-          //     setLoggedIn(localStorage.getItem("token"));
-          //   })
-          // });
+          await axios(options).then(async (response) => {
+            console.log(response)
+            localStorage.setItem("token", response.data.token);
+            setUser({
+              id: response.data.id,
+              username: response.data.username,
+            });
+            if (image === "" || image === null || image === undefined) {
+              console.log('no image')
+              setLoggedIn(localStorage.getItem("token"));
+            } else {
+              await axios.put("/api/users/image/", formData, {
+                headers: {
+                  Authorization: `JWT ${localStorage.getItem("token")}`,
+                  'content-type': 'multipart/form-data'
+                }
+              }).then((res) => {
+                console.log(res)
+                setLoggedIn(localStorage.getItem("token"));
+              })
+            }
+          });
         }
       })
 
