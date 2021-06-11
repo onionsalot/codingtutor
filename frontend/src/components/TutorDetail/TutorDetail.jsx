@@ -6,11 +6,13 @@ import axios from "axios";
 import TutorSlots from "../Slots/TutorSlots";
 import TutorDetailsReview from "./TutorDetailsReviews";
 import "./TutorDetail.css";
+import placeholder from "../../images/Placeholder.png"
 
 export default function TutorDetail({ user }) {
   const [tutor, setTutor] = useState([]);
   const tutorId = useParams();
   const [slots, setSlots] = useState([]);
+  const tutorImage = tutor.image === null ? (placeholder) : (tutor.image)
 
   useEffect(() => {
     async function getTutor() {
@@ -51,7 +53,7 @@ export default function TutorDetail({ user }) {
             <h2>
               Name:{tutor.first_name} {tutor.last_name}{" "}
             </h2>
-            <Card.Img className="img"variant="top" src={tutor.image}/>
+            <Card.Img className="img"variant="top" src={tutorImage}/>
             <br />
           </div>
           <br />

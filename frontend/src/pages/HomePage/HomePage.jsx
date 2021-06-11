@@ -7,7 +7,8 @@ import "./HomePage.css";
 
 export default function HomePage({ props, user }) {
   const [tutors, setTutors] = useState([]);
-  let newList;
+  const [tutorDisplay, setTutorDisplay] = useState([]);
+  const [error, setError] = useState("")
 
   useEffect(() => {
     async function fetchData() {
@@ -33,23 +34,44 @@ export default function HomePage({ props, user }) {
       const proxyurl = "https://fierce-wildwood-46381.herokuapp.com/";
       const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=place_id:ChIJowv49br0wokRBi5L14DyqTo&destinations=${placeIds.join('')}&key=${process.env.REACT_APP_GOOGLE_KEY}`;
 
+      try{
+        await fetch(proxyurl + url)
+        .then(response => response.json())
+        .then(async (contents) => {
+          if (contents.status === "OK") {
+            const distances = contents.rows[0].elements
+            const unorderedTutors = tutors.map((tutor, idx) => <TutorList key={idx} tutor={tutor} distance={distances[idx]}/>)
+            unorderedTutors.sort(function(a, b) { 
+              return a.props.distance.distance.value - b.props.distance.distance.value;
+            });
+            setTutorDisplay(unorderedTutors)
+
+          } else {
+            setError("There seems to be an issue with google's location matrix... Distance features have been disabled temporarily. We apologize for the inconvenience")
+          }
+        })
+      } catch {
+
+      }
+
+      // setTutorDisplay(tutors.map((tutor, idx) => <TutorList key={idx} tutor={tutor} />))
     }
     googleDistance();
   }, [tutors]);
-
+  
+  // newList = tutors.map((tutor, idx) => <TutorList key={idx} tutor={tutor} />);
   // async function googleDistance() {
   //   // const proxyurl = "https://fierce-wildwood-46381.herokuapp.com/";
   //   // const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=place_id:ChIJowv49br0wokRBi5L14DyqTo&destinations=place_id:ChIJexiXUXaJwokRhDBFmm_xXfQ|place_id:${process.env.REACT_APP_GOOGLE_KEY}`;
   //   // await fetch()
   // }
   // googleDistance()
-  newList = tutors.map((tutor, idx) => <TutorList key={idx} tutor={tutor} />);
   return (
     <>
       <br />
       <h1>All Tutors in your Area</h1>
       <br />
-      <div className="home">{newList}</div>
+      <div className="home">{tutorDisplay}</div>
       <br /> <br />
     </>
   );

@@ -12,9 +12,12 @@ import {
   Container,
 } from "react-bootstrap";
 import "./TutorList.css";
+import pin from "../../images/Pin.png"
+import placeholder from "../../images/Placeholder.png"
 
-export default function TutorList({ tutor }) {
+export default function TutorList({ tutor, distance }) {
   const tutorId = `/details/${tutor.user}`;
+  const tutorImage = tutor.image === null ? (placeholder) : (tutor.image)
   return (
     <Row>
       <Col lg={12}>
@@ -23,12 +26,13 @@ export default function TutorList({ tutor }) {
             <Card.Title>
               Name: {tutor.first_name} {tutor.last_name}
             </Card.Title>
-            <Card.Img className="img" variant="top" src={tutor.image} />
+            <Card.Img className="img" variant="top" src={tutorImage} />
 
             <Card.Text>
               <br />
               <h5>Skills: {tutor.skills}</h5>
               <p>Rate: ${tutor.rate}/hour</p>
+              <p><span><img src={pin} alt="pin" class="img-distance"></img></span>Distance: {distance.distance.text}</p>
             </Card.Text>
             <Link to={tutorId}>
               <Button variant="primary">CLICK TO SCHEDULE</Button>
