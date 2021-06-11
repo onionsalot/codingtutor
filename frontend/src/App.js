@@ -48,7 +48,7 @@ export default function App() {
           />
           <Switch>
             <Route exact path="/">
-              <HomePage />
+              <HomePage user={user}/>
             </Route>
             <Route exact path="/details/:id">
               <TutorDetailPage user={user} />

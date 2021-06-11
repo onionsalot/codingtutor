@@ -5,11 +5,11 @@ import { Card, Button } from "react-bootstrap";
 import TutorList from "../../components/TutorList/TutorList";
 import "./HomePage.css";
 
-export default function HomePage({ props, user }) {
+export default function HomePage({ user }) {
   const [tutors, setTutors] = useState([]);
   const [tutorDisplay, setTutorDisplay] = useState([]);
   const [error, setError] = useState("")
-
+  console.log(user)
   useEffect(() => {
     async function fetchData() {
       const data = await axios
@@ -19,6 +19,7 @@ export default function HomePage({ props, user }) {
           },
         })
         .then((response) => {
+          console.log('responsedata',response.data)
           setTutors(response.data);
         });
     }
@@ -40,7 +41,7 @@ export default function HomePage({ props, user }) {
         .then(async (contents) => {
           if (contents.status === "OK") {
             const distances = contents.rows[0].elements
-            const unorderedTutors = tutors.map((tutor, idx) => <TutorList key={idx} tutor={tutor} distance={distances[idx]}/>)
+            const unorderedTutors = tutors.map((tutor, idx) => <TutorList key={idx} userId={user.id} tutor={tutor} distance={distances[idx]}/>)
             unorderedTutors.sort(function(a, b) { 
               return a.props.distance.distance.value - b.props.distance.distance.value;
             });
@@ -48,24 +49,18 @@ export default function HomePage({ props, user }) {
 
           } else {
             setError("There seems to be an issue with google's location matrix... Distance features have been disabled temporarily. We apologize for the inconvenience")
+            setTutorDisplay(tutors.map((tutor, idx) => <TutorList key={idx} userId={user.id} tutor={tutor} distance={0}/>))
           }
         })
       } catch {
-
+        setError("There seems to be an issue with google's location matrix... Distance features have been disabled temporarily. We apologize for the inconvenience")
+        setTutorDisplay(tutors.map((tutor, idx) => <TutorList key={idx} userId={user.id} tutor={tutor} distance={0}/>))
       }
-
-      // setTutorDisplay(tutors.map((tutor, idx) => <TutorList key={idx} tutor={tutor} />))
     }
     googleDistance();
   }, [tutors]);
   
-  // newList = tutors.map((tutor, idx) => <TutorList key={idx} tutor={tutor} />);
-  // async function googleDistance() {
-  //   // const proxyurl = "https://fierce-wildwood-46381.herokuapp.com/";
-  //   // const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=place_id:ChIJowv49br0wokRBi5L14DyqTo&destinations=place_id:ChIJexiXUXaJwokRhDBFmm_xXfQ|place_id:${process.env.REACT_APP_GOOGLE_KEY}`;
-  //   // await fetch()
-  // }
-  // googleDistance()
+
   return (
     <>
       <br />
