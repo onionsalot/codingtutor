@@ -18,7 +18,9 @@ export default function HomePage({ user }) {
           },
         })
         .then((response) => {
-          setTutors(response.data);
+          // alteredResponse takes the response and only gathers the ones that have a rate AKA is an instructor
+          const alteredResponse = response.data.filter(res => res.rate !== null)
+          setTutors(alteredResponse);
         });
     }
     fetchData();
