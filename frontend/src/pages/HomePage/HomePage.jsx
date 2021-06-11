@@ -9,7 +9,6 @@ export default function HomePage({ user }) {
   const [tutors, setTutors] = useState([]);
   const [tutorDisplay, setTutorDisplay] = useState([]);
   const [error, setError] = useState("")
-  console.log(user)
   useEffect(() => {
     async function fetchData() {
       const data = await axios
@@ -19,7 +18,6 @@ export default function HomePage({ user }) {
           },
         })
         .then((response) => {
-          console.log('responsedata',response.data)
           setTutors(response.data);
         });
     }
@@ -41,24 +39,33 @@ export default function HomePage({ user }) {
         .then(async (contents) => {
           if (contents.status === "OK") {
             const distances = contents.rows[0].elements
-            const unorderedTutors = tutors.map((tutor, idx) => <TutorList key={idx} userId={user.id} tutor={tutor} distance={distances[idx]}/>)
+            const unorderedTutors = []
+            tutors.forEach((tutor, idx) => {
+              if(user.id !== tutor.user) {
+                unorderedTutors.push(<TutorList key={idx} tutor={tutor} distance={distances[idx]}/>)  
+              }
+            })
             unorderedTutors.sort(function(a, b) { 
               return a.props.distance.distance.value - b.props.distance.distance.value;
             });
             setTutorDisplay(unorderedTutors)
 
-          } else {
-            setError("There seems to be an issue with google's location matrix... Distance features have been disabled temporarily. We apologize for the inconvenience")
-            setTutorDisplay(tutors.map((tutor, idx) => <TutorList key={idx} userId={user.id} tutor={tutor} distance={0}/>))
-          }
-        })
+          } 
+          // else {
+          //   console.log(contents.status)
+          //   console.log('else triggered')
+          //   setError("There seems to be an issue with google's location matrix... Distance features have been disabled temporarily. We apologize for the inconvenience")
+          //   setTutorDisplay(tutors.map((tutor, idx) => <TutorList key={idx} userId={user.id} tutor={tutor} distance={0}/>))
+          // }
+        }
+        )
       } catch {
+        console.log('catch triggered')
         setError("There seems to be an issue with google's location matrix... Distance features have been disabled temporarily. We apologize for the inconvenience")
-        setTutorDisplay(tutors.map((tutor, idx) => <TutorList key={idx} userId={user.id} tutor={tutor} distance={0}/>))
       }
     }
     googleDistance();
-  }, [tutors]);
+  }, [tutors, user.id]);
   
 
   return (
@@ -66,6 +73,7 @@ export default function HomePage({ user }) {
       <br />
       <h1>All Tutors in your Area</h1>
       <br />
+      {error}
       <div className="home">{tutorDisplay}</div>
       <br /> <br />
     </>

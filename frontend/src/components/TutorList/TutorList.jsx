@@ -15,15 +15,10 @@ import "./TutorList.css";
 import pin from "../../images/Pin.png"
 import placeholder from "../../images/Placeholder.png"
 
-export default function TutorList({ userId, tutor, distance }) {
+export default function TutorList({ tutor, distance }) {
   const tutorId = `/details/${tutor.user}`;
   const tutorImage = tutor.image === null ? (placeholder) : (tutor.image)
   return (
-    <>
-    {userId === tutor.id ?
-    (
-      ""
-    ) : (
     <Row>
       <Col lg={12}>
         <Card className="card justify-content-center">
@@ -46,7 +41,5 @@ export default function TutorList({ userId, tutor, distance }) {
         </Card>
       </Col>
     </Row>
-    )}
-    </>
   );
 }

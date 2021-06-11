@@ -82,6 +82,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
               // image: form.image,
             },
           };
+          console.log(options)
           await axios(options).then(async (response) => {
             console.log(response)
             localStorage.setItem("token", response.data.token);
@@ -236,15 +237,16 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           SIGN UP{" "}
         </button>
         <div>
-          <button
+          <span
             class="btn btn-success"
             onClick={() => setSignUpTutor(!signUpTutor)}
           >
             {signUpTutor
               ? "CLICK IF YOU ARE A STUDENT"
               : "CLICK IF YOU ARE A TUTOR"}
-          </button>
+          </span>
         </div>
+        <br />
       </form>
     </div>
   );

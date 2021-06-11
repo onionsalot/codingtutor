@@ -88,7 +88,7 @@ class UserList(APIView):
     permission_classes = (permissions.AllowAny,)
     def post(self, request, format=None):
         serializer = UserSerializerWithToken(data=request.data)
-        print(request)
+        print(request.data)
         if serializer.is_valid():
             serializer.save()
             user_id = User.objects.last().id
@@ -99,8 +99,9 @@ class UserList(APIView):
             user.profile.bio = request.data['bio']
             user.profile.zipcode = request.data['zipcode']
             user.profile.place_id = request.data['place_id']
-            user.profile.skills = request.data['skills']
-            user.profile.rate = request.data['rate']
+            if request.data['skills'] != "" and request.data['rate'] != "":
+                user.profile.skills = request.data['skills']
+                user.profile.rate = request.data['rate']
             # user.profile.image = request.data['image']
             user.save()
 
