@@ -12,9 +12,13 @@ def home(request):
     
 @api_view(['GET'])
 def current_user(request):
-    user_id = User.objects.get(username = request.user).id
-    serializer = UserSerializer(request.user)
-    return Response(serializer.data)
+    user = User.objects.get(username = request.user)
+    profile = user.profile
+    serializer = UserSerializer(user)
+    profile_serializer = ProfileSerializer(profile)
+    data = serializer.data
+    data['place_id'] = profile_serializer.data['place_id']
+    return Response(data)
 
 @api_view(['GET'])
 def all_profiles(request):

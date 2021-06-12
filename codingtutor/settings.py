@@ -176,5 +176,5 @@ if os.getcwd() == '/app':  ## this is true if Django is live on Heroku
 
 CSRF_COOKIE_NAME = "XSRF-TOKEN"
 
-# ALLOWED_HOSTS = ['*'] # Set to open for all access
+ALLOWED_HOSTS = ['*'] # Set to open for all access
 django_on_heroku.settings(locals())

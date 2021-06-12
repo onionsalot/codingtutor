@@ -23,6 +23,7 @@ export default function HomePage({ user }) {
           const alteredResponse = response.data.filter(
             (res) => res.rate !== null
           );
+
           setTutors(alteredResponse);
         });
     }
@@ -37,12 +38,13 @@ export default function HomePage({ user }) {
         Object.keys(user).length !== 0
       ) {
         console.log("Geocode run");
+        console.log(user)
         const placeIds = [];
         tutors.forEach((tutor) => {
           placeIds.push(`place_id:${tutor.place_id}|`);
         });
         const proxyurl = "https://fierce-wildwood-46381.herokuapp.com/";
-        const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=place_id:ChIJowv49br0wokRBi5L14DyqTo&destinations=${placeIds.join(
+        const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=place_id:${user.place_id}&destinations=${placeIds.join(
           ""
         )}&key=${process.env.REACT_APP_GOOGLE_KEY}`;
 
