@@ -12,9 +12,13 @@ def home(request):
     
 @api_view(['GET'])
 def current_user(request):
-    user_id = User.objects.get(username = request.user).id
-    serializer = UserSerializer(request.user)
-    return Response(serializer.data)
+    user = User.objects.get(username = request.user)
+    profile = user.profile
+    serializer = UserSerializer(user)
+    profile_serializer = ProfileSerializer(profile)
+    data = serializer.data
+    data['place_id'] = profile_serializer.data['place_id']
+    return Response(data)
 
 @api_view(['GET'])
 def all_profiles(request):
@@ -84,10 +88,11 @@ def assoc_student(request, slot_id, user_id):
 
 
 class UserList(APIView):
+    authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.AllowAny,)
     def post(self, request, format=None):
         serializer = UserSerializerWithToken(data=request.data)
-
+        print(request.data)
         if serializer.is_valid():
             serializer.save()
             user_id = User.objects.last().id
@@ -97,8 +102,10 @@ class UserList(APIView):
             user.profile.email = request.data['email']
             user.profile.bio = request.data['bio']
             user.profile.zipcode = request.data['zipcode']
-            user.profile.skills = request.data['skills']
-            user.profile.rate = request.data['rate']
+            user.profile.place_id = request.data['place_id']
+            if request.data['skills'] != "" and request.data['rate'] != "":
+                user.profile.skills = request.data['skills']
+                user.profile.rate = request.data['rate']
             # user.profile.image = request.data['image']
             user.save()
 

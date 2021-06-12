@@ -5,6 +5,7 @@ import "./SignupForm.css";
 
 export default function SignupForm({ setUser, setLoggedIn }) {
   axios.defaults.xsrfHeaderName = "X-CSRFToken";
+  
   const [signUpTutor, setSignUpTutor] = useState(true);
   const [image, setImage] = useState("");
   const [form, setForm] = useState({
@@ -48,69 +49,69 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     const formData = new FormData();
     formData.append("image", image);
     formData.append("upload_preset", "xdgkaefq");
-
-    const options = {
-      url: "/api/users/",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        username: form.username,
-        firstName: form.firstName,
-        lastName: form.lastName,
-        email: form.email,
-        password: form.password,
-        bio: form.bio,
-        zipcode: form.zipcode,
-        skills: form.skills,
-        rate: form.rate,
-        // image: form.image,
-      },
-    };
+    const proxyurl = "https://fierce-wildwood-46381.herokuapp.com/";
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${form.zipcode}|country:USA&key=${process.env.REACT_APP_GOOGLE_KEY}`; 
 
     evt.preventDefault();
     try {
-      const user = await axios(options).then(async (response) => {
-        console.log(response)
-        localStorage.setItem("token", response.data.token);
-        setUser({
-          id: response.data.id,
-          username: response.data.username,
-        });
-        await axios.put("/api/users/image/", formData, {
-          headers: {
-            Authorization: `JWT ${localStorage.getItem("token")}`,
-            'content-type': 'multipart/form-data'
-          }
-        }).then((res) => {
-          console.log(res)
-          setLoggedIn(localStorage.getItem("token"));
-        })
-      });
+      await fetch(proxyurl + url)
+      .then(response => response.json())
+      .then(async (contents) => {
+        if (contents.status === "ZERO_RESULTS") {
+          setError("Invalid Zipcode")
+        } else if (contents.status === "OK"){
+          setError("")
+          setForm({ ...form, place_id: contents.results[0].place_id });
+          const options = {
+            url: "/api/users/",
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: {
+              username: form.username,
+              firstName: form.firstName,
+              lastName: form.lastName,
+              email: form.email,
+              password: form.password,
+              bio: form.bio,
+              zipcode: form.zipcode,
+              place_id: contents.results[0].place_id,
+              skills: form.skills,
+              rate: form.rate,
+              // image: form.image,
+            },
+          };
+          console.log(options)
+          await axios(options).then(async (response) => {
+            console.log(response)
+            localStorage.setItem("token", response.data.token);
+            setUser({
+              id: response.data.id,
+              username: response.data.username,
+            });
+            if (image === "" || image === null || image === undefined) {
+              console.log('no image')
+              setLoggedIn(localStorage.getItem("token"));
+            } else {
+              await axios.put("/api/users/image/", formData, {
+                headers: {
+                  Authorization: `JWT ${localStorage.getItem("token")}`,
+                  'content-type': 'multipart/form-data'
+                }
+              }).then((res) => {
+                console.log(res)
+                setLoggedIn(localStorage.getItem("token"));
+              })
+            }
+          });
+        }
+      })
+
     } catch {
       setError("Sign Up Failed");
     }
   }
-
-  // const uploadImage = () => {
-  //   const formData = new FormData();
-  //   formData.append("file", image);
-  //   formData.append("upload_preset", "xdgkaefq");
-  //   const options = {
-  //     url: "https://api.cloudinary.com/v1_1/dq8yhiefg/image/upload",
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     data: {
-  //       formData
-  //     },
-  //   };
-  //   axios(options).then((response) => {
-  //       setForm({ ...form, image: response.data.url });
-  //     });
-  // };
 
   return (
     <div>
@@ -195,7 +196,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         />
         <br />
 
-        <input
+        {error === "Invalid Zipcode" ? (<span class="text-danger">* </span>) : ("")}<input
           placeholder="Zipcode"
           type="number"
           name="zipcode"
@@ -229,20 +230,23 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           <h1></h1>
         )}
         <br />
+        <p class="text-danger">{error}</p>
+        <br />
         <button class="btn btn-primary" type="submit">
           {" "}
           SIGN UP{" "}
         </button>
         <div>
-          <button
+          <span
             class="btn btn-success"
             onClick={() => setSignUpTutor(!signUpTutor)}
           >
             {signUpTutor
               ? "CLICK IF YOU ARE A STUDENT"
               : "CLICK IF YOU ARE A TUTOR"}
-          </button>
+          </span>
         </div>
+        <br />
       </form>
     </div>
   );

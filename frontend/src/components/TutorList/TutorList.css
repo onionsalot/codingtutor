@@ -19,3 +19,9 @@
     height: 15vw;
     object-fit:cover;
 }
+
+
+.img-distance{
+    width:30px;
+    height:30px;
+}
