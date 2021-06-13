@@ -3,6 +3,16 @@ import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "./TutorSlots.css";
 import StudentSlots from "./StudentSlots";
+import {
+  Card,
+  Button,
+  Col,
+  CardGroup,
+  CardDeck,
+  CardColumns,
+  Row,
+  Container,
+} from "react-bootstrap";
 
 export default function TutorSlots({ slots, setSlots, tutorId, tutor, user }) {
   const [value, onChange] = useState(new Date());
@@ -59,17 +69,17 @@ export default function TutorSlots({ slots, setSlots, tutorId, tutor, user }) {
     setDisplayedSlots(availableSlots);
   }
   return (
-    <div className="calContainer">
-      <div className="calRow">
-        <div className="calCol">
+    <section className="calContainer">
           <form onSubmit={handleSubmit} autoComplete="off">
-            <label> Select A Date </label>
-
+            <main className="cal">
+            
             <Calendar
               onChange={onCalChange}
               value={value}
               onClickDay={onClickDay}
             />
+            </main>
+
             {user.id == tutorId ? (
               <>
                 <label>Select A Time</label>
@@ -99,18 +109,17 @@ export default function TutorSlots({ slots, setSlots, tutorId, tutor, user }) {
                   <option value="22">10:00 PM</option>
                   <option value="23">11:00 PM</option>
                 </select>
-                <button type="submit"> CONFIRM TIME SLOT </button>
+                <br />
+                <Button type="submit"> CONFIRM TIME SLOT </Button>
               </>
             ) : (
               <h3>Log in as this user to add time slots!</h3>
             )}
           </form>
-        </div>
-        <div className="right">
-          <h2>Available Time Slots</h2>
-          {displayedSlots}
-        </div>
-      </div>
-    </div>
+          <div className="slotHolder">
+            <h2 className="slotTop">Available Time Slots</h2>
+            <div className="slotBot">{displayedSlots}</div>
+          </div>
+    </section>
   );
 }

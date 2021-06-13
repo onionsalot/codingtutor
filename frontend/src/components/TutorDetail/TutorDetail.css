@@ -2,11 +2,9 @@
   box-sizing: border-box;
 }
 
-.container {
-    display:flex;
-    flex-direction:column;
-    width:100%;
-    margin: 0 auto;
+/* .container2 {
+    grid-template-columns: 40px 50px 50px 40px;
+    grid-template-rows: auto auto;
 }
 
 .row {
@@ -14,12 +12,12 @@
 }
 
 /* Create two equal columns that sits next to each other */
-.column {
+/* .column {
     flex: 40%;
     padding: 15px;
     height:600px;
     overflow-y: scroll;
-}
+} */ */
 
 .btn{
     text-decoration-style: none;

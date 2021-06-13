@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TutorDetailsReviewCard from "./TutorDetailsReviewCard";
+import "./TutorDetailsReviews.css";
 
 export default function TutorDetailsReviews({ userId, tutorId }) {
   const [reviews, setReviews] = useState([]);
@@ -56,30 +57,38 @@ export default function TutorDetailsReviews({ userId, tutorId }) {
 
   return (
     <div>
+      <div className="reviewCards">
       {newReviews}
+      </div>
       <h1>Reviews</h1>
       <form onSubmit={handleSubmit}>
         <p> Rating: </p>
-
-        <input type="radio" name="rating" value="1" onChange={handleChange} />
-        <label for="1">1</label>
-        <br />
-
-        <input type="radio" name="rating" value="2" onChange={handleChange} />
-        <label for="2">2</label>
-        <br />
-
-        <input type="radio" name="rating" value="3" onChange={handleChange} />
-        <label for="3">3</label>
-        <br />
-
-        <input type="radio" name="rating" value="4" onChange={handleChange} />
-        <label for="4">4</label>
-        <br />
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" onChange={handleChange} />
+          <label class="form-check-label" for="inlineRadio1">1</label>
+        </div>
 
 
-        <label for="5">5</label>
-        <br />
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2" onChange={handleChange} />
+          <label class="form-check-label" for="inlineRadio2">2</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3" onChange={handleChange} />
+          <label class="form-check-label" for="inlineRadio3">3</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4" onChange={handleChange} />
+          <label class="form-check-label" for="inlineRadio4">4</label>
+        </div>
+
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="5" onChange={handleChange} />
+          <label class="form-check-label" for="inlineRadio5">5</label>
+        </div>
 
         <textarea
           name="comment"
@@ -87,6 +96,7 @@ export default function TutorDetailsReviews({ userId, tutorId }) {
           cols="60"
           placeholder="WRITE REVIEW HERE"
           onChange={handleChange}
+          className="reviewArea"
         ></textarea>
         <br />
         <button>SUBMIT</button>

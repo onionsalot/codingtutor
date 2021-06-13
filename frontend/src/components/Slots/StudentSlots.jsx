@@ -36,15 +36,15 @@ export default function StudentSlots({ tutor, user, slot }) {
 
   return (
     <>
-      <div className="overflow">
+      <div className="slots">
         {slot.student == null ? (
           <form onSubmit={handleSubmit}>
-            <Button type="submit" variant="primary">
+            <Button className="slotButton" type="submit" variant="primary">
               {slot.hour}:00
             </Button>
           </form>
         ) : (
-          <Button variant="danger">{slot.hour}:00</Button>
+          <Button className="slotButton" variant="danger">{slot.hour}:00</Button>
         )}
       </div>
     </>

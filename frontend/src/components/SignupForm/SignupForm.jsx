@@ -123,26 +123,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
   return (
     <div>
       <br />
-      {/* <label>Add an Image</label>
-      <input
-        className="image"
-        type="file"
-        onChange={(event) => {
-          setImage(event.target.files[0]);
-        }}
-      />
-      <button className="upload" onClick={uploadImage}>
-        Upload Image
-      </button>
-      <br />
-      <p>
-        {form.image === ""
-          ? "Upload image before submitting!"
-          : "Upload Success!!"}
-      </p>
-      <br /> */}
-
-      <form onSubmit={handleSubmit} autoComplete="off">
+      <form onSubmit={handleSubmit} autoComplete="off" className="signup">
         <h4> Sign Up </h4>
         <label>Add an Image</label>
       <input
