@@ -18,7 +18,6 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     rate: "",
     image: "",
   });
-
   const [error, setError] = useState("");
 
   function handleChange(evt) {
@@ -51,8 +50,15 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     formData.append("upload_preset", "xdgkaefq");
     const proxyurl = "https://fierce-wildwood-46381.herokuapp.com/";
     const url = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${form.zipcode}|country:USA&key=${process.env.REACT_APP_GOOGLE_KEY}`; 
-
+    
     evt.preventDefault();
+    if (form.rate === "" || form.skills === "") {
+      if (signUpTutor === true) {
+        setError("As a tutor, please list skills and set rate!")
+        return
+      }
+    }
+    setError("")
     try {
       await fetch(proxyurl + url)
       .then(response => response.json())
@@ -89,6 +95,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
             setUser({
               id: response.data.id,
               username: response.data.username,
+              place_id: response.data.place_id
             });
             if (image === "" || image === null || image === undefined) {
               console.log('no image')
@@ -160,6 +167,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           name="firstName"
           value={form.firstName}
           onChange={handleChange}
+          required
         />
         <br />
         <input
@@ -168,6 +176,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           name="lastName"
           value={form.lastName}
           onChange={handleChange}
+          required
         />
         <br />
         <input
@@ -176,6 +185,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           name="email"
           value={form.email}
           onChange={handleChange}
+          required
         />
         <br />
         <input
@@ -202,11 +212,12 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           name="zipcode"
           value={form.zipcode}
           onChange={handleChange}
+          required
         />
         <br />
         {signUpTutor ? (
           <>
-            <label> Skills </label>
+            <label> {error === "As a tutor, please list skills and set rate!" ? (<span class="text-danger">* </span>) : ("")}Skills </label>
             <Select
               onChange={handleSkills}
               isMulti
@@ -216,7 +227,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
               classNamePrefix="select"
             />
             <br />
-            <label> Rate Per Hour </label>
+            <label> {error === "As a tutor, please list skills and set rate!" ? (<span class="text-danger">* </span>) : ("")}Rate Per Hour </label>
             <br />
             <input
               type="number"
@@ -239,7 +250,10 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         <div>
           <span
             class="btn btn-success"
-            onClick={() => setSignUpTutor(!signUpTutor)}
+            onClick={() => {
+              setForm({ ...form, skills: "", rate: "" });
+              setSignUpTutor(!signUpTutor)
+            }}
           >
             {signUpTutor
               ? "CLICK IF YOU ARE A STUDENT"
