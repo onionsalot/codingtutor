@@ -1,32 +1,53 @@
-h4{
+h4 {
   justify-content: center;
-margin-top: 100px;
+  margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.login{
-    margin-top:50px;
-    margin-right: 300px;
-    margin-left: 300px;
-    border:#eaeced;
-    border-style:outset;
+.login {
+  margin-top: 50px;
+  margin-right: 300px;
+  margin-left: 300px;
+  border: #eaeced;
+  border-style: outset;
+  /* border-radius: 10px; */
+  box-sizing: border-box;
+}
+
+input {
+  width: 50%;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+button {
+  justify-content: center;
+  margin-bottom: 100px;
+}
+
+@media (max-width: 1000px) {
+  .login {
+    margin-top: 50px;
+    margin-right: 150px;
+    margin-left: 150px;
+    border: #eaeced;
+    border-style: outset;
     /* border-radius: 10px; */
     box-sizing: border-box;
-  
+  }
 }
 
-
-input{
-    width: 50%;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top:10px;
-    margin-bottom: 20px;
-  
-}
-
-button{
-    justify-content: center;
-    margin-bottom: 100px;
+@media (max-width: 600px) {
+  .login {
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-left: 50px;
+    border: #eaeced;
+    border-style: outset;
+    /* border-radius: 10px; */
+    box-sizing: border-box;
+  }
 }

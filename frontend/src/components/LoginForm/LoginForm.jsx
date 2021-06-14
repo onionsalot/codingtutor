@@ -45,8 +45,8 @@ export default function LoginForm({ setUser, setLoggedIn }) {
 
   return (
     <>
-      <div>
-        <form onSubmit={handleSubmit} autoComplete="off" className="login">
+      <div className="login">
+        <form onSubmit={handleSubmit} autoComplete="off">
           <h4> LOG IN </h4>
           {/* <img src="../../images/logo.png"></img> */}
           <input

@@ -1,4 +1,8 @@
-@media (max-width: 768px) { 
+.links {
+    color: black;
+}
+
+@media (max-width: 600px) { 
     .navbar{
         display:flex;
         flex-direction:column;

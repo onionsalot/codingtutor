@@ -12,20 +12,19 @@ export default function NavBar({ username, loggedIn, setLoggedIn, userID }) {
 
   return (
     <>
-      <Navbar bg="light" expand="lg" className="navbar">
-        <Navbar.Brand href="#home">&copy; Coding Tutor</Navbar.Brand>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand href="/">&copy; Coding Tutor</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="mr-auto">
           <Nav className="justify-content-center">
-            <Nav.Link href="/">Home |</Nav.Link>
-          </Nav>
+            <Nav.Link className="links" href="/">Home |</Nav.Link>
           {loggedIn ? (
-            <Nav.Link href={detailURL}> Hello, {username} </Nav.Link>
-          ) : (
-            <h3>Please Log In</h3>
-          )}
-          &nbsp; | &nbsp;
-          {loggedIn ? <Nav.Link onClick={handleLogOut}>Log Out</Nav.Link> : ""}
+            <Nav.Link className="links" href={detailURL}> Hello, {username} &nbsp; | &nbsp;</Nav.Link>
+            ) : (
+              ""
+              )}
+          {loggedIn ? <Nav.Link className="links" onClick={handleLogOut}>Log Out</Nav.Link> : ""}
+              </Nav>
         </Navbar.Collapse>
       </Navbar>
     </>
