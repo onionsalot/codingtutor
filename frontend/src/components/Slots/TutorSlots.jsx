@@ -3,25 +3,17 @@ import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "./TutorSlots.css";
 import StudentSlots from "./StudentSlots";
-import {
-  Card,
-  Button,
-  Col,
-  CardGroup,
-  CardDeck,
-  CardColumns,
-  Row,
-  Container,
-} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export default function TutorSlots({ slots, setSlots, tutorId, tutor, user }) {
   const [value, onChange] = useState(new Date());
   const [displayedSlots, setDisplayedSlots] = useState([]);
   const [form, setForm] = useState({
-    hour: " ",
-    date: " ",
+    hour: "00",
+    date: value.toLocaleDateString("en-US"),
   });
-
+  const [error, setError] = useState("");
+  
   function handleChange(evt) {
     setForm({ ...form, [evt.target.name]: evt.target.value });
   }
@@ -61,7 +53,7 @@ export default function TutorSlots({ slots, setSlots, tutorId, tutor, user }) {
     const newDate = value.toLocaleDateString("en-US");
     const availableSlots = slots.map((slot, idx) => {
       if (newDate === slot.date) {
-        return <StudentSlots tutor={tutor} user={user} key={idx} slot={slot} />;
+        return <StudentSlots tutor={tutor} user={user} key={idx} slot={slot} setError={setError}/>;
       } else {
         return "";
       }
@@ -79,12 +71,12 @@ export default function TutorSlots({ slots, setSlots, tutorId, tutor, user }) {
               onClickDay={onClickDay}
             />
             </main>
-
+            <div className="timeSlots">
             {user.id == tutorId ? (
               <>
                 <label>Select A Time</label>
                 <select name="hour" onChange={handleChange}>
-                  <option value="00">12:00 AM</option>
+                  <option value="00" selected>12:00 AM</option>
                   <option value="01">1:00 AM</option>
                   <option value="02">2:00 AM</option>
                   <option value="03">3:00 AM</option>
@@ -115,11 +107,13 @@ export default function TutorSlots({ slots, setSlots, tutorId, tutor, user }) {
             ) : (
               <h3>Log in as this user to add time slots!</h3>
             )}
+            </div>
           </form>
           <div className="slotHolder">
             <h2 className="slotTop">Available Time Slots</h2>
             <div className="slotBot">{displayedSlots}</div>
           </div>
+          {error}
     </section>
   );
 }

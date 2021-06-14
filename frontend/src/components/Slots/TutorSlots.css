@@ -152,6 +152,22 @@
         ". slotBot slotBot slotBot slotBot ."
 }
 
+.timeSlots {
+  border: #eaeced;
+  border-style: outset;
+  /* border-radius: 10px; */
+  box-sizing: border-box;
+}
+
+.error{
+  font-weight: bold;
+  color: red;
+}
+
+.success{
+  font-weight: bold;
+  color: green;
+}
 
 @media (max-width: 550px) {
 
