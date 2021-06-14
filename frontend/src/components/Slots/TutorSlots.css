@@ -147,7 +147,6 @@
     height: 100%;
     grid-template-columns: 10% 20% 20% 20% 20% 10%;
     grid-template-rows: 20% 80%;
-    background-color: green;
     grid-template-areas:
         "slotTop slotTop slotTop slotTop slotTop slotTop"
         ". slotBot slotBot slotBot slotBot ."

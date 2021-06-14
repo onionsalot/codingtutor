@@ -2,23 +2,6 @@
   box-sizing: border-box;
 }
 
-/* .container2 {
-    grid-template-columns: 40px 50px 50px 40px;
-    grid-template-rows: auto auto;
-}
-
-.row {
-    display: flex;
-}
-
-/* Create two equal columns that sits next to each other */
-/* .column {
-    flex: 40%;
-    padding: 15px;
-    height:600px;
-    overflow-y: scroll;
-} */ */
-
 .btn{
     text-decoration-style: none;
 }

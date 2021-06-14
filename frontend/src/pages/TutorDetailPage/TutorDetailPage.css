@@ -1,21 +1,18 @@
 .header {
     grid-area: header;
-    background-color: greenyellow;
     justify-content: center;
     width: 100%;
 }
 
 .details {
     grid-area: details;
-    background-color: hotpink;
 }
 .reviews {
-    background-color: brown;
+    width:100%;
 }
 
 .calendar {
     grid-area: calendar;
-    background-color:indigo;
     justify-content: center;
     align-items: center;
 }
@@ -24,7 +21,6 @@
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     grid-template-rows: 3% 97%;
-    background-color: green;
     grid-template-areas:
         "header header header header"
         "details details calendar calendar"
