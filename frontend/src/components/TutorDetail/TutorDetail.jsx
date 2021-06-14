@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
-// import "./TutorDetail.css";
+import "./TutorDetail.css";
 import placeholder from "../../images/Placeholder.png";
 
 export default function TutorDetail({ user, tutor }) {
@@ -12,7 +12,7 @@ export default function TutorDetail({ user, tutor }) {
           <h2>
             Name:{tutor.first_name} {tutor.last_name}{" "}
           </h2>
-          <Card.Img className="img" variant="top" src={tutorImage} />
+          <img className="imgPf" src={tutorImage} alt="tutor profile pic"/>
           <br />
           <h2> Email: {tutor.email}</h2>
           <br />
