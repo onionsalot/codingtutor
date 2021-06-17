@@ -4,7 +4,7 @@ import axios from "axios";
 import { Button } from "react-bootstrap";
 import "./StudentSlots.css";
 
-export default function StudentSlots({ tutor, user, slot, setError }) {
+export default function StudentSlots({ tutor, user, key, slot, setSlots, setError }) {
   const [buttonState, setButtonState] = useState(true)
   const history = useHistory();
   const [currentSlot, setCurrentSlot] = useState(slot.student)
@@ -20,6 +20,9 @@ export default function StudentSlots({ tutor, user, slot, setError }) {
       headers: {
         Authorization: `JWT ${localStorage.getItem("token")}`,
       },
+      data: {
+        tutorId: tutor.id,
+      },
     };
     evt.preventDefault();
     if (tutor.user === user.id) {
@@ -28,9 +31,11 @@ export default function StudentSlots({ tutor, user, slot, setError }) {
     }
     try {
         await axios(options).then((response) => {
-        console.log(response);
-        setCurrentSlot({student: user.id})
+        console.log(response.data);
+        // setCurrentSlot({student: user.id})
+        setSlots([])
         setError(<p className="success">Successfully signed up for timeslot. Mark your calendars!</p>)
+        setSlots(response.data)
       });
     } catch (err) {
       console.log(err);

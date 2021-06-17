@@ -4,13 +4,11 @@ import TutorDetail from "../../components/TutorDetail/TutorDetail";
 import axios from "axios";
 import TutorSlots from "../../components/Slots/TutorSlots";
 import TutorDetailsReview from "../../components/TutorDetail/TutorDetailsReviews";
-import placeholder from "../../images/Placeholder.png";
 import "./TutorDetailPage.css";
 
 export default function TutorDetailPage({ user }) {
   const [tutor, setTutor] = useState([]);
   const tutorId = useParams();
-  const [slots, setSlots] = useState([]);
 
   useEffect(() => {
     async function getTutor() {
@@ -24,16 +22,6 @@ export default function TutorDetailPage({ user }) {
         .then((response) => {
           console.log(response);
           setTutor(response.data);
-          axios
-            .get(`/api/slots/${tutorId.id}/available_slots/`, {
-              headers: {
-                Authorization: `JWT ${localStorage.getItem("token")}`,
-              },
-            })
-            .then((res) => {
-              console.log("tutor available slots =>", res.data);
-              setSlots(res.data);
-            });
         });
     }
 
@@ -55,8 +43,6 @@ export default function TutorDetailPage({ user }) {
 
         <div className="calendar">
           <TutorSlots
-            slots={slots}
-            setSlots={setSlots}
             tutorId={tutorId.id}
             tutor={tutor}
             user={user}

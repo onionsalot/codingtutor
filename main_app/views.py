@@ -83,7 +83,8 @@ def assoc_student(request, slot_id, user_id):
     slot = Slot.objects.filter(id=slot_id).update(
         student = student,
     )
-    serializer = SlotSerializer(slot, many = False)
+    all_slots = Slot.objects.filter(tutor=data['tutorId'])
+    serializer = SlotSerializer(all_slots, many = True)
     return Response(serializer.data)
 
 
