@@ -25,3 +25,24 @@
         "header header header header"
         "details details calendar calendar"
 }
+
+.showButton {
+    display: none;
+}
+
+@media only screen and (max-width: 700px) {
+    .calendar {
+        display: none !important;
+    }
+    .showButton {
+        display: inline;
+    }
+    .holder {
+        display: grid;
+        grid-template-columns: 100vw;
+        grid-template-rows: 3% 97%;
+        grid-template-areas:
+            "header"
+            "details"
+    }
+  }
