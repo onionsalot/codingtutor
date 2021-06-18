@@ -12,7 +12,6 @@ export default function Pagination({
   for (let i = 1; i <= Math.ceil(totalReviews / reviewsPerPage); i++) {
     pageNumbers.push(i);
   }
-  console.log("page numbers = >", pageNumbers);
   function handleClick(e, number) {
     e.preventDefault();
     paginate(number);

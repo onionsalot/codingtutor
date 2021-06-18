@@ -13,20 +13,37 @@ export default function NavBar({ username, loggedIn, setLoggedIn, userID }) {
   return (
     <>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="/">&copy; Coding Tutor</Navbar.Brand>
+        <Navbar.Brand>&copy; Coding Tutor</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="mr-auto">
           <Nav className="justify-content-center">
-            <Nav.Link className="links" href="/">Home |</Nav.Link>
+            <Link className="links" to="/">Home |</Link>
           {loggedIn ? (
-            <Nav.Link className="links" href={detailURL}> Hello, {username} &nbsp; | &nbsp;</Nav.Link>
+            <Link className="links" to={detailURL}>&nbsp; Hello, {username} &nbsp; | &nbsp;</Link>
             ) : (
               ""
               )}
-          {loggedIn ? <Nav.Link className="links" onClick={handleLogOut}>Log Out</Nav.Link> : ""}
+          {loggedIn ? <Link className="links" onClick={handleLogOut}>Log Out</Link> : ""}
               </Nav>
         </Navbar.Collapse>
       </Navbar>
     </>
+    //    <>
+    //    <Navbar bg="light" expand="lg">
+    //      <Navbar.Brand href="/">&copy; Coding Tutor</Navbar.Brand>
+    //      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    //      <Navbar.Collapse id="mr-auto">
+    //        <Nav className="justify-content-center">
+    //          <Nav.Link className="links" href="/">Home |</Nav.Link>
+    //        {loggedIn ? (
+    //          <Nav.Link className="links" href={detailURL}> Hello, {username} &nbsp; | &nbsp;</Nav.Link>
+    //          ) : (
+    //            ""
+    //            )}
+    //        {loggedIn ? <Nav.Link className="links" onClick={handleLogOut}>Log Out</Nav.Link> : ""}
+    //            </Nav>
+    //      </Navbar.Collapse>
+    //    </Navbar>
+    //  </>
   );
 }
