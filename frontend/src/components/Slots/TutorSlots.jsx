@@ -52,7 +52,7 @@ export default function TutorSlots({ tutorId, tutor, user }) {
       }
     });
     setDisplayedSlots(availableSlots);
-  }, [slots]);
+  }, [slots, tutor, user]);
 
   function handleChange(evt) {
     setForm({ ...form, [evt.target.name]: evt.target.value });
@@ -73,15 +73,12 @@ export default function TutorSlots({ tutorId, tutor, user }) {
     };
     try {
       await axios(options).then((response) => {
-        console.log(response.data)
         // const availableSlots = (
         //   <StudentSlots tutor={tutor} user={user} slot={response.data} />
         // );
         // setDisplayedSlots([...displayedSlots, availableSlots]);
         const unsortedSlots= [...slots, response.data]
-        console.log('before=>',unsortedSlots)
         unsortedSlots.sort(function (a, b) {
-          console.log(a['hour'])
           return (
             a['hour'] -
             b['hour']
@@ -122,6 +119,9 @@ export default function TutorSlots({ tutorId, tutor, user }) {
     });
     setDisplayedSlots(availableSlots);
   }
+
+  const tileContent = ({ date, view }) => view === 'month' && slots.find(e => e['date'] === date.toLocaleDateString("en-US")) ? "*" : null;
+  // const tileContent = ({ date, view }) => console.log(date.toLocaleDateString("en-US"));
   return (
     <section className="calContainer">
       <form onSubmit={handleSubmit} autoComplete="off">
@@ -130,6 +130,7 @@ export default function TutorSlots({ tutorId, tutor, user }) {
             onChange={onCalChange}
             value={value}
             onClickDay={onClickDay}
+            tileContent={tileContent}
           />
         </main>
         <div className="timeSlots">

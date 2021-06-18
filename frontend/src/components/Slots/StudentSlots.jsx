@@ -42,10 +42,26 @@ export default function StudentSlots({ tutor, user, key, slot, setSlots, setErro
     }
   }
 
+  function makeButton() {
+    if (currentSlot === null) {
+      return(<form onSubmit={handleSubmit}>
+        <Button className="slotButton" type="submit" variant="primary">
+          {slot.hour}:00
+        </Button>
+      </form>)
+    } else if(currentSlot === user.id) {
+      return(<Button className="slotButton" variant="success" onClick={() => setError(<p className="error">You currently have this slot held.</p>)}>{slot.hour}:00</Button>)
+    } else {
+      return(<Button className="slotButton" variant="danger" onClick={() => setError(<p className="error">This slot belongs to another student.</p>)}>{slot.hour}:00</Button>)
+    }
+  }
+
+  const buttonDisplay = makeButton()
   return (
     <>
       <div className="slots">
-        {currentSlot == null ? (
+        {buttonDisplay}
+        {/* {currentSlot == null ? (
           <form onSubmit={handleSubmit}>
             <Button className="slotButton" type="submit" variant="primary">
               {slot.hour}:00
@@ -53,7 +69,7 @@ export default function StudentSlots({ tutor, user, key, slot, setSlots, setErro
           </form>
         ) : (
           <Button className="slotButton" variant="danger" onClick={() => setError(<p className="error">This slot belongs to another student.</p>)}>{slot.hour}:00</Button>
-        )}
+        )} */}
       </div>
     </>
   );

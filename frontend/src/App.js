@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import LoginForm from "./components/LoginForm/LoginForm";
 import SignupForm from "./components/SignupForm/SignupForm";
@@ -59,6 +59,7 @@ export default function App() {
             <Route exact path="/confirmation">
               <ConfirmationPage user={user} />
             </Route>
+            <Redirect to="/" />
           </Switch>
         </>
       ) : (
