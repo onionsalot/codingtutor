@@ -77,16 +77,20 @@ export default function TutorSlots({ tutorId, tutor, user }) {
         //   <StudentSlots tutor={tutor} user={user} slot={response.data} />
         // );
         // setDisplayedSlots([...displayedSlots, availableSlots]);
-        const unsortedSlots= [...slots, response.data]
-        unsortedSlots.sort(function (a, b) {
-          return (
-            a['hour'] -
-            b['hour']
-          );
-        });
-        console.log('after=>',unsortedSlots)
+        console.log(response.data)
+        if (response.data.success === false) {
+          setError("Unable to add duplicate slot")
+        } else {
 
-        setSlots(unsortedSlots)
+          const unsortedSlots= [...slots, response.data]
+          unsortedSlots.sort(function (a, b) {
+            return (
+              a['hour'] -
+              b['hour']
+            );
+          });
+          setSlots(unsortedSlots)
+        }
       });
     } catch (err) {
       console.log(err);
@@ -121,7 +125,6 @@ export default function TutorSlots({ tutorId, tutor, user }) {
   }
 
   const tileContent = ({ date, view }) => view === 'month' && slots.find(e => e['date'] === date.toLocaleDateString("en-US")) ? "*" : null;
-  // const tileContent = ({ date, view }) => console.log(date.toLocaleDateString("en-US"));
   return (
     <section className="calContainer">
       <form onSubmit={handleSubmit} autoComplete="off">

@@ -66,6 +66,10 @@ def add_slot(request, user_id):
     permission_classes = (permissions.AllowAny,)
     data = request.data
     tutor = User.objects.get(id=user_id)
+    slots = Slot.objects.filter(tutor=user_id)
+    if len(slots.filter(hour=data['hour'], date=data['date'])) != 0:
+        return Response({ "success":False })
+
     slot = Slot.objects.create(
         hour = data['hour'],
         date = data['date'],
