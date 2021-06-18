@@ -75,8 +75,8 @@ function paginate(pageNumber) {
     <div>
       <h1>Reviews</h1>
       <div className="reviewCards">
-      {displayedReviews}
 			<Pagination reviewsPerPage={reviewsPerPage} totalReviews={reviews.length} paginate={paginate} currentPage={currentPage}/>
+      {displayedReviews}
       </div>
       <h1>Add Review</h1>
       <form onSubmit={handleSubmit}>

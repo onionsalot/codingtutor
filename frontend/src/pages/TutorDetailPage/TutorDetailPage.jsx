@@ -35,7 +35,7 @@ export default function TutorDetailPage({ user }) {
     }
 
     getTutor();
-  }, []);
+  }, [tutorId]);
 
   return (
       <div className="holder">

@@ -18,12 +18,12 @@ export default function Pagination({
   }
 
   return (
-    <nav>
       <div className="pagination">
         {currentPage === 1 ? (
-          <button disabled>&laquo;</button>
+          <button disabled className="pagination-button arrows">&laquo;</button>
         ) : (
           <button
+            className="pagination-button arrows"
             onClick={(e) => {
               const next = currentPage - 1;
               handleClick(e, next);
@@ -32,9 +32,11 @@ export default function Pagination({
             &laquo;
           </button>
         )}
-
-        {pageNumbers.map((number) => (
+        &nbsp;&nbsp;&nbsp;
+        {pageNumbers.map((number, idx) => (
           <button
+            className="pagination-button"
+            id={currentPage===idx+1 ? "chosen":""}
             onClick={(e) => {
               handleClick(e, number);
             }}
@@ -42,11 +44,12 @@ export default function Pagination({
             {number}
           </button>
         ))}
-
+        &nbsp;&nbsp;&nbsp;
         {currentPage >= pageNumbers.length ? (
-          <button disabled>&raquo;</button>
+          <button disabled className="pagination-button arrows">&raquo;</button>
         ) : (
           <button
+            className="pagination-button arrows"
             onClick={(e) => {
               const next = currentPage + 1;
               handleClick(e, next);
@@ -56,6 +59,5 @@ export default function Pagination({
           </button>
         )}
       </div>
-    </nav>
   );
 }
