@@ -7,6 +7,7 @@ import TutorDetailsReview from "../../components/TutorDetail/TutorDetailsReviews
 import "./TutorDetailPage.css";
 
 export default function TutorDetailPage({ user }) {
+  const [reviews, setReviews] = useState([]);
   const [tutor, setTutor] = useState([]);
   const tutorId = useParams();
 
@@ -19,9 +20,17 @@ export default function TutorDetailPage({ user }) {
           },
         })
 
-        .then((response) => {
-          console.log(response);
+        .then(async (response) => {
           setTutor(response.data);
+          await axios
+        .get(`/api/details/user_reviews/${tutorId.id}`, {
+          headers: {
+            Authorization: `JWT ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((response) => {
+          setReviews(response.data);
+        });
         });
     }
 
@@ -37,7 +46,7 @@ export default function TutorDetailPage({ user }) {
           <TutorDetail user={user} tutor={tutor} />
           <hr />
           <div className="reviews">
-          <TutorDetailsReview userId={user.id} tutorId={tutorId.id} />
+          <TutorDetailsReview userId={user.id} tutorId={tutorId.id} reviews={reviews} setReviews={setReviews}/>
           </div>
         </div>
 

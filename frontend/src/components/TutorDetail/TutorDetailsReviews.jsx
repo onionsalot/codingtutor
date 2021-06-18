@@ -2,32 +2,48 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TutorDetailsReviewCard from "./TutorDetailsReviewCard";
 import "./TutorDetailsReviews.css";
+import Pagination from "../../components/Pagination/Pagination"
 
-export default function TutorDetailsReviews({ userId, tutorId }) {
-  const [reviews, setReviews] = useState([]);
+export default function TutorDetailsReviews({ userId, tutorId, reviews, setReviews }) {
+  const [displayedReviews, setDisplayedReviews] = useState([])
+  const [currentPage, setCurrentPage] = useState(1);
+	const [reviewsPerPage, setReviewsPerPage] = useState(3);
   const [form, setForm] = useState({
     rating: "",
     comment: "",
   });
 
-  useEffect(() => {
-    async function fetchData() {
-      const data = await axios
-        .get(`/api/details/user_reviews/${tutorId}`, {
-          headers: {
-            Authorization: `JWT ${localStorage.getItem("token")}`,
-          },
-        })
-        .then((response) => {
-          setReviews(response.data);
-        });
-    }
-    fetchData();
-  }, []);
 
-  const newReviews = reviews.map((review, idx) => (
-    <TutorDetailsReviewCard key={idx} review={review} />
-  ));
+function paginate(pageNumber) {
+  setCurrentPage(pageNumber)
+}
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const data = await axios
+  //       .get(`/api/details/user_reviews/${tutorId}`, {
+  //         headers: {
+  //           Authorization: `JWT ${localStorage.getItem("token")}`,
+  //         },
+  //       })
+  //       .then((response) => {
+  //         setReviews(response.data);
+  //       });
+  //   }
+  //   fetchData();
+  // }, []);
+
+  useEffect(() => {
+      // Get current reviews
+    const indexOfLastReview = currentPage * reviewsPerPage;
+    const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+    const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview)
+    const newReviews = currentReviews.map((review, idx) => (
+      <TutorDetailsReviewCard key={idx} review={review} />
+    ));
+    setDisplayedReviews(newReviews)
+
+  }, [reviews,currentPage])
+
 
   function handleChange(evt) {
     setForm({ ...form, [evt.target.name]: evt.target.value });
@@ -59,7 +75,8 @@ export default function TutorDetailsReviews({ userId, tutorId }) {
     <div>
       <h1>Reviews</h1>
       <div className="reviewCards">
-      {newReviews}
+      {displayedReviews}
+			<Pagination reviewsPerPage={reviewsPerPage} totalReviews={reviews.length} paginate={paginate} currentPage={currentPage}/>
       </div>
       <h1>Add Review</h1>
       <form onSubmit={handleSubmit}>
