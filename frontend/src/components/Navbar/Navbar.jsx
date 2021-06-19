@@ -9,6 +9,7 @@ export default function NavBar({ username, loggedIn, setLoggedIn, userID }) {
   }
 
   const detailURL = `/details/${userID}/`;
+  const dashboardURL = `/dashboard/`;
 
   return (
     <>
@@ -17,9 +18,15 @@ export default function NavBar({ username, loggedIn, setLoggedIn, userID }) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="mr-auto">
           <Nav className="justify-content-center">
-            <Link className="links" to="/">Home |</Link>
+            <Link className="links" to="/">&nbsp;Home &nbsp;</Link>
           {loggedIn ? (
-            <Link className="links" to={detailURL}>&nbsp; Hello, {username} &nbsp; | &nbsp;</Link>
+            <>
+            &nbsp; | &nbsp;
+            <Link className="links" to={detailURL}>&nbsp; Hello, {username} &nbsp; </Link>
+            &nbsp; | &nbsp;
+            <Link className="links" to={dashboardURL}>&nbsp; Dashboard &nbsp; </Link>
+            &nbsp; | &nbsp;
+            </>
             ) : (
               ""
               )}

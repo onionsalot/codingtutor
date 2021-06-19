@@ -7,6 +7,7 @@ import TutorSlots from "./components/Slots/TutorSlots";
 import TutorDetailPage from "./pages/TutorDetailPage/TutorDetailPage";
 import HomePage from "./pages/HomePage/HomePage";
 import ConfirmationPage from "./pages/ConfirmationPage/ConfirmationPage";
+import DashboardPage from "./pages/DashboardPage/DashboardPage"
 import axios from "axios";
 import "./App.css";
 
@@ -52,6 +53,9 @@ export default function App() {
             </Route>
             <Route exact path="/details/:id">
               <TutorDetailPage user={user} />
+            </Route>
+            <Route exact path="/dashboard">
+              <DashboardPage user={user} />
             </Route>
             <Route exact path="/add_slot">
               <TutorSlots user={user} />
