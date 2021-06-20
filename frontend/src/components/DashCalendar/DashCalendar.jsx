@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Calendar from "react-calendar";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 
 export default function DashCalendar({ user }) {
   const [value, onChange] = useState(new Date());
@@ -10,6 +12,11 @@ export default function DashCalendar({ user }) {
     date: value.toLocaleDateString("en-US"),
   });
   const [slotsArray, setSlotsArray] = useState([])
+  const [error, setError] = useState("")
+  const [slots, setSlots] = useState([])
+  const [buttons, setButtons] = useState(
+    new Array(13).fill(false)
+);
 
   function onClickDay(value, event) {
     const newDate = value.toLocaleDateString("en-US");
@@ -22,13 +29,55 @@ export default function DashCalendar({ user }) {
 
   }
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    console.log(form)
-    console.log(slotsArray)
+  // function handleSubmit(e) {
+  //   e.preventDefault()
+  //   console.log(form)
+  //   console.log(slotsArray)
+    
+  // }
+  async function handleSubmit(evt) {
+    evt.preventDefault();
+    const options = {
+      url: `/api/slots/${user.id}/add_slot/`,
+      method: "POST",
+      headers: {
+        Authorization: `JWT ${localStorage.getItem("token")}`,
+      },
+      data: {
+        hour: slotsArray,
+        date: form.date,
+      },
+    };
+    try {
+      await axios(options).then((response) => {
+        // const availableSlots = (
+        //   <StudentSlots tutor={tutor} user={user} slot={response.data} />
+        // );
+        // setDisplayedSlots([...displayedSlots, availableSlots]);
+        console.log(response.data)
+        // if (response.data.success === false) {
+        //   setError("Unable to add duplicate slot")
+        // } else {
+
+        //   const unsortedSlots= [...slots, response.data]
+        //   unsortedSlots.sort(function (a, b) {
+        //     return (
+        //       a['hour'] -
+        //       b['hour']
+        //     );
+        //   });
+        //   setSlots(unsortedSlots)
+        // }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  function handleChange(e) {
+  function handleChange(idx, e) {
+    const checkedState = buttons.map((button, index) => index === idx ? !button : button
+    );
+    setButtons(checkedState);
     if (e.target.checked === true) {
       slotsArray.push(e.target.value)
     } else {
@@ -37,12 +86,11 @@ export default function DashCalendar({ user }) {
   }
 
   //   const tileContent = ({ date, view }) => view === 'month' && slots.find(e => e['date'] === date.toLocaleDateString("en-US")) ? "*" : null;
-
   const timeChoices = []
   for (let i = 8; i < 21; i++) {
     timeChoices.push(<div id="ck-button">
       <label>
-        <input type="checkbox" onChange={handleChange} value={i<10? `0${i}`: `${i}`} />
+        <input checked={buttons[i-8]} type="checkbox" onChange={(e)=>handleChange(i-8, e)} value={i<10? `0${i}`: `${i}`} />
         <span>{i<13? `${i} am`:`${i-12} pm`}</span>
       </label>
     </div>)

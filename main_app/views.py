@@ -67,15 +67,20 @@ def add_slot(request, user_id):
     data = request.data
     tutor = User.objects.get(id=user_id)
     slots = Slot.objects.filter(tutor=user_id)
-    if len(slots.filter(hour=data['hour'], date=data['date'])) != 0:
-        return Response({ "success":False })
+    print(data)
+    sortedSlots = []
+    for hour in data['hour']:
+        if len(slots.filter(hour=hour, date=data['date'])) == 0:
+            # return Response({ "success":False })
+            print(f'{hour} Add')
+            sortedSlots.append(Slot(hour=hour, date=data['date'], tutor=tutor))
+        else:
+            print(f'{hour} EXISTS')
+    print(sortedSlots)
 
-    slot = Slot.objects.create(
-        hour = data['hour'],
-        date = data['date'],
-        tutor = tutor,
-    )
-    serializer = SlotSerializer(slot, many = False)
+    slot = Slot.objects.bulk_create(sortedSlots)
+
+    serializer = SlotSerializer(slot, many = True)
     return Response(serializer.data)
 
 @api_view(['PUT'])
