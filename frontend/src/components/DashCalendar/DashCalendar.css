@@ -24,8 +24,7 @@
  }
  
  #ck-button label input {
-     position:absolute;
-     top:-30px;
+     display:none;
  }
  
  #ck-button input:checked + span {

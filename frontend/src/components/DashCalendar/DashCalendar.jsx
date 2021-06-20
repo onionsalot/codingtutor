@@ -13,7 +13,6 @@ export default function DashCalendar({ user }) {
   });
   const [slotsArray, setSlotsArray] = useState([])
   const [error, setError] = useState("")
-  const [slots, setSlots] = useState([])
   const [buttons, setButtons] = useState(
     new Array(13).fill(false)
 );
@@ -55,6 +54,8 @@ export default function DashCalendar({ user }) {
         // );
         // setDisplayedSlots([...displayedSlots, availableSlots]);
         console.log(response.data)
+        setSlotsArray([])
+        setButtons(new Array(13).fill(false))
         // if (response.data.success === false) {
         //   setError("Unable to add duplicate slot")
         // } else {
