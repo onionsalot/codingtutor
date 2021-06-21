@@ -87,7 +87,9 @@ export default function DashCalendar({ user, slots, setDateClicked }) {
     }
   }
 
-  //   const tileContent = ({ date, view }) => view === 'month' && slots.find(e => e['date'] === date.toLocaleDateString("en-US")) ? "*" : null;
+    const tileContent = ({ date, view }) => view === 'month' && slots.find(e => e['date'] === date.toLocaleDateString("en-US") && e['student'] !== null) ? "**" : null;
+
+    const tileClassName = ({ date, view }) => view === 'month' && slots.find(e => e['date'] === date.toLocaleDateString("en-US")) ? "highlight" : "";
   const timeChoices = []
   for (let i = 8; i < 21; i++) {
     timeChoices.push(<div id="ck-button">
@@ -105,7 +107,8 @@ export default function DashCalendar({ user, slots, setDateClicked }) {
             onChange={onCalChange}
             value={value}
             onClickDay={onClickDay}
-            // tileContent={tileContent}
+            tileContent={tileContent}
+            tileClassName={tileClassName}
           />
         </main>
         <div className="dashChoices">
