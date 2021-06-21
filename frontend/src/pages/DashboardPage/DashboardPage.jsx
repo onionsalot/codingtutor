@@ -3,10 +3,39 @@ import "./DashboardPage.css";
 import Calendar from "react-calendar";
 import React, { useState, useEffect } from "react";
 import DashCalendar from "../../components/DashCalendar/DashCalendar"
+import DashList from "../../components/DashList/DashList"
+import axios from "axios";
 
 export default function DashboardPage({ user }) {
+  const [slots, setSlots] = useState([])
+  const [displayedSlots, setDisplayedSlots] = useState([]);
+  const [dateClicked, setDateClicked] = useState("")
 
+  useEffect (() => {
+    async function getSlots() {
+      axios
+      .get(`/api/dashboard/${user.id}/`, {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log("tutor available slots =>", res.data);
+        setSlots(res.data);
+      
+      });
+    }
+    getSlots()
+  }, [user])
 
+  useEffect(() => {
+    if (slots.length === 0) {
+      console.log('heh')
+    }
+    const availableSlots = slots.filter(slot => dateClicked === slot.date)
+    console.log(availableSlots)
+    setDisplayedSlots(availableSlots);
+  }, [dateClicked]);
   //   const tileContent = ({ date, view }) => view === 'month' && slots.find(e => e['date'] === date.toLocaleDateString("en-US")) ? "*" : null;
   return (
     <div className="Dashboard">
@@ -21,10 +50,12 @@ export default function DashboardPage({ user }) {
       </div>
 
       <div className="details">
-        <DashCalendar user={user} />
+        <DashCalendar user={user} slots={slots} setDateClicked={setDateClicked}/>
       </div>
 
-      <div className="right"></div>
+      <div className="right">
+        <DashList user={user} slots={slots} displayedSlots={displayedSlots}/>
+      </div>
     </div>
   );
 }

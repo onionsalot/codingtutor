@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 
-export default function DashCalendar({ user }) {
+export default function DashCalendar({ user, slots, setDateClicked }) {
   const [value, onChange] = useState(new Date());
   const [form, setForm] = useState({
     date: value.toLocaleDateString("en-US"),
@@ -20,9 +20,10 @@ export default function DashCalendar({ user }) {
   function onClickDay(value, event) {
     const newDate = value.toLocaleDateString("en-US");
     setForm({ ...form, date: newDate });
+    setDateClicked(newDate)
   }
 
-  function onCalChange(value, event) {
+  function onCalChange(value, event) {  
     onChange(value);
     const newDate = value.toLocaleDateString("en-US");
 

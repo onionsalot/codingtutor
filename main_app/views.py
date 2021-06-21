@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import User, Profile, Slot, Review
-from .serializers import UserSerializer, UserSerializerWithToken ,ProfileSerializer, ProfileImageSerializer, SlotSerializer, ReviewSerializer
+from .serializers import UserSerializer, UserSerializerWithToken ,ProfileSerializer, ProfileImageSerializer, SlotSerializer, ReviewSerializer, ProfileDashSerializer
 import cloudinary.uploader
 
 @api_view(['GET'])
@@ -32,6 +32,16 @@ def details(request, user_id):
     serializer = ProfileSerializer(profile, many = False)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def dashboard(request, user_id):
+    all_slots = Slot.objects.filter(tutor=user_id)
+    serializer = SlotSerializer(all_slots, many = True)
+    data = serializer.data
+    for idx, slot in enumerate(all_slots):
+        if (all_slots[idx].student != None):
+            data[idx]['student'] = ProfileDashSerializer(all_slots[idx].student.profile, many = False).data
+    return Response(data)
+    
 @api_view(['GET'])
 def user_reviews(request, tutor_id):
     reviews = Review.objects.filter(tutor=tutor_id)
