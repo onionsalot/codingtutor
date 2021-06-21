@@ -51,7 +51,7 @@ export default function DashboardPage({ user }) {
       </div>
 
       <div className="details">
-        <DashCalendar user={user} slots={slots} setDateClicked={setDateClicked}/>
+        <DashCalendar user={user} slots={slots} setSlots={setSlots} setDateClicked={setDateClicked}/>
       </div>
 
       <div className="right">

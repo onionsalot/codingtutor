@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 
-export default function DashCalendar({ user, slots, setDateClicked }) {
+export default function DashCalendar({ user, slots, setSlots, setDateClicked }) {
   const [value, onChange] = useState(new Date());
   const [form, setForm] = useState({
     date: value.toLocaleDateString("en-US"),
@@ -57,6 +57,12 @@ export default function DashCalendar({ user, slots, setDateClicked }) {
         console.log(response.data)
         setSlotsArray([])
         setButtons(new Array(13).fill(false))
+        if (response.data.length !== 0) {
+          setSlots(slots.concat(response.data))
+          setDateClicked("")
+          const newDate = value.toLocaleDateString("en-US");
+          setDateClicked(newDate)
+        }
         // if (response.data.success === false) {
         //   setError("Unable to add duplicate slot")
         // } else {
