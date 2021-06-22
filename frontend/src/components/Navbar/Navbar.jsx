@@ -21,11 +21,11 @@ export default function NavBar({ username, loggedIn, setLoggedIn, userID }) {
             <Link className="links" to="/">&nbsp;Home &nbsp;</Link>
           {loggedIn ? (
             <>
-            &nbsp; | &nbsp;
+            <span className="spaces">&nbsp; | &nbsp;</span>
             <Link className="links" to={detailURL}>&nbsp; Hello, {username} &nbsp; </Link>
-            &nbsp; | &nbsp;
+            <span className="spaces">&nbsp; | &nbsp;</span>
             <Link className="links" to={dashboardURL}>&nbsp; Dashboard &nbsp; </Link>
-            &nbsp; | &nbsp;
+            <span className="spaces">&nbsp; | &nbsp;</span>
             </>
             ) : (
               ""

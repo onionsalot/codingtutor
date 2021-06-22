@@ -10,6 +10,7 @@ import ConfirmationPage from "./pages/ConfirmationPage/ConfirmationPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage"
 import axios from "axios";
 import "./App.css";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 export default function App() {
   axios.defaults.xsrfCookieName = 'csrftoken'
@@ -47,6 +48,7 @@ export default function App() {
             setLoggedIn={setLoggedIn}
             userID={user.id}
           />
+          <ScrollToTop />
           <Switch>
             <Route exact path="/">
               <HomePage user={user}/>

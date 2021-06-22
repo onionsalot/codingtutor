@@ -12,7 +12,15 @@ a:hover {
     display: flex;
 
 }
+.spaces {
+    display:unset
+}
 
+@media (max-width: 1000px) {
+    .spaces {
+        display:none
+    }
+}
 
 @media (max-width: 600px) { 
     .navbar{
@@ -23,6 +31,9 @@ a:hover {
     .navbar-toggler {
         height:auto;
         margin: auto;
+    }
+    .spaces {
+        display:none
     }
 
 }
