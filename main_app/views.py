@@ -99,9 +99,12 @@ def assoc_student(request, slot_id, user_id):
     permission_classes = (permissions.AllowAny,)
     data = request.data
     student = User.objects.get(id=user_id)
-    slot = Slot.objects.filter(id=slot_id).update(
-        student = student,
-    )
+    slot = Slot.objects.get(id=slot_id)
+    print('user object = >',student)
+    print('slot object = >',slot)
+    slot.student = student
+    slot.save()
+    print('tutorId=>', request.data)
     all_slots = Slot.objects.filter(tutor=data['tutorId'])
     serializer = SlotSerializer(all_slots, many = True)
     return Response(serializer.data)

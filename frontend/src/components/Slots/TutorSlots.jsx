@@ -14,6 +14,7 @@ export default function TutorSlots({ tutorId, tutor, user }) {
   });
   const [error, setError] = useState("");
   const [slots, setSlots] = useState([]);
+  const [buttons, setButtons] = useState([])
 
   useEffect(() => {
     async function getSlots() {
@@ -29,153 +30,159 @@ export default function TutorSlots({ tutorId, tutor, user }) {
         });
     }
     getSlots();
-  }, []);
+  }, [tutorId]);
 
   useEffect(() => {
-    if (slots.length === 0) {
-      console.log('heh')
-    }
-    const availableSlots = slots.map((slot, idx) => {
-      if (value.toLocaleDateString("en-US") === slot.date) {
-        return (
-          <StudentSlots
-            tutor={tutor}
-            user={user}
-            key={idx}
-            slot={slot}
-            setSlots={setSlots}
-            setError={setError}
-          />
-        );
-      } else {
-        return "";
-      }
-    });
-    setDisplayedSlots(availableSlots);
-  }, [slots, tutor, user]);
+    const availableSlots = slots.map((slot, idx) => 
+    <StudentSlots
+    tutorId={tutorId}
+    user={user}
+    key={idx}
+    slot={slot}
+    setSlots={setSlots}
+    setError={setError}
+    />
+    );
+  setButtons(availableSlots);
+  }, [slots, tutorId, user])
 
-  function handleChange(evt) {
-    setForm({ ...form, [evt.target.name]: evt.target.value });
-  }
+  useEffect(() => {
+    const newDate = value.toLocaleDateString("en-US");
+    const filteredSlots = buttons.filter(slot => newDate === slot.props.slot.date)
+    setDisplayedSlots(filteredSlots)
+  }, [buttons])
 
-  async function handleSubmit(evt) {
-    evt.preventDefault();
-    const options = {
-      url: `/api/slots/${tutorId}/add_slot/`,
-      method: "POST",
-      headers: {
-        Authorization: `JWT ${localStorage.getItem("token")}`,
-      },
-      data: {
-        hour: form.hour,
-        date: form.date,
-      },
-    };
-    try {
-      await axios(options).then((response) => {
-        // const availableSlots = (
-        //   <StudentSlots tutor={tutor} user={user} slot={response.data} />
-        // );
-        // setDisplayedSlots([...displayedSlots, availableSlots]);
-        console.log(response.data)
-        if (response.data.success === false) {
-          setError("Unable to add duplicate slot")
-        } else {
+  // useEffect(() => {
+  //   if (slots.length === 0) {
+  //     return console.log('heh')
+  //   }
+  //   // const availableSlots = slots.map((slot, idx) => {
+  //   //   if (value.toLocaleDateString("en-US") === slot.date) {
+  //   //     return (
+  //   //       <StudentSlots
+  //   //         tutor={tutor}
+  //   //         user={user}
+  //   //         key={idx}
+  //   //         slot={slot}
+  //   //         setSlots={setSlots}
+  //   //         setError={setError}
+  //   //       />
+  //   //     );
+  //   //   } else {
+  //   //     return "";
+  //   //   }
+  //   // });
+  //   // setDisplayedSlots(availableSlots);
 
-          const unsortedSlots= [...slots, response.data]
-          unsortedSlots.sort(function (a, b) {
-            return (
-              a['hour'] -
-              b['hour']
-            );
-          });
-          setSlots(unsortedSlots)
-        }
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  //   const newDate = value.toLocaleDateString("en-US");
+  //   const filteredSlots = slots.filter(slot => newDate === slot.date)
+  //   const availableSlots = filteredSlots.map((slot, idx) => 
+  //       <StudentSlots
+  //       tutor={tutor}
+  //       user={user}
+  //       key={idx}
+  //       slot={slot}
+  //       setSlots={setSlots}
+  //       setError={setError}
+  //       />
+  //       );
+
+  //     setDisplayedSlots(availableSlots);
+  // }, [slots, tutor, user]);
+
+
+  // async function handleSubmit(evt) {
+  //   evt.preventDefault();
+  //   const options = {
+  //     url: `/api/slots/${tutorId}/add_slot/`,
+  //     method: "POST",
+  //     headers: {
+  //       Authorization: `JWT ${localStorage.getItem("token")}`,
+  //     },
+  //     data: {
+  //       hour: form.hour,
+  //       date: form.date,
+  //     },
+  //   };
+  //   try {
+  //     await axios(options).then((response) => {
+  //       // const availableSlots = (
+  //       //   <StudentSlots tutor={tutor} user={user} slot={response.data} />
+  //       // );
+  //       // setDisplayedSlots([...displayedSlots, availableSlots]);
+  //       console.log(response.data)
+  //       if (response.data.success === false) {
+  //         setError("Unable to add duplicate slot")
+  //       } else {
+
+  //         const unsortedSlots= [...slots, response.data]
+  //         unsortedSlots.sort(function (a, b) {
+  //           return (
+  //             a['hour'] -
+  //             b['hour']
+  //           );
+  //         });
+  //         setSlots(unsortedSlots)
+  //       }
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   function onClickDay(value, event) {
     const newDate = value.toLocaleDateString("en-US");
     setForm({ ...form, date: newDate });
+    onChange(value);
+    // console.log(buttons[10].props.slot.date)
+    const filteredSlots = buttons.filter(slot => newDate === slot.props.slot.date)
+    setDisplayedSlots(filteredSlots)
+    // console.log(filteredSlots)
+    // const availableSlots = filteredSlots.map((slot, idx) => 
+    //     <StudentSlots
+    //     tutor={tutor}
+    //     user={user}
+    //     key={idx}
+    //     slot={slot}
+    //     setSlots={setSlots}
+    //     setError={setError}
+    //     />
+    //     );
+    // setDisplayedSlots(availableSlots);
   }
 
-  function onCalChange(value, event) {
-    onChange(value);
-    const newDate = value.toLocaleDateString("en-US");
-    const availableSlots = slots.map((slot, idx) => {
-      if (newDate === slot.date) {
-        return (
-          <StudentSlots
-            tutor={tutor}
-            user={user}
-            key={idx}
-            slot={slot}
-            setSlots={setSlots}
-            setError={setError}
-          />
-        );
-      } else {
-        return "";
-      }
-    });
-    setDisplayedSlots(availableSlots);
-  }
+  // function onCalChange(value, event) {
+  //   onChange(value);
+  //   setDisplayedSlots([]);
+  //   const newDate = value.toLocaleDateString("en-US");
+  //   const filteredSlots = slots.filter(slot => newDate === slot.date)
+  //   const availableSlots = filteredSlots.map((slot, idx) => 
+  //       <StudentSlots
+  //       tutor={tutor}
+  //       user={user}
+  //       key={idx}
+  //       slot={slot}
+  //       setSlots={setSlots}
+  //       setError={setError}
+  //       />
+  //       );
+
+  //     console.log(filteredSlots)
+  //     setDisplayedSlots(availableSlots);
+  // }
 
   const tileContent = ({ date, view }) => view === 'month' && slots.find(e => e['date'] === date.toLocaleDateString("en-US")) ? "*" : null;
+
   return (
     <section className="calContainer">
-      <form onSubmit={handleSubmit} autoComplete="off">
         <main className="cal">
           <Calendar
-            onChange={onCalChange}
+            // onChange={onCalChange}
             value={value}
             onClickDay={onClickDay}
             tileContent={tileContent}
           />
         </main>
-        <div className="timeSlots">
-          {user.id == tutorId ? (
-            <>
-              <label>Select A Time</label>
-              <select name="hour" onChange={handleChange}>
-                <option value="00" selected>
-                  12:00 AM
-                </option>
-                <option value="01">1:00 AM</option>
-                <option value="02">2:00 AM</option>
-                <option value="03">3:00 AM</option>
-                <option value="04">4:00 AM</option>
-                <option value="05">5:00 AM</option>
-                <option value="06">6:00 AM</option>
-                <option value="07">7:00 AM</option>
-                <option value="08">8:00 AM</option>
-                <option value="09">9:00 AM</option>
-                <option value="10">10:00 AM</option>
-                <option value="11">11:00 AM</option>
-                <option value="12">12:00 PM</option>
-                <option value="13">1:00 PM</option>
-                <option value="14">2:00 PM</option>
-                <option value="15">3:00 PM</option>
-                <option value="16">4:00 PM</option>
-                <option value="17">5:00 PM</option>
-                <option value="18">6:00 PM</option>
-                <option value="19">7:00 PM</option>
-                <option value="20">8:00 PM</option>
-                <option value="21">9:00 PM</option>
-                <option value="22">10:00 PM</option>
-                <option value="23">11:00 PM</option>
-              </select>
-              <br />
-              <Button type="submit"> CONFIRM TIME SLOT </Button>
-            </>
-          ) : (
-            <h3>Log in as this user to add time slots!</h3>
-          )}
-        </div>
-      </form>
       <div className="slotHolder">
         <h2 className="slotTop">Available Time Slots</h2>
         <div className="slotBot">{displayedSlots}</div>

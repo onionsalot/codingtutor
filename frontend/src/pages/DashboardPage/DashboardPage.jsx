@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
 import "./DashboardPage.css";
-import Calendar from "react-calendar";
 import React, { useState, useEffect } from "react";
 import DashCalendar from "../../components/DashCalendar/DashCalendar"
 import DashList from "../../components/DashList/DashList"

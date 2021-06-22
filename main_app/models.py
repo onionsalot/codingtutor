@@ -40,6 +40,8 @@ class Slot(models.Model):
 
     class Meta:
         ordering = ['hour']
+    def __str__(self):
+        return f"{self.hour} of {self.date}: tutor=> {self.tutor} student=> {self.student}"
 
 class Review(models.Model):
     comment = models.TextField(max_length=500, blank=True)

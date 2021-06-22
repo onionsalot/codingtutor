@@ -4,11 +4,11 @@ import axios from "axios";
 import { Button } from "react-bootstrap";
 import "./StudentSlots.css";
 
-export default function StudentSlots({ tutor, user, key, slot, setSlots, setError }) {
+export default function StudentSlots({ tutorId, user, key, slot, setSlots, setError }) {
   const [buttonState, setButtonState] = useState(true)
   const history = useHistory();
   const [currentSlot, setCurrentSlot] = useState(slot.student)
-
+  console.log(`slot(${slot.id}) and ${currentSlot} and uid: ${user.id}. TUTOR is ${tutorId}`)
     // if (slot.student !== null) {
     //   setButtonState(false)
     // }
@@ -21,11 +21,12 @@ export default function StudentSlots({ tutor, user, key, slot, setSlots, setErro
         Authorization: `JWT ${localStorage.getItem("token")}`,
       },
       data: {
-        tutorId: tutor.id,
+        tutorId: tutorId,
       },
     };
     evt.preventDefault();
-    if (tutor.user === user.id) {
+    // eslint-disable-next-line eqeqeq
+    if (tutorId == user.id) {
       setError(<p className="error">You can't sign up for your own timeslots, dummy!</p>)
       return
     }
