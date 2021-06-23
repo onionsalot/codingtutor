@@ -23,9 +23,23 @@ input {
   margin-bottom: 20px;
 }
 
-button {
+.login button {
   justify-content: center;
   margin-bottom: 100px;
+}
+
+.login .button-link{
+  justify-content: center;
+  margin-bottom: 0px;
+  border: 0px;
+  background-color: white;
+  text-decoration: underline;
+}
+
+.login-nav{
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
 }
 
 @media (max-width: 1000px) {

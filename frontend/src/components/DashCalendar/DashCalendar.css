@@ -36,3 +36,17 @@
      font-weight:bold;
      text-decoration: underline overline;
  }
+
+ .dash-button {
+    background-color:#EFEFEF;
+    color:black;
+    border-radius:4px;
+    border:1px solid #D0D0D0;
+    overflow:auto;
+    float:left;
+    margin: 0 auto;
+ }
+
+ .dash-submit {
+     margin: 10px;
+ }

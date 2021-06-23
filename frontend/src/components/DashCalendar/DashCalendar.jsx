@@ -18,6 +18,7 @@ export default function DashCalendar({
   const [slotsArray, setSlotsArray] = useState([]);
   const [error, setError] = useState("");
   const [buttons, setButtons] = useState(new Array(13).fill(false));
+  const [selectState, setSelectState] = useState(false)
 
   function onClickDay(value, event) {
     const newDate = value.toLocaleDateString("en-US");
@@ -52,6 +53,7 @@ export default function DashCalendar({
         console.log(response.data);
         setSlotsArray([]);
         setButtons(new Array(13).fill(false));
+        setSelectState(false)
         if (response.data.length !== 0) {
           setSlots(slots.concat(response.data));
           setDateClicked("");
@@ -83,10 +85,22 @@ export default function DashCalendar({
     );
     setButtons(checkedState);
     if (e.target.checked === true) {
+      console.log(e.target.value)
       slotsArray.push(e.target.value);
     } else {
       setSlotsArray(slotsArray.filter((i) => i !== e.target.value));
     }
+  }
+
+  function handleAll() {
+    setButtons(new Array(13).fill(true));
+    setSlotsArray(["08","09","10","11","12","13","14","15","16","17","18","19","20"])
+    setSelectState(true)
+  }
+  function handleNone() {
+    setButtons(new Array(13).fill(false));
+    setSlotsArray([])
+    setSelectState(false)
   }
 
   const tileContent = ({ date, view }) =>
@@ -146,7 +160,13 @@ export default function DashCalendar({
           <br />
           {timeChoices}
           <br />
-          <Button type="submit"> CONFIRM TIME SLOT </Button>
+          {selectState ? (
+            <Button className="dash-button" onClick={handleNone}> Deselect All </Button>
+          ):(
+            <Button className="dash-button" onClick={handleAll}> Select All </Button>
+          )}
+        <br />
+          <Button className="dash-submit" type="submit"> CONFIRM TIME SLOT </Button>
         </div>
         ) : (
           null

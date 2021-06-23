@@ -66,7 +66,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         if (contents.status === "ZERO_RESULTS") {
           setError("Invalid Zipcode")
         } else if (contents.status === "OK"){
-          setError("")
+          setError("Sign up SUCCESS! Redirecting...");
           setForm({ ...form, place_id: contents.results[0].place_id });
           const options = {
             url: "/api/users/",
@@ -192,7 +192,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           required
         />
         <br />
-        <input
+        <textarea
           placeholder="Bio"
           type="text"
           name="bio"
@@ -210,7 +210,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           required
         />
         <br />
-        <span>Uncomfortable with providing zipcode (used for geolocation purposes)? Head back to login and click "Login to Demo Account"</span>
+        <span>Uncomfortable with providing zipcode? (Used for geolocation purposes) Head back to login and click "Login to Demo Account"</span>
         <hr/>
         {signUpTutor ? (
           <>
