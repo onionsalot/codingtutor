@@ -9,11 +9,14 @@ Are you learning to code and want some help from someone more experienced? Or ma
 ![Login](frontend/public/images/Login.png)
 ![Home Page](frontend/public/images/Homepage.png)
 ![Detail](frontend/public/images/Detail.png)
+![Phone](frontend/public/images/Phone.png)
 
 
 ## Technologies Used:
 
-Python, Django, PostgreSQL, JavaScript, React, CSS, React-Bootstrap
+- Python, Django, PostgreSQL, JavaScript, React, CSS
+- APIs: Google Geolocation, Google Distance Matrix, Cloudinary
+- Notable libraries: Django-js-choices, BeautifulSoup, React-Calendar, React-Select
 
 ## Links:
 
@@ -26,7 +29,7 @@ Python, Django, PostgreSQL, JavaScript, React, CSS, React-Bootstrap
 ## Next Steps
 
 - [ ] Light & Dark Theme
-- [x] Zipcode API
+- [x] Zipcode API<br><img src="frontend/public/images/zipcode.png" alt="zipcode" width="200" height="177"/>
 - [x] Wiki Scraper 
     ![wiki scraper](frontend/public/images/wiki.png)
 - [x] Calender Improvements<br><img src="frontend/public/images/cal.png" alt="calendar" width="200" height="177"/>
