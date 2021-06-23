@@ -11,7 +11,7 @@ export default function AboutPage() {
       <Link to="/" className="btn btn-primary button-left">Back</Link><br/>
       <dl>
         <dt>What is this?</dt>
-            <dd>A GA SEI project in collaboration project! <br/><br/>
+            <dd>A GA SEI collaboration project! <br/><br/>
             Are you learning to code and want some help from someone more experienced? Or maybe you are an established programmer wanting to make some money tutoring new learners, either way, Coding Tutor is the choice for you! With the Coding Tutor app you can create an account as a student or tutor, students are able to view tutor profiles and schedule meetings with tutors. Tutors are able to list their skills, such as JavaScript, React, Django, etc., and create time slots for students to schedule meetings.</dd>
         <dt>Getting Started:</dt>
             <dd>Sign up or login to reach the home screen, which will display 25 tutors(API limitations) sorted from closest to furthest away from you based on your zipcode! If you are uncomfortable providing your zipcode, you may log onto the demo account. Details on login screen.</dd>
