@@ -40,8 +40,11 @@ export default function HomePage({ user }) {
         console.log("Geocode run");
         console.log(user)
         const placeIds = [];
+        console.log(tutors)
         for(let i=0; i<25; i++) { // Google geocode allows max of 25 items per request. Solve this with pagination
-          placeIds.push(`place_id:${tutors[i].place_id}|`);
+          if (tutors[i] !== undefined) {
+            placeIds.push(`place_id:${tutors[i].place_id}|`);
+          }
         }
         // tutors.forEach((tutor) => {
         //   placeIds.push(`place_id:${tutor.place_id}|`);
@@ -62,15 +65,17 @@ export default function HomePage({ user }) {
                 const distances = contents.rows[0].elements;
                 const unorderedTutors = [];
                 for(let i=0; i<25; i++) { // Google geocode allows max of 25 items per request. Solve this with pagination
-                  if (user.id !== tutors[i].user) {
-                    unorderedTutors.push(
-                            <TutorList
-                            key={i}
-                            tutor={tutors[i]}
-                            distance={distances[i]}
-                            />
-                            );
-                          }
+                  if (tutors[i] !== undefined) {
+                    if (user.id !== tutors[i].user) {
+                      unorderedTutors.push(
+                              <TutorList
+                              key={i}
+                              tutor={tutors[i]}
+                              distance={distances[i]}
+                              />
+                              );
+                            }
+                  }
                   }
                 
                 // tutors.forEach((tutor, idx) => {
