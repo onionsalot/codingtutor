@@ -8,10 +8,6 @@ export default function StudentSlots({ tutorId, user, key, slot, setSlots, setEr
   const [buttonState, setButtonState] = useState(true)
   const history = useHistory();
   const [currentSlot, setCurrentSlot] = useState(slot.student)
-  console.log(`slot(${slot.id}) and ${currentSlot} and uid: ${user.id}. TUTOR is ${tutorId}`)
-    // if (slot.student !== null) {
-    //   setButtonState(false)
-    // }
 
   async function handleSubmit(evt) {
     const options = {
@@ -32,7 +28,6 @@ export default function StudentSlots({ tutorId, user, key, slot, setSlots, setEr
     }
     try {
         await axios(options).then((response) => {
-        console.log(response.data);
         // setCurrentSlot({student: user.id})
         setSlots([])
         setError(<p className="success">Successfully signed up for timeslot. Mark your calendars!</p>)
