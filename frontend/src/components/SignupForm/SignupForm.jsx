@@ -88,9 +88,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
               // image: form.image,
             },
           };
-          console.log(options)
           await axios(options).then(async (response) => {
-            console.log(response)
             setError("Sign up SUCCESS! Redirecting...");
             localStorage.setItem("token", response.data.token);
             setUser({
@@ -108,7 +106,6 @@ export default function SignupForm({ setUser, setLoggedIn }) {
                   'content-type': 'multipart/form-data'
                 }
               }).then((res) => {
-                console.log(res)
                 setLoggedIn(localStorage.getItem("token"));
               })
             }

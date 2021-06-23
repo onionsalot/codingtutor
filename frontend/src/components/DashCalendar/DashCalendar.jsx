@@ -50,7 +50,6 @@ export default function DashCalendar({
         //   <StudentSlots tutor={tutor} user={user} slot={response.data} />
         // );
         // setDisplayedSlots([...displayedSlots, availableSlots]);
-        console.log(response.data);
         setSlotsArray([]);
         setButtons(new Array(13).fill(false));
         setSelectState(false)
@@ -85,7 +84,6 @@ export default function DashCalendar({
     );
     setButtons(checkedState);
     if (e.target.checked === true) {
-      console.log(e.target.value)
       slotsArray.push(e.target.value);
     } else {
       setSlotsArray(slotsArray.filter((i) => i !== e.target.value));
