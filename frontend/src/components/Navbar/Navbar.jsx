@@ -26,6 +26,8 @@ export default function NavBar({ username, loggedIn, setLoggedIn, userID }) {
             <span className="spaces">&nbsp; | &nbsp;</span>
             <Link className="links" to={dashboardURL}>&nbsp; Dashboard &nbsp; </Link>
             <span className="spaces">&nbsp; | &nbsp;</span>
+            <Link className="links" to="/about">&nbsp; About &nbsp; </Link>
+            <span className="spaces">&nbsp; | &nbsp;</span>
             </>
             ) : (
               ""

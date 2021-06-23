@@ -62,6 +62,9 @@ export default function App() {
             <Route exact path="/add_slot">
               <TutorSlots user={user} />
             </Route>
+            <Route exact path="/about">
+              <AboutPage />
+            </Route>
             <Redirect to="/" />
           </Switch>
         </>
