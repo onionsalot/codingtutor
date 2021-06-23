@@ -1,0 +1,41 @@
+.Dashboard .header {
+    grid-area: header;
+    justify-content: center;
+    width: 100%;
+}
+
+.Dashboard .details {
+    grid-area: details;
+}
+.Dashboard .reviews {
+    width:100%;
+}
+
+.Dashboard .right {
+    grid-area: calendar;
+    justify-content: center;
+    align-items: center;
+    margin:5px;
+}
+
+.Dashboard {
+    display: grid;
+    width: 100vw;
+}
+
+.Dashboard .t {
+    display: grid;
+    grid-template-columns: 30vw 30vw 20vw 20vw;
+    grid-template-rows: auto 100vh;
+    grid-template-areas:
+        "header header header header"
+        "details details calendar calendar"
+}
+.Dashboard .s {
+    display: grid;
+    grid-template-columns: 20vw 20vw 30vw 30vw;
+    grid-template-rows: auto 100vh;
+    grid-template-areas:
+        "header header header header"
+        "details details calendar calendar"
+}

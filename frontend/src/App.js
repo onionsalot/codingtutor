@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import LoginForm from "./components/LoginForm/LoginForm";
 import SignupForm from "./components/SignupForm/SignupForm";
+import AuthPage from "./pages/AuthPage/AuthPage"
 import TutorSlots from "./components/Slots/TutorSlots";
 import TutorDetailPage from "./pages/TutorDetailPage/TutorDetailPage";
 import HomePage from "./pages/HomePage/HomePage";
-import ConfirmationPage from "./pages/ConfirmationPage/ConfirmationPage";
+import DashboardPage from "./pages/DashboardPage/DashboardPage"
+import AboutPage from "./pages/AboutPage/AboutPage"
 import axios from "axios";
 import "./App.css";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 export default function App() {
   axios.defaults.xsrfCookieName = 'csrftoken'
@@ -16,7 +19,6 @@ export default function App() {
   axios.defaults.withCredentials = true
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState({});
-  const [showLogin, setShowLogin] = useState(true);
 
   useEffect(() => {
     async function getUser() {
@@ -46,6 +48,7 @@ export default function App() {
             setLoggedIn={setLoggedIn}
             userID={user.id}
           />
+          <ScrollToTop />
           <Switch>
             <Route exact path="/">
               <HomePage user={user}/>
@@ -53,17 +56,29 @@ export default function App() {
             <Route exact path="/details/:id">
               <TutorDetailPage user={user} />
             </Route>
+            <Route exact path="/dashboard">
+              <DashboardPage user={user} />
+            </Route>
             <Route exact path="/add_slot">
               <TutorSlots user={user} />
             </Route>
-            <Route exact path="/confirmation">
-              <ConfirmationPage user={user} />
+            <Route exact path="/about">
+              <AboutPage />
             </Route>
+            <Redirect to="/" />
           </Switch>
         </>
       ) : (
         <>
-          <h1>Coding Tutor</h1>
+          <Switch>
+            <Route exact path="/">
+              <AuthPage setLoggedIn={setLoggedIn} setUser={setUser}/>
+            </Route>
+            <Route exact path="/about">
+              <AboutPage />
+            </Route>
+          </Switch>
+          {/* <h1>Coding Tutor</h1>
 
           {showLogin ? (
             <LoginForm setUser={setUser} setLoggedIn={setLoggedIn} />
@@ -80,7 +95,7 @@ export default function App() {
                 ? "CLICK TO SIGN UP A NEW ACCOUNT"
                 : "CLICK TO LOG IN TO AN EXISTING ACCOUNT"}
             </button>
-          </div>
+          </div> */}
         </>
       )}
     </main>

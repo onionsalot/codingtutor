@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom"
 import "./LoginForm.css";
 
 export default function LoginForm({ setUser, setLoggedIn }) {
@@ -16,6 +16,7 @@ export default function LoginForm({ setUser, setLoggedIn }) {
   }
 
   async function handleSubmit(evt) {
+    setError("");
     const options = {
       url: "/api/token-auth/",
       method: "POST",
@@ -39,13 +40,42 @@ export default function LoginForm({ setUser, setLoggedIn }) {
         setLoggedIn(localStorage.getItem("token"));
       });
     } catch {
-      setError("Sign Up Failed");
+      setError("Invalid Credentials");
+    }
+  }
+
+  async function handleDemo(evt) {
+    setError("");
+    const options = {
+      url: "/api/token-auth/",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        username: "tutor",
+        password: "1234567",
+      },
+    };
+    evt.preventDefault();
+
+    try {
+      const user = await axios(options).then((response) => {
+        localStorage.setItem("token", response.data.token);
+        setUser({
+          id: response.data.id,
+          username: response.data.username,
+        });
+        setLoggedIn(localStorage.getItem("token"));
+      });
+    } catch {
+      setError("Invalid Credentials");
     }
   }
 
   return (
     <>
-      <div>
+      <div className="login">
         <form onSubmit={handleSubmit} autoComplete="off">
           <h4> LOG IN </h4>
           {/* <img src="../../images/logo.png"></img> */}
@@ -71,8 +101,15 @@ export default function LoginForm({ setUser, setLoggedIn }) {
           <button class="btn btn-primary" type="submit">
             {" "}
             LOG IN{" "}
-          </button>
+          </button><br/>
+        {error}
         </form>
+        <div className="login-nav">
+            <Link to="/about">About</Link>
+          <form onSubmit={handleDemo} autoComplete="off">
+          <button class="button-link" type="submit">Login to Demo Account</button>
+          </form>
+        </div>
         <br />
       </div>
     </>

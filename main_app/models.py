@@ -33,13 +33,15 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Slot(models.Model):
-    hour = models.CharField(max_length=10, null=True)
+    hour = models.CharField(max_length=10, null=True, default="00")
     date = models.CharField(max_length=50, null=True)
     student = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='student_assoc')
     tutor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='tutor')
 
     class Meta:
         ordering = ['hour']
+    def __str__(self):
+        return f"{self.hour} of {self.date}: tutor=> {self.tutor} student=> {self.student}"
 
 class Review(models.Model):
     comment = models.TextField(max_length=500, blank=True)

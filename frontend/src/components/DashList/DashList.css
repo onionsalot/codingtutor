@@ -1,0 +1,19 @@
+.open{
+    color:green;
+}
+.close{
+    color: black;
+    font-weight: bold;
+}
+.list_items{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+.time_element{
+    font-weight: bold;
+    font-size: 20px;
+}
+.dash-link{
+    text-decoration: none;
+}

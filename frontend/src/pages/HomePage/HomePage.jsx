@@ -40,13 +40,19 @@ export default function HomePage({ user }) {
         console.log("Geocode run");
         console.log(user)
         const placeIds = [];
-        tutors.forEach((tutor) => {
-          placeIds.push(`place_id:${tutor.place_id}|`);
-        });
+        for(let i=0; i<25; i++) { // Google geocode allows max of 25 items per request. Solve this with pagination
+          placeIds.push(`place_id:${tutors[i].place_id}|`);
+        }
+        // tutors.forEach((tutor) => {
+        //   placeIds.push(`place_id:${tutor.place_id}|`);
+        // });
+        console.log("GEOCODE TOTAL OF =>", placeIds.length);
         const proxyurl = "https://fierce-wildwood-46381.herokuapp.com/";
         const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=place_id:${user.place_id}&destinations=${placeIds.join(
           ""
         )}&key=${process.env.REACT_APP_GOOGLE_KEY}`;
+
+        console.log(url)
 
         try {
           await fetch(proxyurl + url)
@@ -55,23 +61,36 @@ export default function HomePage({ user }) {
               if (contents.status === "OK") {
                 const distances = contents.rows[0].elements;
                 const unorderedTutors = [];
-                tutors.forEach((tutor, idx) => {
-                  if (user.id !== tutor.user) {
+                for(let i=0; i<25; i++) { // Google geocode allows max of 25 items per request. Solve this with pagination
+                  if (user.id !== tutors[i].user) {
                     unorderedTutors.push(
-                      <TutorList
-                        key={idx}
-                        tutor={tutor}
-                        distance={distances[idx]}
-                      />
-                    );
+                            <TutorList
+                            key={i}
+                            tutor={tutors[i]}
+                            distance={distances[i]}
+                            />
+                            );
+                          }
                   }
-                });
-                unorderedTutors.sort(function (a, b) {
-                  return (
-                    a.props.distance.distance.value -
-                    b.props.distance.distance.value
-                  );
-                });
+                
+                // tutors.forEach((tutor, idx) => {
+                //   if (user.id !== tutor.user) {
+                //     unorderedTutors.push(
+                //       <TutorList
+                //       key={idx}
+                //       tutor={tutor}
+                //       distance={distances[idx]}
+                //       />
+                //       );
+                //     }
+                //   });
+                  console.log(unorderedTutors)
+                  unorderedTutors.sort(function (a, b) {
+                    return (
+                      a.props.distance.distance.value -
+                      b.props.distance.distance.value
+                      );
+                    });
                 setTutorDisplay(unorderedTutors);
               }
             });

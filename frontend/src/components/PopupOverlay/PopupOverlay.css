@@ -1,0 +1,43 @@
+.pop-button {
+    margin: auto;
+    height:auto;
+    width: auto;
+    padding: 3px 10px;
+    border: black .3px solid;
+    border-radius: 50%;
+}
+
+.tut1 {
+    font-weight: bold;
+}
+
+.tut2 {
+    font-weight:bold;
+    text-decoration: underline overline;
+}
+
+.tut3 {
+    font-weight:bold;
+    text-decoration: underline overline;
+}
+
+.black {
+    font-weight:bold;
+    background-color: black;
+    color:white;
+    padding:1px;
+}
+
+.red {
+    font-weight:bold;
+    background-color: red;
+    color:white;
+    padding:1px;
+}
+
+.green {
+    font-weight:bold;
+    background-color: green;
+    color:white;
+    padding:1px;
+}

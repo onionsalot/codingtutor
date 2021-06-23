@@ -18,7 +18,6 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     rate: "",
     image: "",
   });
-
   const [error, setError] = useState("");
 
   function handleChange(evt) {
@@ -51,8 +50,15 @@ export default function SignupForm({ setUser, setLoggedIn }) {
     formData.append("upload_preset", "xdgkaefq");
     const proxyurl = "https://fierce-wildwood-46381.herokuapp.com/";
     const url = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${form.zipcode}|country:USA&key=${process.env.REACT_APP_GOOGLE_KEY}`; 
-
+    
     evt.preventDefault();
+    if (form.rate === "" || form.skills === "") {
+      if (signUpTutor === true) {
+        setError("As a tutor, please list skills and set rate!")
+        return
+      }
+    }
+    setError("")
     try {
       await fetch(proxyurl + url)
       .then(response => response.json())
@@ -60,7 +66,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         if (contents.status === "ZERO_RESULTS") {
           setError("Invalid Zipcode")
         } else if (contents.status === "OK"){
-          setError("")
+          setError("Sign up SUCCESS! Redirecting...");
           setForm({ ...form, place_id: contents.results[0].place_id });
           const options = {
             url: "/api/users/",
@@ -85,10 +91,12 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           console.log(options)
           await axios(options).then(async (response) => {
             console.log(response)
+            setError("Sign up SUCCESS! Redirecting...");
             localStorage.setItem("token", response.data.token);
             setUser({
               id: response.data.id,
               username: response.data.username,
+              place_id: response.data.place_id
             });
             if (image === "" || image === null || image === undefined) {
               console.log('no image')
@@ -116,27 +124,21 @@ export default function SignupForm({ setUser, setLoggedIn }) {
   return (
     <div>
       <br />
-      {/* <label>Add an Image</label>
-      <input
-        className="image"
-        type="file"
-        onChange={(event) => {
-          setImage(event.target.files[0]);
-        }}
-      />
-      <button className="upload" onClick={uploadImage}>
-        Upload Image
-      </button>
-      <br />
-      <p>
-        {form.image === ""
-          ? "Upload image before submitting!"
-          : "Upload Success!!"}
-      </p>
-      <br /> */}
-
-      <form onSubmit={handleSubmit} autoComplete="off">
+      <form onSubmit={handleSubmit} autoComplete="off" className="signup">
         <h4> Sign Up </h4>
+        <div>
+          <span
+            class="btn btn-success"
+            onClick={() => {
+              setForm({ ...form, skills: "", rate: "" });
+              setSignUpTutor(!signUpTutor)
+            }}
+          >
+            {signUpTutor
+              ? "CLICK IF YOU ARE A STUDENT"
+              : "CLICK IF YOU ARE A TUTOR"}
+          </span>
+        </div>
         <label>Add an Image</label>
       <input
         className="image"
@@ -160,6 +162,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           name="firstName"
           value={form.firstName}
           onChange={handleChange}
+          required
         />
         <br />
         <input
@@ -168,6 +171,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           name="lastName"
           value={form.lastName}
           onChange={handleChange}
+          required
         />
         <br />
         <input
@@ -176,6 +180,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           name="email"
           value={form.email}
           onChange={handleChange}
+          required
         />
         <br />
         <input
@@ -187,7 +192,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           required
         />
         <br />
-        <input
+        <textarea
           placeholder="Bio"
           type="text"
           name="bio"
@@ -197,16 +202,19 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         <br />
 
         {error === "Invalid Zipcode" ? (<span class="text-danger">* </span>) : ("")}<input
-          placeholder="Zipcode"
+          placeholder="VALID ZIPCODE REQUIRED"
           type="number"
           name="zipcode"
           value={form.zipcode}
           onChange={handleChange}
+          required
         />
         <br />
+        <span>Uncomfortable with providing zipcode? (Used for geolocation purposes) Head back to login and click "Login to Demo Account"</span>
+        <hr/>
         {signUpTutor ? (
           <>
-            <label> Skills </label>
+            <label> {error === "As a tutor, please list skills and set rate!" ? (<span class="text-danger">* </span>) : ("")}Skills </label>
             <Select
               onChange={handleSkills}
               isMulti
@@ -216,7 +224,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
               classNamePrefix="select"
             />
             <br />
-            <label> Rate Per Hour </label>
+            <label> {error === "As a tutor, please list skills and set rate!" ? (<span class="text-danger">* </span>) : ("")}Rate Per Hour </label>
             <br />
             <input
               type="number"
@@ -232,20 +240,11 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         <br />
         <p class="text-danger">{error}</p>
         <br />
-        <button class="btn btn-primary" type="submit">
+        <button className="btn btn-primary" disabled={error === "Sign up SUCCESS! Redirecting..."? true: false} type="submit">
           {" "}
           SIGN UP{" "}
         </button>
-        <div>
-          <span
-            class="btn btn-success"
-            onClick={() => setSignUpTutor(!signUpTutor)}
-          >
-            {signUpTutor
-              ? "CLICK IF YOU ARE A STUDENT"
-              : "CLICK IF YOU ARE A TUTOR"}
-          </span>
-        </div>
+        
         <br />
       </form>
     </div>

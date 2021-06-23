@@ -9,25 +9,50 @@ export default function NavBar({ username, loggedIn, setLoggedIn, userID }) {
   }
 
   const detailURL = `/details/${userID}/`;
+  const dashboardURL = `/dashboard/`;
 
   return (
     <>
-      <Navbar bg="light" expand="lg" className="navbar">
-        <Navbar.Brand href="#home">&copy; Coding Tutor</Navbar.Brand>
+      <Navbar collapseOnSelect bg="light" expand="lg">
+        <Navbar.Brand>&copy; Coding Tutor</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="justify-content-center">
-            <Nav.Link href="/">Home |</Nav.Link>
-          </Nav>
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Link className="links" to="/">&nbsp;Home &nbsp;</Link>
           {loggedIn ? (
-            <Nav.Link href={detailURL}> Hello, {username} </Nav.Link>
-          ) : (
-            <h3>Please Log In</h3>
-          )}
-          &nbsp; | &nbsp;
-          {loggedIn ? <Nav.Link onClick={handleLogOut}>Log Out</Nav.Link> : ""}
+            <>
+            <span className="spaces">&nbsp; | &nbsp;</span>
+            <Link className="links" to={detailURL}>&nbsp; Hello, {username} &nbsp; </Link>
+            <span className="spaces">&nbsp; | &nbsp;</span>
+            <Link className="links" to={dashboardURL}>&nbsp; Dashboard &nbsp; </Link>
+            <span className="spaces">&nbsp; | &nbsp;</span>
+            <Link className="links" to="/about">&nbsp; About &nbsp; </Link>
+            <span className="spaces">&nbsp; | &nbsp;</span>
+            </>
+            ) : (
+              ""
+              )}
+          {loggedIn ? <Link className="links" onClick={handleLogOut} to="/">Log Out</Link> : ""}
+              </Nav>
         </Navbar.Collapse>
       </Navbar>
     </>
+    //    <>
+    //    <Navbar bg="light" expand="lg">
+    //      <Navbar.Brand href="/">&copy; Coding Tutor</Navbar.Brand>
+    //      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    //      <Navbar.Collapse id="mr-auto">
+    //        <Nav className="justify-content-center">
+    //          <Nav.Link className="links" href="/">Home |</Nav.Link>
+    //        {loggedIn ? (
+    //          <Nav.Link className="links" href={detailURL}> Hello, {username} &nbsp; | &nbsp;</Nav.Link>
+    //          ) : (
+    //            ""
+    //            )}
+    //        {loggedIn ? <Nav.Link className="links" onClick={handleLogOut}>Log Out</Nav.Link> : ""}
+    //            </Nav>
+    //      </Navbar.Collapse>
+    //    </Navbar>
+    //  </>
   );
 }

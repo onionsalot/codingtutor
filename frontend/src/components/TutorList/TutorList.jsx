@@ -1,15 +1,9 @@
-import { useState, useEffect } from "react";
-import axios from "react";
 import { Link } from "react-router-dom";
 import {
   Card,
   Button,
   Col,
-  CardGroup,
-  CardDeck,
-  CardColumns,
   Row,
-  Container,
 } from "react-bootstrap";
 import "./TutorList.css";
 import pin from "../../images/Pin.png"

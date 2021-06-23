@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import assoc_student, current_user, UserList, all_profiles, add_slot, details, available_slots, assoc_student, user_reviews, add_review, add_image
+from .views import assoc_student, current_user, UserList, all_profiles, add_slot, details, available_slots, assoc_student, user_reviews, add_review, add_image, dashboard
 from django_js_choices.views import choices_js
 from rest_framework_jwt.views import obtain_jwt_token
 
@@ -19,4 +19,5 @@ urlpatterns = [
     path('slots/<int:user_id>/add_slot/', add_slot),
     path('slots/<int:user_id>/available_slots/', available_slots),
     path('slots/<int:slot_id>/assoc_student/<int:user_id>/', assoc_student),
+    path('dashboard/<int:user_id>/', dashboard),
 ]

@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import User, Profile, Slot, Review
-from .serializers import UserSerializer, UserSerializerWithToken ,ProfileSerializer, ProfileImageSerializer, SlotSerializer, ReviewSerializer
+from .serializers import UserSerializer, UserSerializerWithToken ,ProfileSerializer, ProfileImageSerializer, SlotSerializer, ReviewSerializer, ProfileDashSerializer
 import cloudinary.uploader
 
 @api_view(['GET'])
@@ -18,6 +18,11 @@ def current_user(request):
     profile_serializer = ProfileSerializer(profile)
     data = serializer.data
     data['place_id'] = profile_serializer.data['place_id']
+    if (profile_serializer.data['rate']):
+        data['isTutor'] = True
+    else:
+        data['isTutor'] = False
+
     return Response(data)
 
 @api_view(['GET'])
@@ -32,6 +37,26 @@ def details(request, user_id):
     serializer = ProfileSerializer(profile, many = False)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def dashboard(request, user_id):
+    user = User.objects.get(id=user_id)
+    if(user.profile.rate == None):
+        all_slots = Slot.objects.filter(student=user_id)
+        serializer = SlotSerializer(all_slots, many = True)
+        data = serializer.data
+        for idx, slot in enumerate(all_slots):
+            data[idx]['tutor'] = ProfileDashSerializer(all_slots[idx].tutor.profile, many = False).data
+            data[idx]['student'] = ProfileDashSerializer(all_slots[idx].student.profile, many = False).data
+        return Response(data)
+
+    all_slots = Slot.objects.filter(tutor=user_id)
+    serializer = SlotSerializer(all_slots, many = True)
+    data = serializer.data
+    for idx, slot in enumerate(all_slots):
+        if (all_slots[idx].student != None):
+            data[idx]['student'] = ProfileDashSerializer(all_slots[idx].student.profile, many = False).data
+    return Response(data)
+    
 @api_view(['GET'])
 def user_reviews(request, tutor_id):
     reviews = Review.objects.filter(tutor=tutor_id)
@@ -66,12 +91,21 @@ def add_slot(request, user_id):
     permission_classes = (permissions.AllowAny,)
     data = request.data
     tutor = User.objects.get(id=user_id)
-    slot = Slot.objects.create(
-        hour = data['hour'],
-        date = data['date'],
-        tutor = tutor,
-    )
-    serializer = SlotSerializer(slot, many = False)
+    slots = Slot.objects.filter(tutor=user_id)
+    print(data)
+    sortedSlots = []
+    for hour in data['hour']:
+        if len(slots.filter(hour=hour, date=data['date'])) == 0:
+            # return Response({ "success":False })
+            print(f'{hour} Add')
+            sortedSlots.append(Slot(hour=hour, date=data['date'], tutor=tutor))
+        else:
+            print(f'{hour} EXISTS')
+    print(sortedSlots)
+
+    slot = Slot.objects.bulk_create(sortedSlots)
+
+    serializer = SlotSerializer(slot, many = True)
     return Response(serializer.data)
 
 @api_view(['PUT'])
@@ -80,10 +114,14 @@ def assoc_student(request, slot_id, user_id):
     permission_classes = (permissions.AllowAny,)
     data = request.data
     student = User.objects.get(id=user_id)
-    slot = Slot.objects.filter(id=slot_id).update(
-        student = student,
-    )
-    serializer = SlotSerializer(slot, many = False)
+    slot = Slot.objects.get(id=slot_id)
+    print('user object = >',student)
+    print('slot object = >',slot)
+    slot.student = student
+    slot.save()
+    print('tutorId=>', request.data)
+    all_slots = Slot.objects.filter(tutor=data['tutorId'])
+    serializer = SlotSerializer(all_slots, many = True)
     return Response(serializer.data)
 
 

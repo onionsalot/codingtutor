@@ -1,3 +1,9 @@
-.overflow{
-padding:2px 10px
+.slots {
+    padding: 10px 5px;
+    height:50px
+}
+
+.slotButton {
+    height:50px;
+    width: 100px;
 }

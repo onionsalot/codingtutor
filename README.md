@@ -25,8 +25,8 @@ Python, Django, PostgreSQL, JavaScript, React, CSS, React-Bootstrap
 
 ## Next Steps
 
-- Light & Dark Theme
-- Zipcode API
-- ~~Wiki Scraper~~ 
+- [ ] Light & Dark Theme
+- [x] Zipcode API
+- [x] Wiki Scraper 
     ![wiki scraper](frontend/public/images/wiki.png)
-- Calender Improvements
+- [x] Calender Improvements<br><img src="frontend/public/images/cal.png" alt="calendar" width="200" height="177"/>

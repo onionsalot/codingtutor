@@ -19,6 +19,11 @@ class ProfileImageSerializer(serializers.ModelSerializer):
     model = Profile
     fields = ('image', )
 
+class ProfileDashSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Profile
+    fields = ('first_name', 'last_name', 'rate', 'id',)
+
 class SlotSerializer(serializers.ModelSerializer):
   class Meta:
     model = Slot
