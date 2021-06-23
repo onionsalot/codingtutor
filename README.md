@@ -9,7 +9,7 @@ Are you learning to code and want some help from someone more experienced? Or ma
 ![Login](frontend/public/images/Login.png)
 ![Home Page](frontend/public/images/Homepage.png)
 ![Detail](frontend/public/images/Detail.png)
-![Phone](frontend/public/images/Phone.png)
+![Phone](frontend/public/images/Phone.gif)
 
 
 ## Technologies Used:
