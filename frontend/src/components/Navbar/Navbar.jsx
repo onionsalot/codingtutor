@@ -13,11 +13,11 @@ export default function NavBar({ username, loggedIn, setLoggedIn, userID }) {
 
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      <Navbar collapseOnSelect bg="light" expand="lg">
         <Navbar.Brand>&copy; Coding Tutor</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="mr-auto">
-          <Nav className="justify-content-center">
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
             <Link className="links" to="/">&nbsp;Home &nbsp;</Link>
           {loggedIn ? (
             <>
@@ -30,7 +30,7 @@ export default function NavBar({ username, loggedIn, setLoggedIn, userID }) {
             ) : (
               ""
               )}
-          {loggedIn ? <Link className="links" onClick={handleLogOut}>Log Out</Link> : ""}
+          {loggedIn ? <Link className="links" onClick={handleLogOut} to="/">Log Out</Link> : ""}
               </Nav>
         </Navbar.Collapse>
       </Navbar>

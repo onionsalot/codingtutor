@@ -7,6 +7,7 @@ import TutorDetailsReview from "../../components/TutorDetail/TutorDetailsReviews
 import "./TutorDetailPage.css";
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
+import PopupOverlay from "../../components/PopupOverlay/PopupOverlay";
 
 export default function TutorDetailPage({ user }) {
   const [reviews, setReviews] = useState([]);
@@ -58,22 +59,27 @@ export default function TutorDetailPage({ user }) {
   
   return (
     <>
-      <div className="holder">
+      <div className={tutor.rate ? "holder":""}>
         <div className="header">
-          <h1>Tutor Details</h1>
+        <h1>User Details <PopupOverlay tutor={user.isTutor} details={true}/></h1>
         </div>
         <div className="details">
           <TutorDetail user={user} tutor={tutor} />
-          <Button variant="danger" className="showButton" onClick={() => setShow(true)}>Schedule an appointment</Button>
-          <hr />
-          <div className="reviews">
-          <TutorDetailsReview userId={user.id} tutorId={tutorId.id} reviews={reviews} setReviews={setReviews}/>
-          
-          </div>
+          {tutor.rate ? (
+            <>
+              <Button variant="danger" className="showButton" onClick={() => setShow(true)}>Schedule an appointment</Button>
+              <hr />
+              <div className="reviews">
+                <TutorDetailsReview userId={user.id} tutorId={tutorId.id} reviews={reviews} setReviews={setReviews}/>
+              </div>
+            </>
+          ) : (
+            null
+          )}
         </div>
 
         <div className="calendar">
-          {showSlots}
+          {tutor.rate ? showSlots:null}
         </div>
       </div>
 

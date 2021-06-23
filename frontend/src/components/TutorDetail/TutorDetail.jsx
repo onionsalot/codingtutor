@@ -18,11 +18,17 @@ export default function TutorDetail({ user, tutor }) {
           <br />
           <h2>Bio: {tutor.bio}</h2>
           <br />
-          <h2>Skills: {tutor.skills}</h2>
-          <br />
-          <h2>Rate: ${tutor.rate}/hour</h2>
-          <br />
-          <h2>Zipcode: {tutor.zipcode}</h2>
+          {tutor.rate ? (
+            <>
+              <h2>Skills: {tutor.skills}</h2>
+              <br />
+              <h2>Rate: ${tutor.rate}/hour</h2>
+              <br />
+              <h2>Zipcode: {tutor.zipcode}</h2>
+            </>
+          ):(
+            null
+          )}
           <br />
           <br />
           <Link className="btn btn-success" to="/">

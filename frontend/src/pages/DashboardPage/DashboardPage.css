@@ -2,12 +2,10 @@
     grid-area: header;
     justify-content: center;
     width: 100%;
-    background-color: khaki;
 }
 
 .Dashboard .details {
     grid-area: details;
-    background-color: green;
 }
 .Dashboard .reviews {
     width:100%;
@@ -17,16 +15,17 @@
     grid-area: calendar;
     justify-content: center;
     align-items: center;
-    background-color: lightblue;
+    margin:5px;
 }
 
 .Dashboard {
     display: grid;
+    width: 100vw;
 }
 
 .Dashboard .t {
     display: grid;
-    grid-template-columns: 30% 30% 20% 20%;
+    grid-template-columns: 30vw 30vw 20vw 20vw;
     grid-template-rows: auto 100vh;
     grid-template-areas:
         "header header header header"
@@ -34,30 +33,9 @@
 }
 .Dashboard .s {
     display: grid;
-    grid-template-columns: 20% 20% 30% 30%;
+    grid-template-columns: 20vw 20vw 30vw 30vw;
     grid-template-rows: auto 100vh;
     grid-template-areas:
         "header header header header"
         "details details calendar calendar"
 }
-
-.showButton {
-    display: none;
-}
-
-/* @media only screen and (max-width: 700px) {
-    .calendar {
-        display: none !important;
-    }
-    .showButton {
-        display: inline;
-    }
-    .holder {
-        display: grid;
-        grid-template-columns: 100vw;
-        grid-template-rows: 3% 97%;
-        grid-template-areas:
-            "header"
-            "details"
-    }
-  } */

@@ -171,8 +171,11 @@ export default function TutorSlots({ tutorId, tutor, user }) {
   //     setDisplayedSlots(availableSlots);
   // }
 
-  const tileContent = ({ date, view }) => view === 'month' && slots.find(e => e['date'] === date.toLocaleDateString("en-US")) ? "*" : null;
-
+  const tileClassName = ({ date, view }) =>
+    view === "month" &&
+    slots.find((e) => e["date"] === date.toLocaleDateString("en-US"))
+      ? "highlight"
+      : "";
   return (
     <section className="calContainer">
         <main className="cal">
@@ -180,7 +183,7 @@ export default function TutorSlots({ tutorId, tutor, user }) {
             // onChange={onCalChange}
             value={value}
             onClickDay={onClickDay}
-            tileContent={tileContent}
+            tileClassName={tileClassName}
           />
         </main>
       <div className="slotHolder">

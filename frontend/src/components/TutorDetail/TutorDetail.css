@@ -11,6 +11,7 @@
   height: 25vw;
   object-fit:cover;
   object-position: 50% 20%;
+  max-width: 500px;
 }
 
 .panel-body {
@@ -21,6 +22,7 @@
   .imgPf {
     width: 100%;
     height: 40vw;
+    max-width: 500px;
     object-fit:cover;
     object-position: 50% 20%;
   }

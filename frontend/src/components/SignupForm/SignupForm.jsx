@@ -91,6 +91,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           console.log(options)
           await axios(options).then(async (response) => {
             console.log(response)
+            setError("Sign up SUCCESS! Redirecting...");
             localStorage.setItem("token", response.data.token);
             setUser({
               id: response.data.id,
@@ -125,6 +126,19 @@ export default function SignupForm({ setUser, setLoggedIn }) {
       <br />
       <form onSubmit={handleSubmit} autoComplete="off" className="signup">
         <h4> Sign Up </h4>
+        <div>
+          <span
+            class="btn btn-success"
+            onClick={() => {
+              setForm({ ...form, skills: "", rate: "" });
+              setSignUpTutor(!signUpTutor)
+            }}
+          >
+            {signUpTutor
+              ? "CLICK IF YOU ARE A STUDENT"
+              : "CLICK IF YOU ARE A TUTOR"}
+          </span>
+        </div>
         <label>Add an Image</label>
       <input
         className="image"
@@ -188,7 +202,7 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         <br />
 
         {error === "Invalid Zipcode" ? (<span class="text-danger">* </span>) : ("")}<input
-          placeholder="Zipcode"
+          placeholder="VALID ZIPCODE REQUIRED"
           type="number"
           name="zipcode"
           value={form.zipcode}
@@ -196,6 +210,8 @@ export default function SignupForm({ setUser, setLoggedIn }) {
           required
         />
         <br />
+        <span>Uncomfortable with providing zipcode (used for geolocation purposes)? Head back to login and click "Login to Demo Account"</span>
+        <hr/>
         {signUpTutor ? (
           <>
             <label> {error === "As a tutor, please list skills and set rate!" ? (<span class="text-danger">* </span>) : ("")}Skills </label>
@@ -224,23 +240,11 @@ export default function SignupForm({ setUser, setLoggedIn }) {
         <br />
         <p class="text-danger">{error}</p>
         <br />
-        <button class="btn btn-primary" type="submit">
+        <button className="btn btn-primary" disabled={error === "Sign up SUCCESS! Redirecting..."? true: false} type="submit">
           {" "}
           SIGN UP{" "}
         </button>
-        <div>
-          <span
-            class="btn btn-success"
-            onClick={() => {
-              setForm({ ...form, skills: "", rate: "" });
-              setSignUpTutor(!signUpTutor)
-            }}
-          >
-            {signUpTutor
-              ? "CLICK IF YOU ARE A STUDENT"
-              : "CLICK IF YOU ARE A TUTOR"}
-          </span>
-        </div>
+        
         <br />
       </form>
     </div>

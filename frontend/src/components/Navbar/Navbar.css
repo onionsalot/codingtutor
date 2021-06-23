@@ -24,8 +24,7 @@ a:hover {
 
 @media (max-width: 600px) { 
     .navbar{
-        display:flex;
-        flex-direction:column;
+
         margin: auto;
     }
     .navbar-toggler {

@@ -2,6 +2,7 @@ import "./DashboardPage.css";
 import React, { useState, useEffect } from "react";
 import DashCalendar from "../../components/DashCalendar/DashCalendar"
 import DashList from "../../components/DashList/DashList"
+import PopupOverlay from "../../components/PopupOverlay/PopupOverlay";
 import axios from "axios";
 
 export default function DashboardPage({ user }) {
@@ -38,12 +39,11 @@ export default function DashboardPage({ user }) {
 
 
 
-
   return (
     <div className="Dashboard">
       <div className={user.isTutor ? "t":"s"}>
         <div className="header">
-          <h1>{user.isTutor ? "Tutor Dashboard":"Student Dashboard"}</h1>
+          <h1>{user.isTutor ? "Tutor Dashboard":"Student Dashboard"} <PopupOverlay tutor={user.isTutor}/></h1>
           <p>
             This page is currently under construction! For now, TUTOR accounts
             will be able to manage their time slots and find out who signed up for
@@ -74,8 +74,6 @@ export default function DashboardPage({ user }) {
           </>
         )}
       </div>
-
-      
     </div>
   );
 }

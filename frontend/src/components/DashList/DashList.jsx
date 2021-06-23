@@ -1,6 +1,6 @@
 import "./DashList.css";
 import React, { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 
 export default function DashboardPage({ user, slots, displayedSlots }) {
     const [listHour, setListHour] = useState([])
@@ -19,18 +19,21 @@ export default function DashboardPage({ user, slots, displayedSlots }) {
         "19": "7:00 PM",
         "20": "8:00 PM",
     }
+    
     useEffect(() => {
         if (user) {
             const items = user.isTutor ? (
                 displayedSlots.map((s) => {
+                    const details = s.student !== null ? `/details/${s.student.id}`: ""
                     return <li className={s.student === null ? "open" : "close"}>
-                        <span className="time_element">{military[`${s.hour}`]}</span> : {s.student === null ? "Open slot" : `${s.student.last_name}, ${s.student.first_name}`}
+                        <span className="time_element">{military[`${s.hour}`]}</span> : {s.student === null ? "Open slot" : <Link className="dash-link" to={details}> {s.student.last_name}, {s.student.first_name}</Link>}
                     </li>
                 })
             ) : (
                 displayedSlots.map((t) => {
+                    const details = t.tutor !== null ? `/details/${t.tutor.id}`: ""
                     return <li className={t.tutor === null ? "open" : "close"}>
-                        <span className="time_element">{military[`${t.hour}`]}</span> : {`${t.tutor.last_name}, ${t.tutor.first_name}`}
+                        <span className="time_element">{military[`${t.hour}`]}</span> : <Link className="dash-link" to={details}> {t.tutor.last_name}, {t.tutor.first_name}</Link>
                     </li>
                 })
             )

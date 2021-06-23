@@ -16,6 +16,7 @@ export default function LoginForm({ setUser, setLoggedIn }) {
   }
 
   async function handleSubmit(evt) {
+    setError("");
     const options = {
       url: "/api/token-auth/",
       method: "POST",
@@ -39,7 +40,7 @@ export default function LoginForm({ setUser, setLoggedIn }) {
         setLoggedIn(localStorage.getItem("token"));
       });
     } catch {
-      setError("Sign Up Failed");
+      setError("Invalid Credentials");
     }
   }
 
@@ -71,7 +72,8 @@ export default function LoginForm({ setUser, setLoggedIn }) {
           <button class="btn btn-primary" type="submit">
             {" "}
             LOG IN{" "}
-          </button>
+          </button><br/>
+        {error}
         </form>
         <br />
       </div>
