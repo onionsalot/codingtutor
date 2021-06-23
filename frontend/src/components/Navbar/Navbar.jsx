@@ -9,7 +9,7 @@ export default function NavBar({ username, loggedIn, setLoggedIn, userID }) {
   }
 
   const detailURL = `/details/${userID}/`;
-  const dashboardURL = `/dashboard/${userID}`;
+  const dashboardURL = `/dashboard/`;
 
   return (
     <>

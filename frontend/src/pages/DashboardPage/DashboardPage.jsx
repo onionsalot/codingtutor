@@ -35,26 +35,47 @@ export default function DashboardPage({ user }) {
     console.log(availableSlots)
     setDisplayedSlots(availableSlots);
   }, [dateClicked]);
-  //   const tileContent = ({ date, view }) => view === 'month' && slots.find(e => e['date'] === date.toLocaleDateString("en-US")) ? "*" : null;
+
+
+
+
   return (
     <div className="Dashboard">
-      <div className="header">
-        <h1>User Dashboard</h1>
-        <p>
-          This page is currently under construction! For now, TUTOR accounts
-          will be able to manage their time slots and find out who signed up for
-          their services while STUDENT accounts are only able to view the days
-          and times for their appointments.
-        </p>
+      <div className={user.isTutor ? "t":"s"}>
+        <div className="header">
+          <h1>{user.isTutor ? "Tutor Dashboard":"Student Dashboard"}</h1>
+          <p>
+            This page is currently under construction! For now, TUTOR accounts
+            will be able to manage their time slots and find out who signed up for
+            their services while STUDENT accounts are only able to view the days
+            and times for their appointments.
+          </p>
+        </div>
+
+        {user.isTutor ? (
+          <>
+            <div className="details">
+              <DashCalendar user={user} slots={slots} setSlots={setSlots} setDateClicked={setDateClicked}/>
+            </div>
+
+            <div className="right">
+              <DashList user={user} slots={slots} displayedSlots={displayedSlots}/>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="details">
+              <DashList user={user} slots={slots} displayedSlots={displayedSlots}/>
+            </div>
+
+            <div className="right">
+              <DashCalendar user={user} slots={slots} setSlots={setSlots} setDateClicked={setDateClicked}/>
+            </div>
+          </>
+        )}
       </div>
 
-      <div className="details">
-        <DashCalendar user={user} slots={slots} setSlots={setSlots} setDateClicked={setDateClicked}/>
-      </div>
-
-      <div className="right">
-        <DashList user={user} slots={slots} displayedSlots={displayedSlots}/>
-      </div>
+      
     </div>
   );
 }

@@ -18,6 +18,11 @@ def current_user(request):
     profile_serializer = ProfileSerializer(profile)
     data = serializer.data
     data['place_id'] = profile_serializer.data['place_id']
+    if (profile_serializer.data['rate']):
+        data['isTutor'] = True
+    else:
+        data['isTutor'] = False
+
     return Response(data)
 
 @api_view(['GET'])
@@ -34,6 +39,16 @@ def details(request, user_id):
 
 @api_view(['GET'])
 def dashboard(request, user_id):
+    user = User.objects.get(id=user_id)
+    if(user.profile.rate == None):
+        all_slots = Slot.objects.filter(student=user_id)
+        serializer = SlotSerializer(all_slots, many = True)
+        data = serializer.data
+        for idx, slot in enumerate(all_slots):
+            data[idx]['tutor'] = ProfileDashSerializer(all_slots[idx].tutor.profile, many = False).data
+            data[idx]['student'] = ProfileDashSerializer(all_slots[idx].student.profile, many = False).data
+        return Response(data)
+
     all_slots = Slot.objects.filter(tutor=user_id)
     serializer = SlotSerializer(all_slots, many = True)
     data = serializer.data

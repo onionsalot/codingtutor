@@ -22,7 +22,7 @@ class ProfileImageSerializer(serializers.ModelSerializer):
 class ProfileDashSerializer(serializers.ModelSerializer):
   class Meta:
     model = Profile
-    fields = ('first_name', 'last_name',)
+    fields = ('first_name', 'last_name', 'rate')
 
 class SlotSerializer(serializers.ModelSerializer):
   class Meta:

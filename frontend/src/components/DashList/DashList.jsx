@@ -20,19 +20,29 @@ export default function DashboardPage({ user, slots, displayedSlots }) {
         "20": "8:00 PM",
     }
     useEffect(() => {
-        const items = displayedSlots.map((s) => {
-            return <li className={s.student === null ? "open" : "close"}>
-                <span className="time_element">{military[`${s.hour}`]}</span> : {s.student === null ? "Open slot" : `${s.student.last_name}, ${s.student.first_name}`}
-            </li>
-        })
-        setListHour(items)
+        if (user) {
+            const items = user.isTutor ? (
+                displayedSlots.map((s) => {
+                    return <li className={s.student === null ? "open" : "close"}>
+                        <span className="time_element">{military[`${s.hour}`]}</span> : {s.student === null ? "Open slot" : `${s.student.last_name}, ${s.student.first_name}`}
+                    </li>
+                })
+            ) : (
+                displayedSlots.map((t) => {
+                    return <li className={t.tutor === null ? "open" : "close"}>
+                        <span className="time_element">{military[`${t.hour}`]}</span> : {`${t.tutor.last_name}, ${t.tutor.first_name}`}
+                    </li>
+                })
+            )
+
+            setListHour(items)
+        }
     }, [displayedSlots])
 
   return (
     <>
     <h1>Date Details:</h1> <br/>
-    {/* <h3>{slots[0].date}</h3> */}
-    <h3>{displayedSlots.length !== 0 ? `${displayedSlots[0].date}`:`You have not created any timeslots for today!`}</h3>
+    <h3>{displayedSlots.length !== 0 ? `${displayedSlots[0].date}`:`Quiet day... If you are a tutor, begin adding slots to start onboarding students! If you are a student, visit a tutor's profile to sign up for them on your free time!`}</h3>
     <ul className="list_items">
         {listHour}
     </ul>

@@ -22,7 +22,19 @@
 
 .Dashboard {
     display: grid;
+}
+
+.Dashboard .t {
+    display: grid;
     grid-template-columns: 30% 30% 20% 20%;
+    grid-template-rows: auto 100vh;
+    grid-template-areas:
+        "header header header header"
+        "details details calendar calendar"
+}
+.Dashboard .s {
+    display: grid;
+    grid-template-columns: 20% 20% 30% 30%;
     grid-template-rows: auto 100vh;
     grid-template-areas:
         "header header header header"

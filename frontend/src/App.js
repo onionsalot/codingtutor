@@ -56,14 +56,11 @@ export default function App() {
             <Route exact path="/details/:id">
               <TutorDetailPage user={user} />
             </Route>
-            <Route exact path="/dashboard/:id">
+            <Route exact path="/dashboard/">
               <DashboardPage user={user} />
             </Route>
             <Route exact path="/add_slot">
               <TutorSlots user={user} />
-            </Route>
-            <Route exact path="/confirmation">
-              <ConfirmationPage user={user} />
             </Route>
             <Redirect to="/" />
           </Switch>
