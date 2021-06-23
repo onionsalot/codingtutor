@@ -19,7 +19,6 @@ export default function DashboardPage({ user }) {
         },
       })
       .then((res) => {
-        console.log("tutor available slots =>", res.data);
         setSlots(res.data);
         const availableSlots = res.data.filter(slot => new Date().toLocaleDateString("en-US") === slot.date)
         setDisplayedSlots(availableSlots);
@@ -30,10 +29,8 @@ export default function DashboardPage({ user }) {
 
   useEffect(() => {
     if (slots.length === 0) {
-      console.log('heh')
     }
     const availableSlots = slots.filter(slot => dateClicked === slot.date)
-    console.log(availableSlots)
     setDisplayedSlots(availableSlots);
   }, [dateClicked]);
 

@@ -34,7 +34,6 @@ export default function TutorDetailPage({ user }) {
           },
         })
         .then((response) => {
-          console.log('bloop')
           setReviews(response.data);
           setShowSlots(<TutorSlots
             tutorId={tutorId.id}
@@ -48,14 +47,7 @@ export default function TutorDetailPage({ user }) {
     getTutor();
   }, [tutorId]);
 
-  // const showSlotss = (function() {
-  //   console.log('wooooo')
-  //   setShowSlots(<TutorSlots
-  //   tutorId={tutorId.id}
-  //   tutor={tutor}
-  //   user={user}
-  // />)
-  // })();
+
   
   return (
     <>

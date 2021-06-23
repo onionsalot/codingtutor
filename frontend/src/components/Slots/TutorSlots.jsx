@@ -25,7 +25,6 @@ export default function TutorSlots({ tutorId, tutor, user }) {
           },
         })
         .then((res) => {
-          console.log("tutor available slots =>", res.data);
           setSlots(res.data);
         });
     }
@@ -52,124 +51,17 @@ export default function TutorSlots({ tutorId, tutor, user }) {
     setDisplayedSlots(filteredSlots)
   }, [buttons])
 
-  // useEffect(() => {
-  //   if (slots.length === 0) {
-  //     return console.log('heh')
-  //   }
-  //   // const availableSlots = slots.map((slot, idx) => {
-  //   //   if (value.toLocaleDateString("en-US") === slot.date) {
-  //   //     return (
-  //   //       <StudentSlots
-  //   //         tutor={tutor}
-  //   //         user={user}
-  //   //         key={idx}
-  //   //         slot={slot}
-  //   //         setSlots={setSlots}
-  //   //         setError={setError}
-  //   //       />
-  //   //     );
-  //   //   } else {
-  //   //     return "";
-  //   //   }
-  //   // });
-  //   // setDisplayedSlots(availableSlots);
-
-  //   const newDate = value.toLocaleDateString("en-US");
-  //   const filteredSlots = slots.filter(slot => newDate === slot.date)
-  //   const availableSlots = filteredSlots.map((slot, idx) => 
-  //       <StudentSlots
-  //       tutor={tutor}
-  //       user={user}
-  //       key={idx}
-  //       slot={slot}
-  //       setSlots={setSlots}
-  //       setError={setError}
-  //       />
-  //       );
-
-  //     setDisplayedSlots(availableSlots);
-  // }, [slots, tutor, user]);
-
-
-  // async function handleSubmit(evt) {
-  //   evt.preventDefault();
-  //   const options = {
-  //     url: `/api/slots/${tutorId}/add_slot/`,
-  //     method: "POST",
-  //     headers: {
-  //       Authorization: `JWT ${localStorage.getItem("token")}`,
-  //     },
-  //     data: {
-  //       hour: form.hour,
-  //       date: form.date,
-  //     },
-  //   };
-  //   try {
-  //     await axios(options).then((response) => {
-  //       // const availableSlots = (
-  //       //   <StudentSlots tutor={tutor} user={user} slot={response.data} />
-  //       // );
-  //       // setDisplayedSlots([...displayedSlots, availableSlots]);
-  //       console.log(response.data)
-  //       if (response.data.success === false) {
-  //         setError("Unable to add duplicate slot")
-  //       } else {
-
-  //         const unsortedSlots= [...slots, response.data]
-  //         unsortedSlots.sort(function (a, b) {
-  //           return (
-  //             a['hour'] -
-  //             b['hour']
-  //           );
-  //         });
-  //         setSlots(unsortedSlots)
-  //       }
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+  
 
   function onClickDay(value, event) {
     const newDate = value.toLocaleDateString("en-US");
     setForm({ ...form, date: newDate });
     onChange(value);
-    // console.log(buttons[10].props.slot.date)
     const filteredSlots = buttons.filter(slot => newDate === slot.props.slot.date)
     setDisplayedSlots(filteredSlots)
-    // console.log(filteredSlots)
-    // const availableSlots = filteredSlots.map((slot, idx) => 
-    //     <StudentSlots
-    //     tutor={tutor}
-    //     user={user}
-    //     key={idx}
-    //     slot={slot}
-    //     setSlots={setSlots}
-    //     setError={setError}
-    //     />
-    //     );
-    // setDisplayedSlots(availableSlots);
+    
   }
 
-  // function onCalChange(value, event) {
-  //   onChange(value);
-  //   setDisplayedSlots([]);
-  //   const newDate = value.toLocaleDateString("en-US");
-  //   const filteredSlots = slots.filter(slot => newDate === slot.date)
-  //   const availableSlots = filteredSlots.map((slot, idx) => 
-  //       <StudentSlots
-  //       tutor={tutor}
-  //       user={user}
-  //       key={idx}
-  //       slot={slot}
-  //       setSlots={setSlots}
-  //       setError={setError}
-  //       />
-  //       );
-
-  //     console.log(filteredSlots)
-  //     setDisplayedSlots(availableSlots);
-  // }
 
   const tileClassName = ({ date, view }) =>
     view === "month" &&
