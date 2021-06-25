@@ -56,11 +56,7 @@ export default function DashCalendar({
         } else if (response.data.length === 0) {
           setMsg(<span className="toast-danger">Error adding new slots</span>)
         }
-        // const availableSlots = (
-        //   <StudentSlots tutor={tutor} user={user} slot={response.data} />
-        // );
-        // setDisplayedSlots([...displayedSlots, availableSlots]);
-        // setMsg("heh")
+
         setSlotsArray([]);
         setButtons(new Array(13).fill(false));
         setSelectState(false)
@@ -71,19 +67,7 @@ export default function DashCalendar({
           setDateClicked(newDate);
         }
         setShow(true)
-        // if (response.data.success === false) {
-        //   setError("Unable to add duplicate slot")
-        // } else {
-
-        //   const unsortedSlots= [...slots, response.data]
-        //   unsortedSlots.sort(function (a, b) {
-        //     return (
-        //       a['hour'] -
-        //       b['hour']
-        //     );
-        //   });
-        //   setSlots(unsortedSlots)
-        // }
+        
       });
     } catch (err) {
       console.log(err);
