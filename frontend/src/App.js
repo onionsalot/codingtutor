@@ -11,6 +11,7 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage"
 import AboutPage from "./pages/AboutPage/AboutPage"
 import axios from "axios";
 import "./App.css";
+import Toast from 'react-bootstrap/Toast'
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 export default function App() {

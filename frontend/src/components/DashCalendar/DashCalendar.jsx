@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Calendar from "react-calendar";
 import React, { useState, useEffect } from "react";
+import MyToast from "../MyToast/MyToast";
 import axios from "axios";
 
 export default function DashCalendar({
@@ -19,6 +20,8 @@ export default function DashCalendar({
   const [error, setError] = useState("");
   const [buttons, setButtons] = useState(new Array(13).fill(false));
   const [selectState, setSelectState] = useState(false)
+  const [show, setShow] = useState(false);
+  const [msg, setMsg] = useState("")
 
   function onClickDay(value, event) {
     const newDate = value.toLocaleDateString("en-US");
@@ -46,10 +49,18 @@ export default function DashCalendar({
     };
     try {
       await axios(options).then((response) => {
+        if (slotsArray.length === response.data.length){
+          setMsg(<span className="toast-success">All slots successfully added!</span>)
+        } else if (slotsArray.length > response.data.length && response.data.length !== 0) {
+          setMsg(`${response.data.length} slot added successfully! ${slotsArray.length-response.data.length} slot not added.`)
+        } else if (response.data.length === 0) {
+          setMsg(<span className="toast-danger">Error adding new slots</span>)
+        }
         // const availableSlots = (
         //   <StudentSlots tutor={tutor} user={user} slot={response.data} />
         // );
         // setDisplayedSlots([...displayedSlots, availableSlots]);
+        // setMsg("heh")
         setSlotsArray([]);
         setButtons(new Array(13).fill(false));
         setSelectState(false)
@@ -59,6 +70,7 @@ export default function DashCalendar({
           const newDate = value.toLocaleDateString("en-US");
           setDateClicked(newDate);
         }
+        setShow(true)
         // if (response.data.success === false) {
         //   setError("Unable to add duplicate slot")
         // } else {
@@ -139,6 +151,7 @@ export default function DashCalendar({
 
 
   return (
+    <>
     <div className="DashCalendar">
       <form onSubmit={handleSubmit} autoComplete="off">
         <main className="dashCal">
@@ -171,5 +184,7 @@ export default function DashCalendar({
         )}
       </form>
     </div>
+    <MyToast show={show} setShow={setShow} msg={msg}/>
+    </>
   );
 }
