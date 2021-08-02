@@ -30,7 +30,8 @@
 @media (max-width: 550px) {
 
     .card{
-        width: 100%;
+        
+        width: 100vw;
         margin: 5px auto;
     }
     .card-img-top {
