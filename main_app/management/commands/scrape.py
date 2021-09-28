@@ -21,12 +21,13 @@ class Command(BaseCommand):
             # print (elements)
             for element in elements:
                 # check if element in choices_var. If it is, remove it to show changes...
-                if (element.a.text in language_diff):
-                    language_diff.remove(element.a.text)
+                text_check = element.a if element.a else element
+                if (text_check.text in language_diff):
+                    language_diff.remove(text_check.text)
                 else:
-                    language_diff.append(element.a.text)
+                    language_diff.append(text_check.text)
                 # turns each li into a tuple of ITSELF and itself to be stored in choicesfile.py
-                language_list.append((str(element.a.text).replace(" ", "").upper(), str(element.a.text)))
+                language_list.append((str(text_check.text).replace(" ", "").upper(), str(text_check.text)))
         converted_list = tuple(language_list)
 
         print(f'''
